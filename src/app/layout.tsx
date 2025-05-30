@@ -5,12 +5,14 @@ import logo from "./logo.svg";
 import Image from "next/image";
 import Usuario from "./Usuario";
 import CerrarSesion from "./Cerrarsesion";
+import BottonPanel from "./BottonPanel";
 const inter = Inter({ subsets: ["latin"] });
+
 
 export const metadata: Metadata = {
   title: "Pedagogia del cultivo",
   description: "Institucion ecopedagogica"
-  
+
 };
 
 export default function RootLayout({
@@ -24,10 +26,11 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="UTF-8" />
         <link rel="icon" href="/planta.ico" />
-        
-        </head>
+
+      </head>
       <body className={inter.className}>
         <main className="block md:grid md:grid-cols-[250px_1fr]" >
+          
           <aside className="col-span-1 p-8 md:sticky md:top-0 md:h-screen md:overflow-y-auto" >
 
             <div>
@@ -38,11 +41,13 @@ export default function RootLayout({
               </a>
 
             </div>
-
+            <BottonPanel/>
             <nav className="flex-col hidden mt-12 gap-y-4 md:flex" >
               <div className="flex items-center" >
                 <Usuario />
               </div>
+              
+              
 
               <div className="flex flex-col items-start pr-1 mt-4 gap-y-4" >
                 <a className="items-center justify-center hidden text-sm font-semibold text-white/80 md:flex group hover:text-yellow-300 gap-x-2" href="/logros"><svg className="w-6 h-6 transition-transform group-hover:scale-125" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 21l8 0"></path><path d="M12 17l0 4"></path><path d="M7 4l10 0"></path><path d="M17 4v8a5 5 0 0 1 -10 0v-8"></path><path d="M5 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path><path d="M19 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path></svg><span className="pl-2 text-sm font-normal transition-colors">Logros</span></a>
