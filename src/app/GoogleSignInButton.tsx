@@ -8,7 +8,7 @@ export default function GoogleSignInButton() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'http://localhost:3000',
+        redirectTo: 'http://https://pedagogiacultivo.com/:3000/',
       },
     });
     if (error) console.error('Error al iniciar sesión:', error.message);
