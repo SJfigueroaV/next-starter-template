@@ -1,12 +1,18 @@
-'use client'
+"use client";
+import { motion } from "framer-motion";
+import { useScrollDirection } from "../../components/scrollAnimation"; // Asegúrate de importar bien
 
-import { motion } from 'framer-motion'
+export default function MobileMenu() {
+  const scrollDirection = useScrollDirection();
 
-
-export default function BottonPanel() {
-    return (
-        
-            <div className=" fixed bottom-0 left-0 z-50 w-full h-16 border-t border-yellow-500/20 md:hidden bg-black/50 backdrop-blur-lg">
+  return (
+    <motion.div
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white shadow-md md:hidden"
+      initial={{ y: 0 }}
+      animate={{ y: scrollDirection === "down" ? 100 : 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className=" fixed bottom-0 left-0 z-50 w-full h-16 border-t border-yellow-500/20 md:hidden bg-black/50 backdrop-blur-lg">
                 <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium sm:grid-cols-5">
                     <a className="inline-flex flex-col items-center justify-center px-5 hover:bg-black group" href="/">
                         <svg className="w-4 h-4 mb-1 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -47,8 +53,7 @@ export default function BottonPanel() {
                                 fill="#5865F2" d="M216.856339 16.5966031C200.285002 8.84328665 182.566144 3.2084988 164.041564 0c-2.275041 4.11318106-4.93294 9.64549908-6.765465 14.0464379-19.692104-2.9614483-39.203132-2.9614483-58.5330827 0C96.9108417 9.64549908 94.1925838 4.11318106 91.8971895 0 73.3526068 3.2084988 55.6133949 8.86399117 39.0420583 16.6376612 5.61752293 67.146514-3.4433191 116.400813 1.08711069 164.955721c22.16890891 16.555194 43.65325271 26.611976 64.77502181 33.192855 5.2150826-7.17745 9.8662303-14.807241 13.8730814-22.848315-7.6311949-2.899686-14.9402415-6.478059-21.8464273-10.632298 1.8321746-1.357374 3.6243438-2.776511 5.3558032-4.236706 42.1228202 19.70193 87.8903382 19.70193 129.5099332 0 1.751813 1.460195 3.543631 2.879332 5.355803 4.236706-6.926539 4.174593-14.255589 7.752966-21.886784 10.653002 4.006851 8.02037 8.637996 15.670866 13.873082 22.847965 21.142122-6.580879 42.646399-16.637311 64.815325-33.213209 5.315798-56.28752-9.080862-105.0894778-38.05561-148.3591179ZM85.4738752 135.09489c-12.6448471 0-23.0146535-11.804735-23.0146535-26.179989 0-14.3752538 10.1483733-26.2003423 23.0146535-26.2003423 12.8666312 0 23.2360868 11.804384 23.0146538 26.2003423.020002 14.375254-10.1480226 26.179989-23.0146538 26.179989Zm85.0513618 0c-12.644847 0-23.014653-11.804735-23.014653-26.179989 0-14.3752538 10.148022-26.2003423 23.014653-26.2003423 12.866281 0 23.236087 11.804384 23.014654 26.2003423 0 14.375254-10.148373 26.179989-23.014654 26.179989Z"></path>
                         </svg>
                         <span className="text-sm text-white">Comunidad</span></a></div>
-            </div>
-       
-
-    )
+            </div> 
+    </motion.div>
+  );
 }
