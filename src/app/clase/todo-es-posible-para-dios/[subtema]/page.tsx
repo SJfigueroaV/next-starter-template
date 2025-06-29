@@ -34,6 +34,21 @@ export default function SubtemaPage() {
   if (error) return <div className="text-red-500">{error}</div>;
   if (!subtema) return <div>No se encontró el subtema.</div>;
 
+  if (subtemaSlug === "buscando-en-la-oscuridad") {
+    // Renderiza el contenido especial para este subtema
+    return (
+      <div style={{ background: "#222", minHeight: "100vh", padding: "2rem" }}>
+        <h1 style={{ color: "#FFD700", fontSize: "2.5rem" }}>
+          ¡Este es un subtema especial!
+        </h1>
+        <p style={{ color: "#FFF", fontSize: "1.2rem" }}>
+          Aquí puedes personalizar el contenido, los colores, imágenes, y todo lo que quieras solo para este subtema.
+        </p>
+        {/* Aquí puedes poner tu examen interactivo u otros componentes */}
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1 className="text-2xl font-bold mb-2">{subtema.nombre}</h1>
