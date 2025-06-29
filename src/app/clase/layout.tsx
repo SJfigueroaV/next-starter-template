@@ -228,6 +228,17 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
       .catch(() => setPreguntas(null));
   }, [subtemaSlug]);
 
+  // Función para marcar el subtema como completado
+  const marcarComoCompletado = async () => {
+    if (!user || !subtemaId) return;
+    await supabase
+      .from('progreso_subtemas')
+      .update({ estado: 'completado' })
+      .eq('user_id', user.id)
+      .eq('subtema_id', subtemaId);
+    setEstado('completado');
+  };
+
   if (loading) return <div>Cargando...</div>;
 
   // Mostrar el estado en pantalla
@@ -246,7 +257,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
         >
           <div className="min-h-screen">
             {children}
-            {preguntas && <ExamenInteractivo preguntas={preguntas} />}
+            {preguntas && <ExamenInteractivo preguntas={preguntas} onComplete={marcarComoCompletado} />}
           </div>
           <footer className="flex flex-col justify-between pt-8 mt-8 border-t border-white/10">
             <span className="flex items-center gap-x-2">

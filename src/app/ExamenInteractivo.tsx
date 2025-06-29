@@ -39,7 +39,6 @@ export default function ExamenInteractivo({ preguntas, onComplete }: ExamenInter
             {preg.opciones.map((op, opIdx) => {
               const seleccionada = seleccionadas[idx] === opIdx;
               const esCorrecta = opIdx === preg.respuestaCorrecta;
-              const yaRespondio = seleccionadas[idx] !== null;
               return (
                 <div
                   key={opIdx}
@@ -53,26 +52,19 @@ export default function ExamenInteractivo({ preguntas, onComplete }: ExamenInter
                   <label
                     htmlFor={`entry-${idx}-answer-${opIdx}`}
                     className={clsx(
-                      "flex flex-row items-center w-full py-4 pl-4 pr-8 font-medium text-gray-300 cursor-pointer gap-x-4",
-                      seleccionada && esCorrecta && "pointer-events-none",
-                      seleccionada && !esCorrecta && "pointer-events-none"
+                      "flex flex-row items-center w-full py-4 pl-4 pr-8 font-medium text-gray-300 cursor-pointer gap-x-4"
                     )}
                   >
                     <input
                       id={`entry-${idx}-answer-${opIdx}`}
-                      className={clsx(
-                        "w-4 h-4 text-blue-600",
-                        (seleccionada && esCorrecta) || (seleccionada && !esCorrecta) ? "pointer-events-none" : ""
-                      )}
+                      className="w-4 h-4 text-blue-600"
                       type="radio"
                       name={`entry-${idx}`}
                       checked={seleccionada}
                       onChange={() => {
-                        if (!yaRespondio) {
-                          const nuevas = [...seleccionadas];
-                          nuevas[idx] = opIdx;
-                          setSeleccionadas(nuevas);
-                        }
+                        const nuevas = [...seleccionadas];
+                        nuevas[idx] = opIdx;
+                        setSeleccionadas(nuevas);
                       }}
                     />
                     <div className="w-full">
@@ -82,7 +74,7 @@ export default function ExamenInteractivo({ preguntas, onComplete }: ExamenInter
                           "text-base mt-2",
                           seleccionada && esCorrecta && "block text-green-100/90",
                           seleccionada && !esCorrecta && "block text-red-100/90",
-                          (!seleccionada || !yaRespondio) && "hidden"
+                          !seleccionada && "hidden"
                         )}
                       >
                         {seleccionada ? preg.explicaciones[opIdx] : ""}
