@@ -3,17 +3,15 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/supabaseClient";
 import { useRouter } from "next/navigation";
 
-export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
+export default function ClaseLayout({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
   const router = useRouter();
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       if (!data.user) {
-        router.push("/");
+        router.push("/login");
       } else {
-        setUser(data.user);
         setLoading(false);
       }
     });
@@ -21,5 +19,10 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
 
   if (loading) return <div>Cargando...</div>;
 
-  return <>{children}</>;
+  return (
+    <div>
+      <h1>PRUEBA DE LAYOUT</h1>
+      {children}
+    </div>
+  );
 }
