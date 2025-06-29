@@ -11,7 +11,7 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       if (!data.user) {
-        router.push("/login");
+        router.push("/");
       } else {
         setUser(data.user);
         setLoading(false);
