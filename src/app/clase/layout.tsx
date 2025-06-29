@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/supabaseClient";
 import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ClaseLayout({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
@@ -134,33 +136,42 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
     <div>
       <h3 className="fixed gap-x-2 h-20 w-full flex justify-start items-center top-0 mb-24 -mt-2 text-sm font-bold tracking-wider uppercase text-transform text-white/7 bg-[#13111C] z-10 m-0 left-0 md:left-auto pl-4 md:-ml-4"><a className="text-yellow-300 transition hover:contrast-125 hover:scale-105" href="/"><svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 transition" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 8l-4 4l4 4"></path><path d="M16 12h-8"></path><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path></svg></a><span className="text-white">{temaGeneral || 'TEMA GENERAL'}</span>
       </h3>
-      <article className="block min-h-screen md:pt-20">
-        <div className="min-h-screen">
-          {children}
-        </div>
-        <footer className="flex flex-col justify-between pt-8 mt-8 border-t border-white/10">
-          <span className="flex items-center gap-x-2">
-            <svg className="w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M9 12l2 2l4 -4"></path></svg>
-            <span className="text-green-400">Completado</span>
-          </span>
-          <nav className="flex flex-wrap w-full gap-6 pt-12">
-            {subtemaAnterior && (
-              <a className="mr-auto group" href={`/clase/${temaSlug}/${subtemaAnterior.slug}`}>
-                <div className="mr-6">
-                  <div className="text-xs tracking-widest uppercase text-medium">Anterior clase</div>
-                  <div className="flex items-center -mr-5 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">
-                    <svg className="w-4 h-4 mt-0.5" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> {subtemaAnterior.nombre}</div></div></a>
-            )}
-            {subtemaSiguiente && (
-              <a className="p-4 ml-auto transition border rounded-lg border-white/20 hover:bg-black/80 group" href={`/clase/${temaSlug}/${subtemaSiguiente.slug}`}>
-                <div className="text-right">
-                  <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
-                  <div className="flex items-center -mr-1 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">{subtemaSiguiente.nombre}
-                    <svg className="w-4 h-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 6l6 6l-6 6"></path></svg></div></div></a>
-            )}
-          </nav>
-        </footer>
-      </article>
+      <AnimatePresence mode="wait">
+        <motion.article
+          key={subtemaSlug}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+          className="block min-h-screen md:pt-20"
+        >
+          <div className="min-h-screen">
+            {children}
+          </div>
+          <footer className="flex flex-col justify-between pt-8 mt-8 border-t border-white/10">
+            <span className="flex items-center gap-x-2">
+              <svg className="w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M9 12l2 2l4 -4"></path></svg>
+              <span className="text-green-400">Completado</span>
+            </span>
+            <nav className="flex flex-wrap w-full gap-6 pt-12">
+              {subtemaAnterior && (
+                <Link className="mr-auto group" href={`/clase/${temaSlug}/${subtemaAnterior.slug}`}>
+                  <div className="mr-6">
+                    <div className="text-xs tracking-widest uppercase text-medium">Anterior clase</div>
+                    <div className="flex items-center -mr-5 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">
+                      <svg className="w-4 h-4 mt-0.5" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> {subtemaAnterior.nombre}</div></div></Link>
+              )}
+              {subtemaSiguiente && (
+                <Link className="p-4 ml-auto transition border rounded-lg border-white/20 hover:bg-black/80 group" href={`/clase/${temaSlug}/${subtemaSiguiente.slug}`}>
+                  <div className="text-right">
+                    <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
+                    <div className="flex items-center -mr-1 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">{subtemaSiguiente.nombre}
+                      <svg className="w-4 h-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 6l6 6l-6 6"></path></svg></div></div></Link>
+              )}
+            </nav>
+          </footer>
+        </motion.article>
+      </AnimatePresence>
     </div>
   );
 }
