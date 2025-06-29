@@ -19,13 +19,13 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
       if (!subtemaSlug) return;
       const { data, error } = await supabase
         .from('subtemas')
-        .select('uuid')
+        .select('id')
         .eq('slug', subtemaSlug)
         .single();
       if (error) console.log("Error buscando subtema:", error);
       if (data) {
-        setSubtemaId(data.uuid);
-        console.log("Subtema encontrado:", data.uuid);
+        setSubtemaId(data.id);
+        console.log("Subtema encontrado:", data.id);
       } else {
         setSubtemaId(null);
         console.log("No se encontró subtema para el slug:", subtemaSlug);
