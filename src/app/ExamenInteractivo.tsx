@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export type Pregunta = {
   pregunta: string;
@@ -10,10 +10,21 @@ export type Pregunta = {
 
 type ExamenInteractivoProps = {
   preguntas: Pregunta[];
+  onComplete?: () => void;
 };
 
-export default function ExamenInteractivo({ preguntas }: ExamenInteractivoProps) {
+export default function ExamenInteractivo({ preguntas, onComplete }: ExamenInteractivoProps) {
   const [seleccionadas, setSeleccionadas] = useState<(number | null)[]>(Array(preguntas.length).fill(null));
+
+  useEffect(() => {
+    // Si todas las respuestas son correctas y están respondidas, llama a onComplete
+    if (
+      seleccionadas.every((sel, idx) => sel === preguntas[idx].respuestaCorrecta) &&
+      seleccionadas.every(sel => sel !== null)
+    ) {
+      onComplete && onComplete();
+    }
+  }, [seleccionadas, preguntas, onComplete]);
 
   const handleSeleccion = (idxPregunta: number, idxOpcion: number) => {
     const nuevas = [...seleccionadas];
