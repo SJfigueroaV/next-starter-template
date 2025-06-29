@@ -97,33 +97,123 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
         console.log("Esperando user o subtemaId...", user, subtemaId);
         return;
       }
-      const { data, error } = await supabase
-        .from('progreso_subtemas')
-        .select('id, estado')
-        .eq('user_id', user.id)
-        .eq('subtema_id', subtemaId)
-        .single();
-      if (error) console.log("Error buscando progreso:", error);
-      if (!data) {
-        await supabase.from('progreso_subtemas').insert([
-          {
-            user_id: user.id,
-            subtema_id: subtemaId,
-            estado: 'en_progreso'
-          }
-        ]);
-        setEstado('en_progreso');
-        console.log("Progreso creado como en_progreso");
-      } else if (data.estado === 'no_completado') {
-        await supabase
+      
+      console.log("Consultando progreso para user_id:", user.id, "subtema_id:", subtemaId);
+      
+      try {
+        const { data, error } = await supabase
           .from('progreso_subtemas')
-          .update({ estado: 'en_progreso' })
-          .eq('id', data.id);
-        setEstado('en_progreso');
-        console.log("Progreso actualizado a en_progreso");
-      } else {
-        setEstado(data.estado);
-        console.log("Estado encontrado:", data.estado);
+          .select('id, estado')
+          .eq('user_id', user.id)
+          .eq('subtema_id', subtemaId)
+          .single();
+        
+        console.log("Respuesta de progreso_subtemas:", { data, error });
+        
+        if (error) {
+          console.error("Error buscando progreso:", error);
+          
+          // Si es un error 406, puede ser un problema de permisos o estructura
+          if (error.code === '406') {
+            console.error("Error 406 - Posible problema de permisos o estructura de tabla");
+            // Intentar crear el registro directamente
+            try {
+              const { data: insertData, error: insertError } = await supabase
+                .from('progreso_subtemas')
+                .insert([
+                  {
+                    user_id: user.id,
+                    subtema_id: subtemaId,
+                    estado: 'en_progreso'
+                  }
+                ])
+                .select();
+              
+              console.log("Resultado del insert directo:", { insertData, insertError });
+              
+              if (!insertError && insertData) {
+                setEstado('en_progreso');
+                console.log("Progreso creado exitosamente");
+              } else {
+                console.error("Error en insert directo:", insertError);
+                setEstado('no_completado');
+              }
+            } catch (insertErr) {
+              console.error("Excepción en insert:", insertErr);
+              setEstado('no_completado');
+            }
+            return;
+          }
+          
+          // Para otros errores, intentar crear el registro
+          if (error.code === 'PGRST116') { // No rows returned
+            console.log("No se encontró progreso, creando nuevo registro...");
+            const { data: insertData, error: insertError } = await supabase
+              .from('progreso_subtemas')
+              .insert([
+                {
+                  user_id: user.id,
+                  subtema_id: subtemaId,
+                  estado: 'en_progreso'
+                }
+              ])
+              .select();
+            
+            console.log("Resultado del insert:", { insertData, insertError });
+            
+            if (!insertError && insertData) {
+              setEstado('en_progreso');
+              console.log("Progreso creado como en_progreso");
+            } else {
+              console.error("Error creando progreso:", insertError);
+              setEstado('no_completado');
+            }
+          } else {
+            setEstado('no_completado');
+          }
+        } else if (!data) {
+          console.log("No se encontró progreso, creando nuevo registro...");
+          const { data: insertData, error: insertError } = await supabase
+            .from('progreso_subtemas')
+            .insert([
+              {
+                user_id: user.id,
+                subtema_id: subtemaId,
+                estado: 'en_progreso'
+              }
+            ])
+            .select();
+          
+          console.log("Resultado del insert:", { insertData, insertError });
+          
+          if (!insertError && insertData) {
+            setEstado('en_progreso');
+            console.log("Progreso creado como en_progreso");
+          } else {
+            console.error("Error creando progreso:", insertError);
+            setEstado('no_completado');
+          }
+        } else if (data.estado === 'no_completado') {
+          console.log("Actualizando estado de no_completado a en_progreso...");
+          const { error: updateError } = await supabase
+            .from('progreso_subtemas')
+            .update({ estado: 'en_progreso' })
+            .eq('id', data.id);
+          
+          if (!updateError) {
+            setEstado('en_progreso');
+            console.log("Progreso actualizado a en_progreso");
+          } else {
+            console.error("Error actualizando progreso:", updateError);
+            setEstado(data.estado);
+          }
+        } else {
+          setEstado(data.estado);
+          console.log("Estado encontrado:", data.estado);
+        }
+      } catch (err) {
+        console.error("Excepción en actualizarYObtenerProgreso:", err);
+        setEstado('no_completado');
       }
     };
     actualizarYObtenerProgreso();
@@ -163,7 +253,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
               ) : (
                 <>
                   <svg className="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M12 8v4l3 3"></path></svg>
-                  <span className="text-gray-400">No iniciado</span>
+                  <span className="text-gray-400">No completado</span>
                 </>
               )}
             </span>
