@@ -92,7 +92,15 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
   // Mostrar el estado en pantalla
   return (
     <div>
+      <header>
+        <h1>PRUEBA DE LAYOUT</h1>
+      </header>
       <h1>PRUEBA DE LAYOUT</h1>
+      
+      <main>
+      {children}
+      </main>
+      <footer>  
       <div>
         Estado del subtema:{" "}
         {estado === "completado" && <span style={{ color: "limegreen" }}>✔ Completado</span>}
@@ -100,7 +108,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
         {estado === "no_completado" && <span style={{ color: "red" }}>✖ No completado</span>}
         {!estado && <span>Cargando estado...</span>}
       </div>
-      {children}
+      </footer>
     </div>
   );
 }
