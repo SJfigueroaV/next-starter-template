@@ -1,8 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { supabase } from "@/supabaseClient";
-import Image from "next/image";
-import Avatar from "./avatar.jpg"
 export default function UserProfile() {
     const [user, setUser] = useState<any>(null);
 
