@@ -9,13 +9,67 @@ import Link from "next/link";
 
 export default function HomeClient({ temasGenerales }: any) {
   const [user, setUser] = useState<User | null>(null);
-
+  const [progreso, setProgreso] = useState<{ [subtemaId: string]: string }>({});
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       setUser(data.user);
     });
   }, []);
+
+  useEffect(() => {
+    const fetchProgreso = async () => {
+      if (!user) return;
+      // Obtener todos los subtemaIds
+      const subtemaIds = temasGenerales
+        .flatMap((tema: any) => tema.subtemas?.map((s: any) => s.id) || []);
+      if (subtemaIds.length === 0) return;
+      // Traer el progreso de todos los subtemas para el usuario
+      const { data, error } = await supabase
+        .from('progreso_subtemas')
+        .select('subtema_id, estado')
+        .eq('user_id', user.id)
+        .in('subtema_id', subtemaIds);
+      if (!error && data) {
+        const progresoObj: { [subtemaId: string]: string } = {};
+        data.forEach((row: any) => {
+          progresoObj[row.subtema_id] = row.estado;
+        });
+        setProgreso(progresoObj);
+      }
+    };
+    fetchProgreso();
+  }, [user, temasGenerales]);
+
+  // SVGs para los diferentes estados
+  const SvgDefault = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-6 h-6 text-gray-300"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M8.56 3.69a9 9 0 0 0 -2.92 1.95" />
+      <path d="M3.69 8.56a9 9 0 0 0 -.69 3.44" />
+      <path d="M3.69 15.44a9 9 0 0 0 1.95 2.92" />
+      <path d="M8.56 20.31a9 9 0 0 0 3.44 .69" />
+      <path d="M15.44 20.31a9 9 0 0 0 2.92 -1.95" />
+      <path d="M20.31 15.44a9 9 0 0 0 .69 -3.44" />
+      <path d="M20.31 8.56a9 9 0 0 0 -1.95 -2.92" />
+      <path d="M15.44 3.69a9 9 0 0 0 -3.44 -.69" />
+    </svg>
+  );
+  const SvgEnProgreso = (
+    <svg className="w-6 h-6 text-yellow-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969"></path><path d="M14 3.223a9.003 9.003 0 0 1 0 17.554"></path><path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592"></path><path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305"></path><path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356"></path><path d="M9 12l2 2l4 -4"></path></svg>
+  );
+  const SvgCompletado = (
+    <svg className="w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M9 12l2 2l4 -4"></path></svg>
+  );
 
   return (
     <div >
@@ -60,36 +114,24 @@ export default function HomeClient({ temasGenerales }: any) {
           </div>
           <div>
             <ul className="mb-4 ml-4 list-disc md:ml-0">
-              {tema.subtemas.map((subtema: any) => (
-                <li key={subtema.id} className="flex items-center mb-2 list-none">
-                  <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-6 h-6 text-gray-300"
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M8.56 3.69a9 9 0 0 0 -2.92 1.95" />
-                            <path d="M3.69 8.56a9 9 0 0 0 -.69 3.44" />
-                            <path d="M3.69 15.44a9 9 0 0 0 1.95 2.92" />
-                            <path d="M8.56 20.31a9 9 0 0 0 3.44 .69" />
-                            <path d="M15.44 20.31a9 9 0 0 0 2.92 -1.95" />
-                            <path d="M20.31 15.44a9 9 0 0 0 .69 -3.44" />
-                            <path d="M20.31 8.56a9 9 0 0 0 -1.95 -2.92" />
-                            <path d="M15.44 3.69a9 9 0 0 0 -3.44 -.69" />
-                          </svg>
-                  <Link
-                    className='inline-flex items-center px-2 py-1 text-xl font-semibold rounded-lg hover:pointer hover:text-blue-500 gap-x-2'
-                    href={`/clase/${tema.slug}/${subtema.slug}`}
-                  >
-                    {subtema.nombre}
-                  </Link>
-                </li>
-              ))}
+              {tema.subtemas.map((subtema: any) => {
+                let icon = SvgDefault;
+                if (user) {
+                  if (progreso[subtema.id] === "en_progreso") icon = SvgEnProgreso;
+                  if (progreso[subtema.id] === "completado") icon = SvgCompletado;
+                }
+                return (
+                  <li key={subtema.id} className="flex items-center mb-2 list-none">
+                    {icon}
+                    <Link
+                      className='inline-flex items-center px-2 py-1 text-xl font-semibold rounded-lg hover:pointer hover:text-blue-500 gap-x-2'
+                      href={`/clase/${tema.slug}/${subtema.slug}`}
+                    >
+                      {subtema.nombre}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
