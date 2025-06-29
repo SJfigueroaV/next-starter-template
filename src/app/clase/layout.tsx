@@ -6,7 +6,8 @@ import { useRouter, useParams } from "next/navigation";
 export default function ClaseLayout({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [subtemaId, setSubtemaId] = useState<string | null>(null);
-  const [estado, setEstado] = useState<string | null>(null); // <--- Nuevo estado
+  const [estado, setEstado] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
   const router = useRouter();
   const params = useParams();
 
@@ -16,13 +17,18 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
   useEffect(() => {
     const fetchSubtemaId = async () => {
       if (!subtemaSlug) return;
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('subtemas')
         .select('uuid')
         .eq('slug', subtemaSlug)
         .single();
+      if (error) console.log("Error buscando subtema:", error);
       if (data) {
         setSubtemaId(data.uuid);
+        console.log("Subtema encontrado:", data.uuid);
+      } else {
+        setSubtemaId(null);
+        console.log("No se encontró subtema para el slug:", subtemaSlug);
       }
     };
     fetchSubtemaId();
@@ -33,8 +39,8 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
     supabase.auth.getUser().then(({ data }) => {
       if (!data.user) {
         router.push("/login");
-        
       } else {
+        setUser(data.user);
         setLoading(false);
       }
     });
@@ -43,14 +49,17 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
   // Actualizar el progreso al entrar a un subtema y obtener el estado
   useEffect(() => {
     const actualizarYObtenerProgreso = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user || !subtemaId) return;
-      const { data } = await supabase
+      if (!user || !subtemaId) {
+        console.log("Esperando user o subtemaId...", user, subtemaId);
+        return;
+      }
+      const { data, error } = await supabase
         .from('progreso_subtemas')
         .select('id, estado')
         .eq('user_id', user.id)
         .eq('subtema_id', subtemaId)
         .single();
+      if (error) console.log("Error buscando progreso:", error);
       if (!data) {
         await supabase.from('progreso_subtemas').insert([
           {
@@ -60,18 +69,21 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
           }
         ]);
         setEstado('en_progreso');
+        console.log("Progreso creado como en_progreso");
       } else if (data.estado === 'no_completado') {
         await supabase
           .from('progreso_subtemas')
           .update({ estado: 'en_progreso' })
           .eq('id', data.id);
         setEstado('en_progreso');
+        console.log("Progreso actualizado a en_progreso");
       } else {
         setEstado(data.estado);
+        console.log("Estado encontrado:", data.estado);
       }
     };
     actualizarYObtenerProgreso();
-  }, [subtemaId]);
+  }, [user, subtemaId]);
 
   if (loading) return <div>Cargando...</div>;
 
