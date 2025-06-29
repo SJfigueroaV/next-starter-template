@@ -48,7 +48,7 @@ export default function SubtemaPage() {
       </div>
     );
   }
-  if (subtemaSlug === "el-hombre-alejado-de-dios") {
+  if (subtemaSlug === "el-hombre-caido-alejado-de-dios") {
     // Renderiza el contenido especial para este subtema
     return (
       <div style={{ background: "#222", minHeight: "100vh", padding: "2rem" }}>
