@@ -150,8 +150,22 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
           </div>
           <footer className="flex flex-col justify-between pt-8 mt-8 border-t border-white/10">
             <span className="flex items-center gap-x-2">
-              <svg className="w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M9 12l2 2l4 -4"></path></svg>
-              <span className="text-green-400">Completado</span>
+              {estado === 'completado' ? (
+                <>
+                  <svg className="w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M9 12l2 2l4 -4"></path></svg>
+                  <span className="text-green-400">Completado</span>
+                </>
+              ) : estado === 'en_progreso' ? (
+                <>
+                  <svg className="w-6 h-6 text-yellow-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M12 8v4l3 3"></path></svg>
+                  <span className="text-yellow-400">En progreso</span>
+                </>
+              ) : (
+                <>
+                  <svg className="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M12 8v4l3 3"></path></svg>
+                  <span className="text-gray-400">No iniciado</span>
+                </>
+              )}
             </span>
             <nav className="flex flex-wrap w-full gap-6 pt-12">
               {subtemaAnterior && (
