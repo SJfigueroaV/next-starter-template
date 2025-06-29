@@ -44,9 +44,9 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
         // Subtemas del tema general (ordenados)
         let subtemas = [];
         if (Array.isArray(data.temas_generales)) {
-          subtemas = data.temas_generales[0]?.subtemas || [];
+          subtemas = (data.temas_generales[0] as any)?.subtemas || [];
         } else if (data.temas_generales && typeof data.temas_generales === 'object') {
-          subtemas = data.temas_generales.subtemas || [];
+          subtemas = (data.temas_generales as any).subtemas || [];
         }
         subtemas = subtemas.sort((a: any, b: any) => a.orden - b.orden);
         setSubtemasTema(subtemas);
