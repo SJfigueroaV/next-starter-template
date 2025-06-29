@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/supabaseClient";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
@@ -18,6 +18,8 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
   const [subtemaAnterior, setSubtemaAnterior] = useState<any>(null);
   const [subtemaSiguiente, setSubtemaSiguiente] = useState<any>(null);
   const [preguntas, setPreguntas] = useState<any>(null);
+  const [sonidoReproducido, setSonidoReproducido] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const router = useRouter();
   const params = useParams();
 
@@ -239,11 +241,23 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
     setEstado('completado');
   };
 
+  useEffect(() => {
+    if (estado === "completado" && !sonidoReproducido && audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+      setSonidoReproducido(true);
+    }
+    if (estado !== "completado" && sonidoReproducido) {
+      setSonidoReproducido(false);
+    }
+  }, [estado]);
+
   if (loading) return <div>Cargando...</div>;
 
   // Mostrar el estado en pantalla
   return (
     <div>
+      <audio ref={audioRef} src="/success.mp3" preload="auto" />
       <h3 className="fixed gap-x-2 h-20 w-full flex justify-start items-center top-0 mb-24 -mt-2 text-sm font-bold tracking-wider uppercase text-transform text-white/7 bg-[#13111C] z-10 m-0 left-0 md:left-auto pl-4 md:-ml-4"><a className="text-yellow-300 transition hover:contrast-125 hover:scale-105" href="/"><svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 transition" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 8l-4 4l4 4"></path><path d="M16 12h-8"></path><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path></svg></a><span className="text-white">{temaGeneral || 'TEMA GENERAL'}</span>
       </h3>
       <AnimatePresence mode="wait">
@@ -287,11 +301,33 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
                       <svg className="w-4 h-4 mt-0.5" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> {subtemaAnterior.nombre}</div></div></Link>
               )}
               {subtemaSiguiente && (
-                <Link className="p-4 ml-auto transition border rounded-lg border-white/20 hover:bg-black/80 group" href={`/clase/${temaSlug}/${subtemaSiguiente.slug}`}>
-                  <div className="text-right">
-                    <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
-                    <div className="flex items-center -mr-1 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">{subtemaSiguiente.nombre}
-                      <svg className="w-4 h-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 6l6 6l-6 6"></path></svg></div></div></Link>
+                estado === "completado" ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                    className="ml-auto"
+                  >
+                    <Link className="p-4 transition border rounded-lg border-white/20 hover:bg-black/80 group" href={`/clase/${temaSlug}/${subtemaSiguiente.slug}`}>
+                      <div className="text-right">
+                        <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
+                        <div className="flex items-center -mr-1 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">{subtemaSiguiente.nombre}
+                          <svg className="w-4 h-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 6l6 6l-6 6"></path></svg>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                ) : (
+                  <div className="p-4 ml-auto border rounded-lg border-white/20 bg-gray-800/60 opacity-60 cursor-not-allowed select-none" title="Debes completar este subtema para avanzar">
+                    <div className="text-right">
+                      <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
+                      <div className="flex items-center -mr-1 font-semibold gap-x-1 text-gray-400">
+                        {subtemaSiguiente.nombre}
+                        <svg className="w-4 h-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 6l6 6l-6 6"></path></svg>
+                      </div>
+                    </div>
+                  </div>
+                )
               )}
             </nav>
           </footer>
