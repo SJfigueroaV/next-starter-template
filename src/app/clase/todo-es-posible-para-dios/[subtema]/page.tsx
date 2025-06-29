@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "@/supabaseClient";
 
-export default function BuscandoEnLaOscuridad() {
+export default function SubtemaPage() {
   const params = useParams();
   const subtemaSlug = params.subtema;
   const [subtema, setSubtema] = useState<any>(null);
@@ -38,13 +38,7 @@ export default function BuscandoEnLaOscuridad() {
     <div>
       <h1 className="text-2xl font-bold mb-2">{subtema.nombre}</h1>
       <p className="text-lg text-gray-200 mb-4">{subtema.descripcion}</p>
-      <p className="text-lg text-gray-200 mb-4">
-        <span className="font-bold">¿Qué significa buscar en la oscuridad?</span>
-        <br />
-        <span className="text-gray-400">
-          Buscar algo sin tener ninguna esperanza.
-        </span>
-      </p>
+      {/* Aquí puedes agregar más contenido específico del subtema */}
     </div>
   );
 }
