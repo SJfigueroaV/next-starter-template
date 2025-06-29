@@ -95,7 +95,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
       <header>
         <h1>PRUEBA DE LAYOUT</h1>
       </header>
-      <h1>PRUEBA DE LAYOUT</h1>
+      
       
       <main>
       {children}

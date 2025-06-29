@@ -6,9 +6,15 @@ export default async function Home() {
     .from("temas_generales")
     .select(`*, subtemas(*)`);
 
+  // Agrupa y ordena los subtemas por tema
+  const temasConSubtemasOrdenados = (temasGenerales || []).map(tema => ({
+    ...tema,
+    subtemas: (tema.subtemas || []).sort((a: any, b: any) => a.orden - b.orden)
+  }));
+
   return (
     <main>
-      <HomeClient temasGenerales={temasGenerales} />
+      <HomeClient temasGenerales={temasConSubtemasOrdenados} />
     </main>
   );
 }
