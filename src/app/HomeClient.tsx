@@ -5,6 +5,7 @@ import { supabase } from "@/supabaseClient";
 import GoogleSignInButton from "./GoogleSignInButton";
 import { User } from '@supabase/supabase-js';
 import { tema } from "./type";
+import Link from "next/link";
 
 export default function HomeClient({ temasGenerales }: any) {
   const [user, setUser] = useState<User | null>(null);
@@ -81,9 +82,12 @@ export default function HomeClient({ temasGenerales }: any) {
                             <path d="M20.31 8.56a9 9 0 0 0 -1.95 -2.92" />
                             <path d="M15.44 3.69a9 9 0 0 0 -3.44 -.69" />
                           </svg>
-                  <a className='inline-flex items-center px-2 py-1 text-xl font-semibold rounded-lg hover:pointer hover:text-blue-500 gap-x-2' href="">
+                  <Link
+                    className='inline-flex items-center px-2 py-1 text-xl font-semibold rounded-lg hover:pointer hover:text-blue-500 gap-x-2'
+                    href={`/clase/${tema.slug}/${subtema.slug}`}
+                  >
                     {subtema.nombre}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
