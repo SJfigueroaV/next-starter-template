@@ -9,6 +9,10 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
   const [estado, setEstado] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
   const [temaGeneral, setTemaGeneral] = useState<string | null>(null);
+  const [subtemasTema, setSubtemasTema] = useState<any[]>([]);
+  const [subtemaActual, setSubtemaActual] = useState<any>(null);
+  const [subtemaAnterior, setSubtemaAnterior] = useState<any>(null);
+  const [subtemaSiguiente, setSubtemaSiguiente] = useState<any>(null);
   const router = useRouter();
   const params = useParams();
 
@@ -22,14 +26,14 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
       // Traer el subtema y el tema general relacionado
       const { data, error } = await supabase
         .from('subtemas')
-        .select('id, tema_general_id, temas_generales(nombre)')
+        .select('id, slug, nombre, orden, tema_general_id, temas_generales(nombre, slug), temas_generales:tema_general_id(subtemas(id, slug, nombre, orden))')
         .eq('slug', subtemaSlug)
         .single();
       console.log("Respuesta de supabase:", data, error); // Depuración
       if (error) console.log("Error buscando subtema:", error);
       if (data) {
         setSubtemaId(data.id);
-        // Maneja si temas_generales es array o un objeto
+        // Nombre del tema general
         let temaGen = null;
         if (Array.isArray(data.temas_generales) && data.temas_generales.length > 0 && typeof data.temas_generales[0] === 'object') {
           temaGen = (data.temas_generales[0] as any).nombre;
@@ -37,10 +41,29 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
           temaGen = (data.temas_generales as any).nombre;
         }
         setTemaGeneral(temaGen || null);
+        // Subtemas del tema general (ordenados)
+        let subtemas = [];
+        if (Array.isArray(data.temas_generales)) {
+          subtemas = data.temas_generales[0]?.subtemas || [];
+        } else if (data.temas_generales && typeof data.temas_generales === 'object') {
+          subtemas = data.temas_generales.subtemas || [];
+        }
+        subtemas = subtemas.sort((a: any, b: any) => a.orden - b.orden);
+        setSubtemasTema(subtemas);
+        // Subtema actual
+        setSubtemaActual(data);
+        // Calcular anterior y siguiente
+        const idx = subtemas.findIndex((s: any) => s.slug === subtemaSlug);
+        setSubtemaAnterior(idx > 0 ? subtemas[idx - 1] : null);
+        setSubtemaSiguiente(idx < subtemas.length - 1 ? subtemas[idx + 1] : null);
         console.log("Subtema encontrado:", data.id);
       } else {
         setSubtemaId(null);
         setTemaGeneral(null);
+        setSubtemasTema([]);
+        setSubtemaActual(null);
+        setSubtemaAnterior(null);
+        setSubtemaSiguiente(null);
         console.log("No se encontró subtema para el slug:", subtemaSlug);
       }
     };
@@ -115,16 +138,21 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
             <span className="text-green-400">Completado</span>
           </span>
           <nav className="flex flex-wrap w-full gap-6 pt-12">
-            <a className="mr-auto group" href="/">
-              <div className="mr-6">
-                <div className="text-xs tracking-widest uppercase text-medium">CURSO</div>
-                <div className="flex items-center -mr-5 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">
-                  <svg className="w-4 h-4 mt-0.5" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Volver a la portada</div></div></a>
-            <a className="p-4 ml-auto transition border rounded-lg border-white/20 hover:bg-black/80 group" href="/clase/introduccion/la-consola-del-navegador">
-              <div className="text-right">
-                <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
-                <div className="flex items-center -mr-1 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">La consola del navegador
-                  <svg className="w-4 h-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 6l6 6l-6 6"></path></svg></div></div></a></nav>
+            {subtemaAnterior && (
+              <a className="mr-auto group" href={`/clase/${params.tema}/${subtemaAnterior.slug}`}>
+                <div className="mr-6">
+                  <div className="text-xs tracking-widest uppercase text-medium">Anterior clase</div>
+                  <div className="flex items-center -mr-5 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">
+                    <svg className="w-4 h-4 mt-0.5" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> {subtemaAnterior.nombre}</div></div></a>
+            )}
+            {subtemaSiguiente && (
+              <a className="p-4 ml-auto transition border rounded-lg border-white/20 hover:bg-black/80 group" href={`/clase/${params.tema}/${subtemaSiguiente.slug}`}>
+                <div className="text-right">
+                  <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
+                  <div className="flex items-center -mr-1 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">{subtemaSiguiente.nombre}
+                    <svg className="w-4 h-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 6l6 6l-6 6"></path></svg></div></div></a>
+            )}
+          </nav>
         </footer>
       </article>
     </div>
