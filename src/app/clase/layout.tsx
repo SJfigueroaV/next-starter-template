@@ -4,6 +4,7 @@ import { supabase } from "@/supabaseClient";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import ExamenInteractivo from "@/app/ExamenInteractivo";
 
 export default function ClaseLayout({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
@@ -16,6 +17,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
   const [subtemaActual, setSubtemaActual] = useState<any>(null);
   const [subtemaAnterior, setSubtemaAnterior] = useState<any>(null);
   const [subtemaSiguiente, setSubtemaSiguiente] = useState<any>(null);
+  const [preguntas, setPreguntas] = useState<any>(null);
   const router = useRouter();
   const params = useParams();
 
@@ -219,6 +221,13 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
     actualizarYObtenerProgreso();
   }, [user, subtemaId]);
 
+  useEffect(() => {
+    if (!subtemaSlug) return;
+    import(`../../preguntas/${subtemaSlug}.ts`)
+      .then((mod) => setPreguntas(mod.default))
+      .catch(() => setPreguntas(null));
+  }, [subtemaSlug]);
+
   if (loading) return <div>Cargando...</div>;
 
   // Mostrar el estado en pantalla
@@ -237,6 +246,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
         >
           <div className="min-h-screen">
             {children}
+            {preguntas && <ExamenInteractivo preguntas={preguntas} />}
           </div>
           <footer className="flex flex-col justify-between pt-8 mt-8 border-t border-white/10">
             <span className="flex items-center gap-x-2">
