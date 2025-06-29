@@ -15,6 +15,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
 
   // Obtener el uuid del subtema por el slug
   useEffect(() => {
+    console.log("subtemaSlug:", subtemaSlug); // Depuración
     const fetchSubtemaId = async () => {
       if (!subtemaSlug) return;
       const { data, error } = await supabase
@@ -22,6 +23,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
         .select('id')
         .eq('slug', subtemaSlug)
         .single();
+      console.log("Respuesta de supabase:", data, error); // Depuración
       if (error) console.log("Error buscando subtema:", error);
       if (data) {
         setSubtemaId(data.id);
