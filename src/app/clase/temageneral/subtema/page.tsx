@@ -1,5 +1,3 @@
-
-
 export default function Primersubtema() {
     return (
         <div>
