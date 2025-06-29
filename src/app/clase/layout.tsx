@@ -26,7 +26,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
       // Traer el subtema y el tema general relacionado
       const { data, error } = await supabase
         .from('subtemas')
-        .select('id, slug, nombre, orden, tema_general_id, temas_generales(nombre, slug), temas_generales:tema_general_id(subtemas(id, slug, nombre, orden))')
+        .select('id, slug, nombre, orden, tema_general_id, temas_generales(nombre, slug, subtemas(id, slug, nombre, orden))')
         .eq('slug', subtemaSlug)
         .single();
       console.log("Respuesta de supabase:", data, error); // Depuración
