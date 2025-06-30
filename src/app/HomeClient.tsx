@@ -114,21 +114,35 @@ export default function HomeClient({ temasGenerales }: any) {
           </div>
           <div>
             <ul className="mb-4 ml-4 list-disc md:ml-0">
-              {tema.subtemas.map((subtema: any) => {
+              {tema.subtemas.map((subtema: any, idx: number) => {
                 let icon = SvgDefault;
                 if (user) {
                   if (progreso[subtema.id] === "en_progreso") icon = SvgEnProgreso;
                   if (progreso[subtema.id] === "completado") icon = SvgCompletado;
                 }
+                // Lógica de desbloqueo progresivo
+                let desbloqueado = false;
+                if (idx === 0) {
+                  desbloqueado = true;
+                } else {
+                  const anterior = tema.subtemas[idx - 1];
+                  desbloqueado = progreso[anterior.id] === "completado";
+                }
                 return (
-                  <li key={subtema.id} className="flex items-center mb-2 list-none">
+                  <li key={subtema.id} className={`flex items-center mb-2 list-none ${!desbloqueado ? "opacity-50 cursor-not-allowed" : ""}`}>
                     {icon}
-                    <Link
-                      className='inline-flex items-center px-2 py-1 text-xl font-semibold rounded-lg hover:pointer hover:text-blue-500 gap-x-2'
-                      href={`/clase/${tema.slug}/${subtema.slug}`}
-                    >
-                      {subtema.nombre}
-                    </Link>
+                    {desbloqueado ? (
+                      <Link
+                        className='inline-flex items-center px-2 py-1 text-xl font-semibold rounded-lg hover:pointer hover:text-blue-500 gap-x-2'
+                        href={`/clase/${tema.slug}/${subtema.slug}`}
+                      >
+                        {subtema.nombre}
+                      </Link>
+                    ) : (
+                      <span className='inline-flex items-center px-2 py-1 text-xl font-semibold rounded-lg gap-x-2 select-none'>
+                        {subtema.nombre} <span className="ml-2 text-xs text-gray-400">(Bloqueado)</span>
+                      </span>
+                    )}
                   </li>
                 );
               })}
