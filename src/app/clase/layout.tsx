@@ -217,6 +217,9 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
         } else {
           setEstado(data.estado);
           console.log("Estado encontrado:", data.estado);
+          if (data && data.estado === 'completado') {
+            setYaEstabaCompletado(true);
+          }
         }
       } catch (err) {
         console.error("Excepción en actualizarYObtenerProgreso:", err);
