@@ -98,6 +98,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
   }, [router]);
 
   // Actualizar el progreso al entrar a un subtema y obtener el estado
+  const yaEstabaCompletadoRef = useRef(false);
   useEffect(() => {
     const actualizarYObtenerProgreso = async () => {
       if (!user || !subtemaId) {
@@ -218,7 +219,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
           setEstado(data.estado);
           console.log("Estado encontrado:", data.estado);
           if (data && data.estado === 'completado') {
-            setYaEstabaCompletado(true);
+            yaEstabaCompletadoRef.current = true;
           }
         }
       } catch (err) {
@@ -247,21 +248,11 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
     setEstado('completado');
   };
 
-  // Flag para saber si el subtema ya estaba completado al cargar
-  const [yaEstabaCompletado, setYaEstabaCompletado] = useState(false);
-
-  // Detectar si el subtema ya estaba completado al cargar
-  useEffect(() => {
-    if (estado === "completado" && !yaEstabaCompletado) {
-      setYaEstabaCompletado(true);
-    }
-  }, [estado]);
-
   // Mejorar la lógica del sonido para que solo se reproduzca cuando el estado cambie realmente a 'completado'
   const prevEstado = useRef<string | null>(null);
   useEffect(() => {
     // Solo reproducir el audio si el usuario acaba de completar el subtema en esta sesión
-    if (estado === "completado" && prevEstado.current !== "completado" && !sonidoReproducido && audioRef.current && !yaEstabaCompletado) {
+    if (estado === "completado" && prevEstado.current !== "completado" && !sonidoReproducido && audioRef.current && !yaEstabaCompletadoRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play();
       setSonidoReproducido(true);
@@ -270,7 +261,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
       setSonidoReproducido(false);
     }
     prevEstado.current = estado;
-  }, [estado, yaEstabaCompletado]);
+  }, [estado]);
 
   if (loading) return <div>Cargando...</div>;
 
