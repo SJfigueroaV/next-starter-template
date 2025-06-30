@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import ExamenInteractivo from "@/app/ExamenInteractivo";
 import { motion as motionFramer } from "framer-motion";
 
+const MotionLink = motion(Link);
+
 export default function ClaseLayout({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [subtemaId, setSubtemaId] = useState<string | null>(null);
@@ -242,10 +244,21 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
     setEstado('completado');
   };
 
+  // Flag para saber si el subtema ya estaba completado al cargar
+  const [yaEstabaCompletado, setYaEstabaCompletado] = useState(false);
+
+  // Detectar si el subtema ya estaba completado al cargar
+  useEffect(() => {
+    if (estado === "completado" && !yaEstabaCompletado) {
+      setYaEstabaCompletado(true);
+    }
+  }, [estado]);
+
   // Mejorar la lógica del sonido para que solo se reproduzca cuando el estado cambie realmente a 'completado'
   const prevEstado = useRef<string | null>(null);
   useEffect(() => {
-    if (estado === "completado" && prevEstado.current !== "completado" && !sonidoReproducido && audioRef.current) {
+    // Solo reproducir el audio si el usuario acaba de completar el subtema en esta sesión
+    if (estado === "completado" && prevEstado.current !== "completado" && !sonidoReproducido && audioRef.current && !yaEstabaCompletado) {
       audioRef.current.currentTime = 0;
       audioRef.current.play();
       setSonidoReproducido(true);
@@ -254,7 +267,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
       setSonidoReproducido(false);
     }
     prevEstado.current = estado;
-  }, [estado]);
+  }, [estado, yaEstabaCompletado]);
 
   if (loading) return <div>Cargando...</div>;
 
@@ -275,7 +288,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
         >
           <div className="min-h-screen">
             {children}
-            {preguntas && <ExamenInteractivo preguntas={preguntas} onComplete={marcarComoCompletado} />}
+            {preguntas && <ExamenInteractivo preguntas={preguntas} onComplete={marcarComoCompletado} subtemaSlug={subtemaSlug} />}
           </div>
           <footer className="flex flex-col justify-between pt-8 mt-8 border-t border-white/10">
             <span className="flex items-center gap-x-2">
@@ -306,19 +319,18 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
               )}
               {subtemaSiguiente && (
                 estado === "completado" ? (
-                  <motion.div
+                  <MotionLink
+                    className="p-4 ml-auto transition border rounded-lg border-white/20 hover:bg-black/80 group text-right"
+                    href={`/clase/${temaSlug}/${subtemaSiguiente.slug}`}
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4, ease: 'easeOut' }}
-                    className="ml-auto"
                   >
-                    <Link className="p-4 transition border rounded-lg border-white/20 hover:bg-black/80 group text-right" href={`/clase/${temaSlug}/${subtemaSiguiente.slug}`}>
-                      <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
-                      <div className="flex items-center -mr-1 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">{subtemaSiguiente.nombre}
-                        <svg className="w-4 h-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 6l6 6l-6 6"></path></svg>
-                      </div>
-                    </Link>
-                  </motion.div>
+                    <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
+                    <div className="flex items-center -mr-1 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">{subtemaSiguiente.nombre}
+                      <svg className="w-4 h-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 6l6 6l-6 6"></path></svg>
+                    </div>
+                  </MotionLink>
                 ) : (
                   <div className="p-4 ml-auto border rounded-lg border-white/20 bg-gray-800/60 opacity-60 cursor-not-allowed select-none" title="Debes completar este subtema para avanzar">
                     <div className="text-right">

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import clsx from "clsx";
 
 export type Pregunta = {
@@ -12,10 +12,25 @@ export type Pregunta = {
 type ExamenInteractivoProps = {
   preguntas: Pregunta[];
   onComplete?: () => void;
+  subtemaSlug?: string; // Nuevo prop para identificar el subtema
 };
 
-export default function ExamenInteractivo({ preguntas, onComplete }: ExamenInteractivoProps) {
-  const [seleccionadas, setSeleccionadas] = useState<(number | null)[]>(Array(preguntas.length).fill(null));
+export default function ExamenInteractivo({ preguntas, onComplete, subtemaSlug }: ExamenInteractivoProps) {
+  const storageKey = subtemaSlug ? `examen_respuestas_${subtemaSlug}` : undefined;
+  const [seleccionadas, setSeleccionadas] = useState<(number | null)[]>(() => {
+    if (storageKey && typeof window !== "undefined") {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) return JSON.parse(saved);
+    }
+    return Array(preguntas.length).fill(null);
+  });
+
+  // Guardar en localStorage cada vez que cambian las respuestas
+  useEffect(() => {
+    if (storageKey && typeof window !== "undefined") {
+      localStorage.setItem(storageKey, JSON.stringify(seleccionadas));
+    }
+  }, [seleccionadas, storageKey]);
 
   // Llama a onComplete si todas las respuestas son correctas y respondidas
   if (
