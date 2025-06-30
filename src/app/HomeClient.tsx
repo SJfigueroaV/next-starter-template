@@ -139,9 +139,9 @@ export default function HomeClient({ temasGenerales }: any) {
                         {subtema.nombre}
                       </Link>
                     ) : (
-                      <span className="flex items-center px-2 py-1 text-xl font-semibold rounded-lg gap-x-2 select-none">
-                        <span className="flex-1 break-words">{subtema.nombre}</span>
-                        <span className="ml-2 text-xs text-gray-400 whitespace-nowrap">(Bloqueado)</span>
+                      <span className="flex flex-col items-start px-2 py-1 text-xl font-semibold rounded-lg gap-y-1 select-none">
+                        <span className="ml-1 text-xs text-gray-400 whitespace-nowrap mb-1">(Bloqueado)</span>
+                        <span className="break-words">{subtema.nombre}</span>
                       </span>
                     )}
                   </li>
