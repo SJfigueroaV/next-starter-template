@@ -97,8 +97,17 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
     });
   }, [router]);
 
-  // Actualizar el progreso al entrar a un subtema y obtener el estado
+  // Persistencia de completado en localStorage
+  const completadoKey = subtemaSlug ? `subtema_completado_${subtemaSlug}` : undefined;
   const yaEstabaCompletadoRef = useRef(false);
+  useEffect(() => {
+    if (completadoKey && typeof window !== "undefined") {
+      const ya = localStorage.getItem(completadoKey);
+      yaEstabaCompletadoRef.current = ya === "1";
+    }
+  }, [completadoKey]);
+
+  // Actualizar el progreso al entrar a un subtema y obtener el estado
   useEffect(() => {
     const actualizarYObtenerProgreso = async () => {
       if (!user || !subtemaId) {
@@ -218,6 +227,9 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
         } else {
           setEstado(data.estado);
           console.log("Estado encontrado:", data.estado);
+          if (data && data.estado === 'completado' && completadoKey && typeof window !== "undefined") {
+            localStorage.setItem(completadoKey, "1");
+          }
           if (data && data.estado === 'completado') {
             yaEstabaCompletadoRef.current = true;
           }
@@ -228,7 +240,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
       }
     };
     actualizarYObtenerProgreso();
-  }, [user, subtemaId]);
+  }, [user, subtemaId, completadoKey]);
 
   useEffect(() => {
     if (!subtemaSlug) return;
@@ -256,12 +268,16 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
       audioRef.current.currentTime = 0;
       audioRef.current.play();
       setSonidoReproducido(true);
+      if (completadoKey && typeof window !== "undefined") {
+        localStorage.setItem(completadoKey, "1");
+        yaEstabaCompletadoRef.current = true;
+      }
     }
     if (estado !== "completado" && sonidoReproducido) {
       setSonidoReproducido(false);
     }
     prevEstado.current = estado;
-  }, [estado]);
+  }, [estado, completadoKey]);
 
   if (loading) return <div>Cargando...</div>;
 
