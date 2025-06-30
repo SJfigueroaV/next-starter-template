@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import ExamenInteractivo from "@/app/ExamenInteractivo";
+import { motion as motionFramer } from "framer-motion";
 
 export default function ClaseLayout({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
@@ -241,8 +242,10 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
     setEstado('completado');
   };
 
+  // Mejorar la lógica del sonido para que solo se reproduzca cuando el estado cambie realmente a 'completado'
+  const prevEstado = useRef<string | null>(null);
   useEffect(() => {
-    if (estado === "completado" && !sonidoReproducido && audioRef.current) {
+    if (estado === "completado" && prevEstado.current !== "completado" && !sonidoReproducido && audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play();
       setSonidoReproducido(true);
@@ -250,6 +253,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
     if (estado !== "completado" && sonidoReproducido) {
       setSonidoReproducido(false);
     }
+    prevEstado.current = estado;
   }, [estado]);
 
   if (loading) return <div>Cargando...</div>;
@@ -308,12 +312,10 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
                     transition={{ duration: 0.4, ease: 'easeOut' }}
                     className="ml-auto"
                   >
-                    <Link className="p-4 transition border rounded-lg border-white/20 hover:bg-black/80 group" href={`/clase/${temaSlug}/${subtemaSiguiente.slug}`}>
-                      <div className="text-right">
-                        <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
-                        <div className="flex items-center -mr-1 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">{subtemaSiguiente.nombre}
-                          <svg className="w-4 h-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 6l6 6l-6 6"></path></svg>
-                        </div>
+                    <Link className="p-4 transition border rounded-lg border-white/20 hover:bg-black/80 group text-right" href={`/clase/${temaSlug}/${subtemaSiguiente.slug}`}>
+                      <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
+                      <div className="flex items-center -mr-1 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">{subtemaSiguiente.nombre}
+                        <svg className="w-4 h-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 6l6 6l-6 6"></path></svg>
                       </div>
                     </Link>
                   </motion.div>
