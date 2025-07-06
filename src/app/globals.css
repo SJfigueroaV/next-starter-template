@@ -25,3 +25,35 @@ body {
     text-wrap: balance;
   }
 }
+
+#clase h1 {
+  color: #3b82f6;
+  margin-bottom: 64px;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 48px;
+}
+
+#clase p {
+  margin-bottom: 16px;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+#clase blockquote {
+  color: #3b82f6;
+  border-left: 3px solid #ffd15b;
+  margin-bottom: 32px;
+  padding-left: 16px;
+}
+
+#clase h2, #clase h3 {
+  margin-top: 48px;
+  margin-bottom: 16px;
+  font-weight: 800;
+}
+
+#clase h2 {
+  color: #3b82f6;
+  font-size: 32px;
+}

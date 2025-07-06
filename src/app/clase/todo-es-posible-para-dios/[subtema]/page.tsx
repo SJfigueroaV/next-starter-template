@@ -66,23 +66,36 @@ export default function SubtemaPage() {
 
   if (bloqueado) return <div className="text-red-500 font-bold">No puedes acceder a este subtema hasta completar el anterior.</div>;
 
+  // Componente común para mostrar el título del subtema
+  const SubtemaHeader = () => (
+    <div id="clase">
+      <h1>{subtema.nombre}</h1>
+    </div>
+  );
+
   if (subtemaSlug === "buscando-en-la-oscuridad") {
     // Renderiza el contenido especial para este subtema
     return (
-      <BuscandoEnLaOscuridad />
+      <div>
+        <SubtemaHeader />
+        <BuscandoEnLaOscuridad />
+      </div>
     );
   }
   if (subtemaSlug === "el-hombre-caido-alejado-de-dios") {
     // Renderiza el contenido especial para este subtema
     return (
-      <div style={{ background: "#222", minHeight: "100vh", padding: "2rem" }}>
-        <h1 style={{ color: "#FFD700", fontSize: "2.5rem" }}>
-          El hombre alejado de Dios
-        </h1>
-        <p style={{ color: "#FFF", fontSize: "1.2rem" }}>
-          Aquí puedes personalizar el contenido, los colores, imágenes, y todo lo que quieras solo para este subtema.
-        </p>
-        {/* Aquí puedes poner tu examen interactivo u otros componentes */}
+      <div>
+        <SubtemaHeader />
+        <div style={{ background: "#222", minHeight: "100vh", padding: "2rem" }}>
+          <h1 style={{ color: "#FFD700", fontSize: "2.5rem" }}>
+            El hombre alejado de Dios
+          </h1>
+          <p style={{ color: "#FFF", fontSize: "1.2rem" }}>
+            Aquí puedes personalizar el contenido, los colores, imágenes, y todo lo que quieras solo para este subtema.
+          </p>
+          {/* Aquí puedes poner tu examen interactivo u otros componentes */}
+        </div>
       </div>
     );
   }
