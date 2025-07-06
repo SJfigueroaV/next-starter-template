@@ -131,12 +131,12 @@ export default function Introduccion() {
                     </h2>
                     
                     <div className="space-y-4">
-                        <div className="bg-black/30 backdrop-blur-lg p-6 rounded-lg border border-white/10">
-                            <p className="text-lg text-gray-200 leading-relaxed">
-                                "Que el Señor sea tu fortaleza, que EL ILUMINE su rostro sobre ti, te conceda paz
-                                y alimente tu esperanza".
-                            </p>
-                        </div>
+                                                 <div className="bg-black/30 backdrop-blur-lg p-6 rounded-lg border border-white/10">
+                             <p className="text-lg text-gray-200 leading-relaxed">
+                                 &ldquo;Que el Señor sea tu fortaleza, que EL ILUMINE su rostro sobre ti, te conceda paz
+                                 y alimente tu esperanza&rdquo;.
+                             </p>
+                         </div>
 
                         <div className="grid md:grid-cols-2 gap-4">
                             <div className="bg-black/20 p-4 rounded-lg">
