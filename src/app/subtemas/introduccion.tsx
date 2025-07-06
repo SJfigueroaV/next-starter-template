@@ -2,12 +2,12 @@ import React from 'react';
 
 export default function Introduccion() {
     return (
-        <article id="clase" className="block min-h-screen md:pt-20">
+        <article id="clase" className="block min-h-screen ">
             <div className="min-h-screen max-w-4xl mx-auto px-4 py-8">
                 
                 {/* Título principal */}
                 <h1 className="text-4xl font-bold text-yellow-400 mb-8">
-                    Introducción: El Camino de la Transformación
+                    El Camino de la Transformación
                 </h1>
 
                 {/* Sección 1: La propuesta central */}
