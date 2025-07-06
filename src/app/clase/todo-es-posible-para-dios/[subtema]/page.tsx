@@ -3,6 +3,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "@/supabaseClient";
 import BuscandoEnLaOscuridad from "@/app/subtemas/buscando-en-la-oscuridad";
+import Introduccion from "@/app/subtemas/introduccion";
 
 export default function SubtemaPage() {
   const params = useParams();
@@ -79,6 +80,15 @@ export default function SubtemaPage() {
       <div>
         <SubtemaHeader />
         <BuscandoEnLaOscuridad />
+      </div>
+    );
+  }
+  if (subtemaSlug === "introduccion") {
+    // Renderiza el contenido especial para este subtema
+    return (
+      <div>
+        <SubtemaHeader />
+        <Introduccion />
       </div>
     );
   }
