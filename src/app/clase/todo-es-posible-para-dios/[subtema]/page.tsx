@@ -78,7 +78,7 @@ export default function SubtemaPage() {
     // Renderiza el contenido especial para este subtema
     return (
       <div>
-        <SubtemaHeader />
+        
         <BuscandoEnLaOscuridad />
       </div>
     );
@@ -87,7 +87,6 @@ export default function SubtemaPage() {
     // Renderiza el contenido especial para este subtema
     return (
       <div>
-        <SubtemaHeader />
         <Introduccion />
       </div>
     );
