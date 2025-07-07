@@ -135,12 +135,12 @@ export default function ElHombreCaidoAlejadoDeDios() {
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                &quot;El apóstol Pablo escribe a los Efesios: 'Y El os dio vida a vosotros, cuando estabais muertos en vuestros delitos y pecados...' (Efesios 2:1-2).&quot;
+                                &quot;El apóstol Pablo escribe a los Efesios: &apos;Y El os dio vida a vosotros, cuando estabais muertos en vuestros delitos y pecados...&apos; (Efesios 2:1-2).&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                &quot;El libro de los Proverbios dice que 'sobre toda cosa guardada, guarda tu corazón porque de él mana la vida' (Proverbios 4:23).&quot;
+                                &quot;El libro de los Proverbios dice que &apos;sobre toda cosa guardada, guarda tu corazón porque de él mana la vida&apos; (Proverbios 4:23).&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
@@ -150,7 +150,7 @@ export default function ElHombreCaidoAlejadoDeDios() {
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                &quot;El apóstol Pablo en la carta a los Efesios dice que 'en otro tiempo erais tinieblas, mas ahora sois luz en el Señor; andad como hijos de luz' (Efesios 5:8).&quot;
+                                &quot;El apóstol Pablo en la carta a los Efesios dice que &apos;en otro tiempo erais tinieblas, mas ahora sois luz en el Señor; andad como hijos de luz&apos; (Efesios 5:8).&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
@@ -165,7 +165,7 @@ export default function ElHombreCaidoAlejadoDeDios() {
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                &quot;Pero hay una gran noticia revelada como promesa en las Palabras de Jesús cuando dice: '...Yo soy la luz del mundo; el que me sigue, no andará en tinieblas, sino que tendrá la luz de la vida' (Juan 8:12).&quot;
+                                &quot;Pero hay una gran noticia revelada como promesa en las Palabras de Jesús cuando dice: &apos;...Yo soy la luz del mundo; el que me sigue, no andará en tinieblas, sino que tendrá la luz de la vida&apos; (Juan 8:12).&quot;
                             </p>
                         </div>
                         {/* Puedes seguir agregando más bloques destacados según lo desees */}
