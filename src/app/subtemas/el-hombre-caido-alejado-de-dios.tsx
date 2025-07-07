@@ -88,87 +88,105 @@ export default function ElHombreCaidoAlejadoDeDios() {
                 <section className="mb-8">
                     <h2 className="text-2xl font-semibold text-white mb-8">Desarrollo Temático</h2>
                     <div className="space-y-8">
-                        {/* Aquí irán los bloques destacados y frases clave, citas bíblicas, resúmenes, siguiendo el patrón de los otros capítulos. */}
-                        {/* Por ejemplo: */}
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            En este capítulo vamos a entender la consecuencia de la caída de Adán y Eva para la humanidad. Si la humanidad participa de la naturaleza de Adán y Eva, arrastra consigo las consecuencias de su desobediencia en el paraíso, pero también de la promesa dada por Dios para su restauración hasta llegar al cumplimiento del propósito para el cual fuimos creados por Él.
+                        </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;La carta del apóstol Pablo a los Romanos menciona en el capítulo 3 verso 23 que todos pecaron y se encuentran destituidos de la gloria de Dios.&quot;
                             </p>
                         </div>
                         <p className="text-lg text-gray-200 leading-relaxed">
-                            En este capítulo vamos a entender la consecuencia de la caída de Adán y Eva para la humanidad. Es apenas lógico entender que si la humanidad participa de la naturaleza de Adán y Eva, pues arrastra consigo las consecuencias de su desobediencia en el paraíso, pero también de la promesa dada por Dios para su restauración hasta llegar al cumplimiento del propósito para el cual fuimos creados por El.
+                            Aunque identifiquemos la condición de pecado en el ser humano, debemos entender que ésta es posible por vía de decisión o ejercicio de la libertad personal. Una desobediencia separa al hombre de la naturaleza divina, así como una obediencia es la que nos acerca.
                         </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;El problema del hombre radica en su corazón.&quot;
                             </p>
                         </div>
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            Al entender la realidad del hombre caído y alejado de Dios podemos identificar el daño causado en su SER: espíritu, alma y cuerpo. La carta a los Romanos explica cómo opera el pecado y la destitución de la gloria de Dios en el ser humano.
+                        </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;Al separarse de Dios, el hombre sigue sus propios razonamientos, y por ello su corazón es ENTENEBRECIDO.&quot;
                             </p>
                         </div>
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            El texto bíblico menciona que la necedad e idolatría son consecuencia de este alejamiento, y que Dios los entregó a la inmundicia en la concupiscencia de sus corazones, es decir, al desorden de sus pensamientos alimentados por lo corporal o mundano.
+                        </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;La Biblia no propone la autonomía sino la PNEUMONOMÍA, es decir, ser guiados por el Espíritu de Dios.&quot;
                             </p>
                         </div>
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            El alma establece comunicación con el espíritu a través del corazón, y con el cuerpo a través de la mente. Cuando el corazón está entenebrecido, la fuente espiritual queda bloqueada y se verifica la muerte espiritual.
+                        </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;El espíritu es la vida, la luz, la conciencia de Dios en el hombre; es el canal de comunicación de Dios con el ser humano.&quot;
                             </p>
                         </div>
-                        <div className="bg-black/20 p-4 rounded-lg border border-white/10">
-                            <p className="text-lg text-yellow-200 italic">
-                                &quot;Cuando el entendimiento del ser humano está alejado de Dios, es decir de su Palabra o de su Espíritu, que es lo mismo, se verifica una muerte espiritual.&quot;
-                            </p>
-                        </div>
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            Cuando el entendimiento está alejado de Dios, se verifica una muerte espiritual. Pero cuando se recibe a Cristo, la naturaleza humana puede ser redimida, levantada e iluminada.
+                        </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;El ser humano sin Dios está entenebrecido su corazón y por lo tanto no permite que a su alma pase luz y vida, provocando la muerte espiritual (Efesios 2:1).&quot;
                             </p>
                         </div>
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            El apóstol Pablo describe la naturaleza caída con una lista de comportamientos negativos (Romanos 1:29-31). Esta es la realidad de una antropología alejada de Dios.
+                        </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;El texto bíblico dice que los hombres amaron más a las tinieblas que a la luz (Juan 1:12) haciendo referencia a Jesús como Luz del mundo (Juan 8:12).&quot;
                             </p>
                         </div>
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            El apóstol Pablo escribe a los Efesios que estábamos muertos en delitos y pecados, siguiendo la corriente de este mundo, pero que en Cristo recibimos vida (Efesios 2:1-2).
+                        </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;El apóstol Pablo escribe a los Efesios: &apos;Y El os dio vida a vosotros, cuando estabais muertos en vuestros delitos y pecados...&apos; (Efesios 2:1-2).&quot;
                             </p>
                         </div>
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            La vida en la luz produce frutos buenos, rectos y verdaderos (Efesios 5:9-11). La naturaleza caída se caracteriza por el corazón entenebrecido y la mente reprobada por no reconocer a Dios.
+                        </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;El libro de los Proverbios dice que &apos;sobre toda cosa guardada, guarda tu corazón porque de él mana la vida&apos; (Proverbios 4:23).&quot;
                             </p>
                         </div>
-                        <div className="bg-black/20 p-4 rounded-lg border border-white/10">
-                            <p className="text-lg text-yellow-200 italic">
-                                &quot;La Palabra de Jesús dan espíritu y vida al ser humano (Juan 6:63).&quot;
-                            </p>
-                        </div>
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            La luz y la vida del alma vienen de la Palabra de Dios: &quot;El espíritu es el que da vida; la carne para nada aprovecha; las palabras que yo os he hablado son espíritu y son vida&quot; (Juan 6:63).
+                        </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;El apóstol Pablo en la carta a los Efesios dice que &apos;en otro tiempo erais tinieblas, mas ahora sois luz en el Señor; andad como hijos de luz&apos; (Efesios 5:8).&quot;
                             </p>
                         </div>
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            El mundo de la tiniebla es el hombre sin luz o sin Dios. Este mundo está gobernado por satanás y sus ángeles caídos, que influyen en pensamientos y acciones contrarias a Dios.
+                        </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;El mundo de la tiniebla es el hombre sin luz o sin Dios, que es lo mismo.&quot;
                             </p>
                         </div>
-                        <div className="bg-black/20 p-4 rounded-lg border border-white/10">
-                            <p className="text-lg text-yellow-200 italic">
-                                &quot;El final del ser humano, más allá de la muerte física, es luz o tiniebla: luz para los que se dejaron guiar de la luz o la Palabra de Dios, tinieblas para aquellos que la rechazaron (Mateo 8:12).&quot;
-                            </p>
-                        </div>
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            El final del ser humano, más allá de la muerte física, es luz o tiniebla: luz para los que se dejaron guiar de la Palabra de Dios, tinieblas para quienes la rechazaron (Mateo 8:12).
+                        </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
                                 &quot;Pero hay una gran noticia revelada como promesa en las Palabras de Jesús cuando dice: &apos;...Yo soy la luz del mundo; el que me sigue, no andará en tinieblas, sino que tendrá la luz de la vida&apos; (Juan 8:12).&quot;
                             </p>
                         </div>
-                        {/* Puedes seguir agregando más bloques destacados según lo desees */}
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                            En el siguiente capítulo exploraremos cómo acercarse a esta promesa y su alcance en el proceso de transformación del ser humano.
+                        </p>
                     </div>
                 </section>
             </div>
