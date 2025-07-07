@@ -78,7 +78,7 @@ export default function BuscandoEnLaOscuridad() {
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "El primer paso en el proceso de transformación es considerar efectivamente que la ausencia o separación de Dios significa oscuridad para el ser humano."
+                                &quot;El primer paso en el proceso de transformación es considerar efectivamente que la ausencia o separación de Dios significa oscuridad para el ser humano.&quot;
                             </p>
                         </div>
                         <p className="text-lg text-gray-200 leading-relaxed">
@@ -86,82 +86,82 @@ export default function BuscandoEnLaOscuridad() {
                         </p>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "Despertar del sueño equivale a abrir los ojos. Y en la Biblia esto quiere decir tomar conciencia de Dios, de sí mismo y de la realidad."
+                                &quot;Despertar del sueño equivale a abrir los ojos. Y en la Biblia esto quiere decir tomar conciencia de Dios, de sí mismo y de la realidad.&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "Asegúrate que la luz que hay en ti no sea tiniebla" (Lucas 11:35)
+                                &quot;Asegúrate que la luz que hay en ti no sea tiniebla&quot; (Lucas 11:35)
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "La propuesta bíblica es un asunto de ENTENDIMIENTO. Y que cuando éste llega produce en el ser humano una transformación en todo su SER: espíritu, alma y cuerpo (1Tesalonicenses 5:23)."
+                                &quot;La propuesta bíblica es un asunto de ENTENDIMIENTO. Y que cuando éste llega produce en el ser humano una transformación en todo su SER: espíritu, alma y cuerpo (1Tesalonicenses 5:23).&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "El maestro Jesús se presenta como camino, verdad y vida."
+                                &quot;El maestro Jesús se presenta como camino, verdad y vida.&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "El ser humano sigue dormido y en tinieblas, es decir, sin Dios, en completa oscuridad, si no entiende la Palabra."
+                                &quot;El ser humano sigue dormido y en tinieblas, es decir, sin Dios, en completa oscuridad, si no entiende la Palabra.&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "Buscar en la oscuridad es una tarea inútil."
+                                &quot;Buscar en la oscuridad es una tarea inútil.&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "No hay más ciego que aquél que no quiere ver."
+                                &quot;No hay más ciego que aquél que no quiere ver.&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "Es tiempo de despertar, de abrir los ojos y permitir que el SER se llene de luz, de la luz de Dios que es su presencia misma y que se mediatiza en la Palabra, esa Palabra viva y eficaz, más cortante que espada de doble filo y que tiene la capacidad de partir el alma y el espíritu, las coyunturas y tuétanos y discierne los pensamientos e intenciones del corazón (Hebreos 4:12)."
+                                &quot;Es tiempo de despertar, de abrir los ojos y permitir que el SER se llene de luz, de la luz de Dios que es su presencia misma y que se mediatiza en la Palabra, esa Palabra viva y eficaz, más cortante que espada de doble filo y que tiene la capacidad de partir el alma y el espíritu, las coyunturas y tuétanos y discierne los pensamientos e intenciones del corazón (Hebreos 4:12).&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "La invitación del Apóstol a levantarse de los muertos (Efesios 5:14) equivale a pasar de muerte a vida. Se trata de un nacimiento espiritual."
+                                &quot;La invitación del Apóstol a levantarse de los muertos (Efesios 5:14) equivale a pasar de muerte a vida. Se trata de un nacimiento espiritual.&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "La Biblia dice que Él ha venido para darnos Vida y Vida en abundancia (Juan 10:10). Él es la Vida, la luz que ilumina a toda persona que crea."
+                                &quot;La Biblia dice que Él ha venido para darnos Vida y Vida en abundancia (Juan 10:10). Él es la Vida, la luz que ilumina a toda persona que crea.&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "Jesús dice: &quot;el que cree en mi aunque esté muerto vivirá&quot; (Juan 11:25)"
+                                &quot;Jesús dice: &quot;el que cree en mi aunque esté muerto vivirá&quot; (Juan 11:25)&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "Jesús dice que está a la puerta tocando y espera a que se le abra para entrar y cenar con el que cree (Apocalipsis 3:20)."
+                                &quot;Jesús dice que está a la puerta tocando y espera a que se le abra para entrar y cenar con el que cree (Apocalipsis 3:20).&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "Dios no está buscando que seamos buenos porque El sabe que nuestra naturaleza es frágil y que el único bueno es El, como lo dijera su propio Hijo Jesús. Pero lo que Dios pide del ser humano es fidelidad."
+                                &quot;Dios no está buscando que seamos buenos porque El sabe que nuestra naturaleza es frágil y que el único bueno es El, como lo dijera su propio Hijo Jesús. Pero lo que Dios pide del ser humano es fidelidad.&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "Así llega a su fin toda búsqueda en la oscuridad. Y no se trata de buscar donde hay más luz, fuera del ser humano."
+                                &quot;Así llega a su fin toda búsqueda en la oscuridad. Y no se trata de buscar donde hay más luz, fuera del ser humano.&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "La Biblia dice que &quot;la lámpara del cuerpo es el ojo&quot; (Lucas 11:34)."
+                                &quot;La Biblia dice que &quot;la lámpara del cuerpo es el ojo&quot; (Lucas 11:34).&quot;
                             </p>
                         </div>
                         <div className="bg-black/20 p-4 rounded-lg border border-white/10">
                             <p className="text-lg text-yellow-200 italic">
-                                "Es importante preguntarse ¿por qué el ser humano tiene los ojos cerrados y quién está interesado en que no salga de la oscuridad?"
+                                &quot;Es importante preguntarse ¿por qué el ser humano tiene los ojos cerrados y quién está interesado en que no salga de la oscuridad?&quot;
                             </p>
                         </div>
                     </div>
