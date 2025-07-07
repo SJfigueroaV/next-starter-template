@@ -5,6 +5,7 @@ import { supabase } from "@/supabaseClient";
 import BuscandoEnLaOscuridad from "@/app/subtemas/buscando-en-la-oscuridad";
 import Introduccion from "@/app/subtemas/introduccion";
 import ElHombreCaidoAlejadoDeDios from "@/app/subtemas/el-hombre-caido-alejado-de-dios";
+import LaPromesa from "@/app/subtemas/la-promesa";
 
 export default function SubtemaPage() {
   const params = useParams();
@@ -97,6 +98,14 @@ export default function SubtemaPage() {
     return (
       <div>
        <ElHombreCaidoAlejadoDeDios/>
+      </div>
+    );
+  }
+  if (subtemaSlug === "la-promesa") {
+    // Renderiza el contenido especial para este subtema
+    return (
+      <div>
+       <LaPromesa/>
       </div>
     );
   }
