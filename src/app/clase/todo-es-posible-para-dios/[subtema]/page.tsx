@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/supabaseClient";
 import BuscandoEnLaOscuridad from "@/app/subtemas/buscando-en-la-oscuridad";
 import Introduccion from "@/app/subtemas/introduccion";
+import ElHombreCaidoAlejadoDeDios from "@/app/subtemas/el-hombre-caido-alejado-de-dios";
 
 export default function SubtemaPage() {
   const params = useParams();
@@ -95,16 +96,7 @@ export default function SubtemaPage() {
     // Renderiza el contenido especial para este subtema
     return (
       <div>
-        <SubtemaHeader />
-        <div style={{ background: "#222", minHeight: "100vh", padding: "2rem" }}>
-          <h1 style={{ color: "#FFD700", fontSize: "2.5rem" }}>
-            El hombre alejado de Dios
-          </h1>
-          <p style={{ color: "#FFF", fontSize: "1.2rem" }}>
-            Aquí puedes personalizar el contenido, los colores, imágenes, y todo lo que quieras solo para este subtema.
-          </p>
-          {/* Aquí puedes poner tu examen interactivo u otros componentes */}
-        </div>
+       <ElHombreCaidoAlejadoDeDios/>
       </div>
     );
   }
