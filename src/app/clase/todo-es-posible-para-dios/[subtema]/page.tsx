@@ -113,8 +113,8 @@ export default function SubtemaPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-2">{subtema.nombre}</h1>
-      <p className="text-lg text-gray-200 mb-4">{subtema.descripcion}</p>
-      {/* Aquí puedes agregar más contenido específico del subtema */}
+      <p>Proximamente</p>
+      {/* <p className="text-lg text-gray-200 mb-4">{subtema.descripcion}</p> */}
     </div>
   );
 }
