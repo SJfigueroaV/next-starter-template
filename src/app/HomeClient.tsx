@@ -146,7 +146,7 @@ export default function HomeClient({ temasGenerales }: any) {
       {/* Render de los temas */}
       <ul className='grid gap-16 text-white'>
         {temasGenerales && temasGenerales.length > 0 ? (
-  temasGenerales.map((tema: tema) => (
+  temasGenerales.map((tema: tema, temaIndex: number) => (
     <li
       key={tema.id}
       className={`${!user ? "opacity-60 pointer-events-none" : ""}`}
@@ -173,11 +173,11 @@ export default function HomeClient({ temasGenerales }: any) {
                 let desbloqueado = false;
                 
                 // Si es el primer subtema del primer módulo, siempre está desbloqueado
-                if (tema.id === 1 && idx === 0) {
+                if (temaIndex === 0 && idx === 0) {
                   desbloqueado = true;
                 } else if (idx === 0) {
                   // Si es el primer subtema de otros módulos, verificar que el último subtema del módulo anterior esté completado
-                  const temaAnterior = temasGenerales.find((t: any) => t.id === tema.id - 1);
+                  const temaAnterior = temasGenerales[temaIndex - 1];
                   if (temaAnterior && temaAnterior.subtemas && temaAnterior.subtemas.length > 0) {
                     const ultimoSubtemaAnterior = temaAnterior.subtemas[temaAnterior.subtemas.length - 1];
                     desbloqueado = progreso[ultimoSubtemaAnterior.id] === "completado";
