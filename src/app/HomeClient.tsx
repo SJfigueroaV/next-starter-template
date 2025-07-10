@@ -168,11 +168,24 @@ export default function HomeClient({ temasGenerales }: any) {
                   if (progreso[subtema.id] === "en_progreso") icon = SvgEnProgreso;
                   if (progreso[subtema.id] === "completado") icon = SvgCompletado;
                 }
-                // Lógica de desbloqueo progresivo
+                
+                // Lógica de desbloqueo progresivo entre módulos
                 let desbloqueado = false;
-                if (idx === 0) {
+                
+                // Si es el primer subtema del primer módulo, siempre está desbloqueado
+                if (tema.id === 1 && idx === 0) {
                   desbloqueado = true;
+                } else if (idx === 0) {
+                  // Si es el primer subtema de otros módulos, verificar que el último subtema del módulo anterior esté completado
+                  const temaAnterior = temasGenerales.find((t: any) => t.id === tema.id - 1);
+                  if (temaAnterior && temaAnterior.subtemas && temaAnterior.subtemas.length > 0) {
+                    const ultimoSubtemaAnterior = temaAnterior.subtemas[temaAnterior.subtemas.length - 1];
+                    desbloqueado = progreso[ultimoSubtemaAnterior.id] === "completado";
+                  } else {
+                    desbloqueado = false;
+                  }
                 } else {
+                  // Para subtemas que no son el primero, verificar el subtema anterior del mismo módulo
                   const anterior = tema.subtemas[idx - 1];
                   desbloqueado = progreso[anterior.id] === "completado";
                 }
