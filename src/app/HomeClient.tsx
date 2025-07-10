@@ -10,6 +10,7 @@ import Link from "next/link";
 export default function HomeClient({ temasGenerales }: any) {
   const [user, setUser] = useState<User | null>(null);
   const [progreso, setProgreso] = useState<{ [subtemaId: string]: string }>({});
+  const [ultimoSubtema, setUltimoSubtema] = useState<any>(null);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -40,6 +41,34 @@ export default function HomeClient({ temasGenerales }: any) {
     };
     fetchProgreso();
   }, [user, temasGenerales]);
+
+  // Buscar el último subtema en progreso o visitado
+  useEffect(() => {
+    const buscarUltimoSubtema = async () => {
+      if (!user || !temasGenerales) return;
+      
+      // Buscar subtemas en progreso o completados
+      const subtemasConProgreso = temasGenerales.flatMap((tema: any) => 
+        tema.subtemas?.map((subtema: any) => ({
+          ...subtema,
+          tema: tema,
+          estado: progreso[subtema.id]
+        })) || []
+      ).filter((subtema: any) => subtema.estado === 'en_progreso' || subtema.estado === 'completado');
+
+      if (subtemasConProgreso.length > 0) {
+        // Ordenar por orden y tomar el último
+        const ultimo = subtemasConProgreso.sort((a: any, b: any) => {
+          if (a.tema.id !== b.tema.id) return a.tema.id - b.tema.id;
+          return a.orden - b.orden;
+        }).pop();
+        
+        setUltimoSubtema(ultimo);
+      }
+    };
+
+    buscarUltimoSubtema();
+  }, [user, temasGenerales, progreso]);
 
   // SVGs para los diferentes estados
   const SvgDefault = (
@@ -80,6 +109,24 @@ export default function HomeClient({ temasGenerales }: any) {
             <p className="mb-4 font-semibold text-blue-500 text-md lg:text-3xl">
                 Personas transformadas viviendo <br /> el evangelio de Jesús. <br /> Transformando el mundo.
             </p>
+            {user && ultimoSubtema && (
+              <Link 
+                className="inline-flex items-center gap-x-1.5 rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-black shadow-xs hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition hover:scale-105 mb-6" 
+                href={`/clase/${ultimoSubtema.tema.slug}/${ultimoSubtema.slug}`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M4 5v6a3 3 0 0 0 3 3h7"></path>
+                  <path d="M10 10l4 4l-4 4m5 -8l4 4l-4 4"></path>
+                </svg>
+                <div className="flex flex-col items-start pl-1 pr-3">
+                  <span className="block">¡Sigue por donde lo dejaste!</span>
+                  <strong className="text-base font-bold opacity-80">
+                    {ultimoSubtema.tema.nombre} − {ultimoSubtema.nombre}
+                  </strong>
+                </div>
+              </Link>
+            )}
             <div className="flex flex-col gap-2 mb-4 lg:items-center lg:mb-0 lg:flex-row" >
                 {!user && (
                     <div className="flex flex-col gap-2 mb-4 lg:items-center lg:mb-0 lg:flex-row">
@@ -88,7 +135,8 @@ export default function HomeClient({ temasGenerales }: any) {
                 )}
             </div>
            
-
+            
+            
             
         </div>
         {!user && (
