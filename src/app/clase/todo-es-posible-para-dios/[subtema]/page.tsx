@@ -8,6 +8,9 @@ import ElHombreCaidoAlejadoDeDios from "@/app/subtemas/el-hombre-caido-alejado-d
 import LaPromesa from "@/app/subtemas/la-promesa";
 import LlamadosAlEncuentroConCristo from "@/app/subtemas/llamados-al-encuentro-con-cristo";
 import EdificadosParaSerMoradaDeDiosEnElEspiritu from "@/app/subtemas/edificados-para-ser-morada-de-dios-en-el-espiritu";
+import GuiadosPorElEspirituDeDios from "@/app/subtemas/guiados-por-el-espiritu-de-dios";
+import ElCaminoDeLaSantificacionCompleta from "@/app/subtemas/el-camino-de-la-santificacion-completa";
+import Conclusion from "@/app/subtemas/conclusion";
 
 export default function SubtemaPage() {
   const params = useParams();
@@ -124,6 +127,30 @@ export default function SubtemaPage() {
     return (
       <div>
        <EdificadosParaSerMoradaDeDiosEnElEspiritu/>
+      </div>
+    );
+  }
+  if (subtemaSlug === "guiados-por-el-espiritu-de-dios") {
+    // Renderiza el contenido especial para este subtema
+    return (
+      <div>
+       <GuiadosPorElEspirituDeDios/>
+      </div>
+    );
+  }
+  if (subtemaSlug === "el-camino-de-la-santificacion-completa") {
+    // Renderiza el contenido especial para este subtema
+    return (
+      <div>
+       <ElCaminoDeLaSantificacionCompleta/>
+      </div>
+    );
+  }
+  if (subtemaSlug === "conclusion") {
+    // Renderiza el contenido especial para este subtema
+    return (
+      <div>
+       <Conclusion/>
       </div>
     );
   }
