@@ -7,7 +7,7 @@ export default function LlamadosAlEncuentroConCristo() {
                 
                 {/* Título principal */}
                 <h1 className="text-4xl font-bold text-yellow-400 mb-8">
-                    CAPÍTULO IV: Llamados al encuentro con Cristo
+                    Llamados al encuentro con Cristo
                 </h1>
 
                 {/* Objetivo */}

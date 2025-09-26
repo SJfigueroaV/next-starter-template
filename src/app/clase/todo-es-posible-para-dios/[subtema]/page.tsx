@@ -7,6 +7,7 @@ import Introduccion from "@/app/subtemas/introduccion";
 import ElHombreCaidoAlejadoDeDios from "@/app/subtemas/el-hombre-caido-alejado-de-dios";
 import LaPromesa from "@/app/subtemas/la-promesa";
 import LlamadosAlEncuentroConCristo from "@/app/subtemas/llamados-al-encuentro-con-cristo";
+import EdificadosParaSerMoradaDeDiosEnElEspiritu from "@/app/subtemas/edificados-para-ser-morada-de-dios-en-el-espiritu";
 
 export default function SubtemaPage() {
   const params = useParams();
@@ -115,6 +116,14 @@ export default function SubtemaPage() {
     return (
       <div>
        <LlamadosAlEncuentroConCristo/>
+      </div>
+    );
+  }
+  if (subtemaSlug === "edificados-para-ser-morada-de-dios-en-el-espiritu") {
+    // Renderiza el contenido especial para este subtema
+    return (
+      <div>
+       <EdificadosParaSerMoradaDeDiosEnElEspiritu/>
       </div>
     );
   }
