@@ -68,6 +68,47 @@ export default function SubtemaPage() {
     if (subtemaSlug) fetchSubtema();
   }, [subtemaSlug]);
 
+  // Efecto especial para marcar automáticamente el subtema "conclusion" como completado
+  useEffect(() => {
+    const marcarConclusionComoCompletada = async () => {
+      if (subtemaSlug === "conclusion" && subtema) {
+        const user = (await supabase.auth.getUser()).data.user;
+        if (user) {
+          // Verificar si ya existe un registro de progreso
+          const { data: existingProg } = await supabase
+            .from("progreso_subtemas")
+            .select("id, estado")
+            .eq("user_id", user.id)
+            .eq("subtema_id", subtema.id)
+            .single();
+
+          if (!existingProg) {
+            // Si no existe, crear uno nuevo como completado
+            await supabase
+              .from("progreso_subtemas")
+              .insert([
+                {
+                  user_id: user.id,
+                  subtema_id: subtema.id,
+                  estado: 'completado'
+                }
+              ]);
+          } else if (existingProg.estado !== "completado") {
+            // Si existe pero no está completado, actualizarlo
+            await supabase
+              .from("progreso_subtemas")
+              .update({ estado: 'completado' })
+              .eq("id", existingProg.id);
+          }
+        }
+      }
+    };
+
+    if (subtemaSlug === "conclusion" && subtema) {
+      marcarConclusionComoCompletada();
+    }
+  }, [subtemaSlug, subtema]);
+
   if (loading) return <div>Cargando contenido...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
   if (!subtema) return <div>No se encontró el subtema.</div>;
