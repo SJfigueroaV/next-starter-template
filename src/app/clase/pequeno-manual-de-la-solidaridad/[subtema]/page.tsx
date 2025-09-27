@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/supabaseClient";
 import IntroduccionPequenoManualDeLaSolidaridad from "@/app/subtemas/introduccion-pequeno-manual-de-la-solidaridad";
 import ElHombreCaido from "@/app/subtemas/el-hombre-caido";
+import PrimeraActitudPersonaCaida from "@/app/subtemas/primera-actitud-ante-la-persona-caida";
 
 export default function SubtemaPage() {
   const params = useParams();
@@ -79,6 +80,15 @@ export default function SubtemaPage() {
     return (
       <div>
        <ElHombreCaido/>
+      </div>
+      
+    );
+  }
+  if (subtemaSlug === "primera-actitud-ante-la-persona-caida") {
+    // Renderiza el contenido especial para este subtema
+    return (
+      <div>
+       <PrimeraActitudPersonaCaida/>
       </div>
     );
   }
