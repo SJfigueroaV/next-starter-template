@@ -112,7 +112,6 @@ export default function SubtemaPage() {
   if (loading) return <div>Cargando contenido...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
   if (!subtema) return <div>No se encontró el subtema.</div>;
-
   if (bloqueado) return <div className="text-red-500 font-bold">No puedes acceder a este subtema hasta completar el anterior.</div>;
 
   // Componente común para mostrar el título del subtema

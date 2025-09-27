@@ -2,6 +2,8 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "@/supabaseClient";
+import IntroduccionPequenoManualDeLaSolidaridad from "@/app/subtemas/introduccion-pequeño-manual-de-la-solidaridad";
+import ElHombreCaido from "@/app/subtemas/el-hombre-caido";
 
 export default function SubtemaPage() {
   const params = useParams();
@@ -63,6 +65,23 @@ export default function SubtemaPage() {
   if (error) return <div className="text-red-500">{error}</div>;
   if (!subtema) return <div>No se encontró el subtema.</div>;
   if (bloqueado) return <div className="text-red-500 font-bold">No puedes acceder a este subtema hasta completar el anterior.</div>;
+
+  if (subtemaSlug === "introduccion-pequeño-manual-de-la-solidaridad") {
+    // Renderiza el contenido especial para este subtema
+    return (
+      <div>
+       <IntroduccionPequenoManualDeLaSolidaridad/>
+      </div>
+    );
+  }
+  if (subtemaSlug === "el-hombre-caido") {
+    // Renderiza el contenido especial para este subtema
+    return (
+      <div>
+       <ElHombreCaido/>
+      </div>
+    );
+  }
 
   return (
     <div>
