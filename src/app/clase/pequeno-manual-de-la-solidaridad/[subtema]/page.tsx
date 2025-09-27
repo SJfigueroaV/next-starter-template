@@ -66,7 +66,7 @@ export default function SubtemaPage() {
   if (!subtema) return <div>No se encontró el subtema.</div>;
   if (bloqueado) return <div className="text-red-500 font-bold">No puedes acceder a este subtema hasta completar el anterior.</div>;
 
-  if (subtemaSlug === "introduccion-pequeño-manual-de-la-solidaridad") {
+  if (subtemaSlug === "introduccion-pequeno-manual-de-la-solidaridad") {
     // Renderiza el contenido especial para este subtema
     return (
       <div>
