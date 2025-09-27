@@ -2,7 +2,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "@/supabaseClient";
-import IntroduccionPequenoManualDeLaSolidaridad from "@/app/subtemas/introduccion-pequeño-manual-de-la-solidaridad";
+import IntroduccionPequenoManualDeLaSolidaridad from "@/app/subtemas/introduccion-pequeno-manual-de-la-solidaridad";
 import ElHombreCaido from "@/app/subtemas/el-hombre-caido";
 
 export default function SubtemaPage() {
