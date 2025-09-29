@@ -11,7 +11,7 @@ import Acercarse from "@/app/subtemas/acercarse";
 import Compasion from "@/app/subtemas/compasion";
 import VerSolidaridad from "@/app/subtemas/ver";
 import DespojarsePrivilegios from "@/app/subtemas/despojarse-de-privilegios-personales";
-import PonerConocimientoServicio from "@/app/subtemas/poner-todo-el-conocimeinto-al-servicio-del-otro";
+import PonerConocimientoServicio from "@/app/subtemas/poner-todo-el-conocimiento-al-servicio-del-otro";
 import SolidaridadSeContagia from "@/app/subtemas/la-solidaridad-se-contagia";
 import ApendiceSolidaridad from "@/app/subtemas/apendice";
 import ConclusionFinal from "@/app/subtemas/conclusion-final";
