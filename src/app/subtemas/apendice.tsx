@@ -78,7 +78,7 @@ const ApendiceSolidaridad: React.FC = () => {
           <li>La solidaridad nace de la escasez compartida: el milagro depende de compartir lo poco que se tiene.</li>
           <li>Identificar la necesidad: el primer paso para actuar con generosidad.</li>
           <li>El riesgo de evadir responsabilidades: asumir el compromiso es clave.</li>
-          <li>El llamado a la acción: "Denles ustedes de comer" muestra la responsabilidad activa.</li>
+          <li>El llamado a la acción: &quot;Denles ustedes de comer&quot; muestra la responsabilidad activa.</li>
           <li>El egoísmo y los cálculos: lo poco alcanza cuando se comparte con corazón generoso.</li>
           <li>Confianza y generosidad: el ejemplo del niño inspira a otros a actuar.</li>
           <li>La comunidad que surge de la solidaridad: las doce canastas simbolizan la nueva comunidad solidaria.</li>
