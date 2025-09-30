@@ -5,6 +5,16 @@ import { supabase } from "@/supabaseClient";
 import IntroduccionPequenoManualDeLaSolidaridad from "@/app/subtemas/introduccion-pequeno-manual-de-la-solidaridad";
 import ElHombreCaido from "@/app/subtemas/el-hombre-caido";
 import PrimeraActitudPersonaCaida from "@/app/subtemas/primera-actitud-ante-la-persona-caida";
+import Samaritano from "@/app/subtemas/un-samaritano";
+import ProcesoSolidaridadAproximarse from "@/app/subtemas/proceso-de-la-solidaridad";
+import Acercarse from "@/app/subtemas/acercarse";
+import Compasion from "@/app/subtemas/compasion";
+import VerSolidaridad from "@/app/subtemas/ver";
+import DespojarsePrivilegios from "@/app/subtemas/despojarse-de-privilegios-personales";
+import PonerConocimientoServicio from "@/app/subtemas/poner-todo-el-conocimeinto-al-servicio-del-otro";
+import SolidaridadSeContagia from "@/app/subtemas/la-solidaridad-se-contagia";
+import ApendiceSolidaridad from "@/app/subtemas/apendice";
+import ConclusionFinal from "@/app/subtemas/conclusion-final";
 
 export default function SubtemaPage() {
   const params = useParams();
@@ -63,7 +73,7 @@ export default function SubtemaPage() {
   }, [subtemaSlug]);
   useEffect(() => {
     const marcarComoCompletada = async () => {
-      if (subtemaSlug === "conclusion-final" && subtema) {
+      if ((subtemaSlug === "conclusion-final" ) && subtema) {
         const user = (await supabase.auth.getUser()).data.user;
         if (user) {
           // Verificar si ya existe un registro de progreso
@@ -96,7 +106,7 @@ export default function SubtemaPage() {
       }
     };
 
-    if (subtemaSlug === "conclusion-final" && subtema) {
+    if ((subtemaSlug === "conclusion-final" ) && subtema) {
       marcarComoCompletada();
     }
   }, [subtemaSlug, subtema]);
@@ -107,29 +117,43 @@ export default function SubtemaPage() {
   if (bloqueado) return <div className="text-red-500 font-bold">No puedes acceder a este subtema hasta completar el anterior.</div>;
 
   if (subtemaSlug === "introduccion-pequeno-manual-de-la-solidaridad") {
-    // Renderiza el contenido especial para este subtema
-    return (
-      <div>
-       <IntroduccionPequenoManualDeLaSolidaridad/>
-      </div>
-    );
+    return <IntroduccionPequenoManualDeLaSolidaridad/>;
   }
   if (subtemaSlug === "el-hombre-caido") {
-    // Renderiza el contenido especial para este subtema
-    return (
-      <div>
-       <ElHombreCaido/>
-      </div>
-      
-    );
+    return <ElHombreCaido/>;
   }
   if (subtemaSlug === "primera-actitud-ante-la-persona-caida") {
-    // Renderiza el contenido especial para este subtema
-    return (
-      <div>
-       <PrimeraActitudPersonaCaida/>
-      </div>
-    );
+    return <PrimeraActitudPersonaCaida/>;
+  }
+  if (subtemaSlug === "un-samaritano") {
+    return <Samaritano/>;
+  }
+  if (subtemaSlug === "proceso-de-la-solidaridad") {
+    return <ProcesoSolidaridadAproximarse/>;
+  }
+  if (subtemaSlug === "acercarse") {
+    return <Acercarse/>;
+  }
+  if (subtemaSlug === "compasion") {
+    return <Compasion/>;
+  }
+  if (subtemaSlug === "ver") {
+    return <VerSolidaridad/>;
+  }
+  if (subtemaSlug === "despojarse-de-privilegios-personales") {
+    return <DespojarsePrivilegios/>;
+  }
+  if (subtemaSlug === "poner-todo-el-conocimiento-al-servicio-del-otro") {
+    return <PonerConocimientoServicio/>;
+  }
+  if (subtemaSlug === "la-solidaridad-se-contagia") {
+    return <SolidaridadSeContagia/>;
+  }
+  if (subtemaSlug === "apendice") {
+    return <ApendiceSolidaridad/>;
+  }
+  if (subtemaSlug === "conclusion-final") {
+    return <ConclusionFinal/>;
   }
 
   return (
