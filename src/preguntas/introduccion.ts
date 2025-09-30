@@ -28,7 +28,7 @@ const preguntas: Pregunta[] = [
       "Los hábitos y costumbres externas",
       "Solo el alma, pues el cuerpo es corruptible"
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. La transformación debe ser integral, no solo espiritual",
       "Falso. La transformación va más allá de mente y emociones",
@@ -64,7 +64,7 @@ const preguntas: Pregunta[] = [
       "Practicar la meditación y el autocontrol",
       "Tener una mentalidad positiva y decretar lo que se desea"
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. Las normas religiosas son importantes, pero no generan transformación",
       "Falso. Las obras de caridad son buenas, pero no son la fuente de transformación",
@@ -100,7 +100,7 @@ const preguntas: Pregunta[] = [
       "Proporcionar conocimientos teológicos avanzados",
       "Enseñar sobre la historia del pueblo de Israel"
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. No se centra en profecías del fin de los tiempos",
       "Falso. No se trata de diferentes interpretaciones",
@@ -118,7 +118,7 @@ const preguntas: Pregunta[] = [
       "Es la fuente de enseñanza que revela el diseño de Dios para la humanidad",
       "Sirve solo como inspiración en momentos difíciles"
     ],
-    respuestaCorrecta: 3,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. No es solo referencia cultural, sino guía espiritual",
       "Falso. No es una opción más, sino la guía principal",
@@ -154,7 +154,7 @@ const preguntas: Pregunta[] = [
       "En su forma de vivir, demostrando paz y transformación en todas sus acciones",
       "En la forma en que se viste y habla en público"
     ],
-    respuestaCorrecta: 3,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. No es solo conocimiento, sino aplicación práctica",
       "Falso. No se trata de cantidad de oraciones, sino de transformación",
@@ -172,7 +172,7 @@ const preguntas: Pregunta[] = [
       "Haciendo sacrificios constantes para demostrar su compromiso",
       "Imponiendo su fe y creencias a los demás"
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. No es demostrar conocimiento, sino vivir la transformación",
       "Falso. No es aislarse, sino ser luz en el mundo",

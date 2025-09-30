@@ -28,7 +28,7 @@ const preguntas: Pregunta[] = [
       "La falta de sacrificios rituales.",
       "La imposición de reglas morales estrictas."
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "El conocimiento religioso no es la causa principal.",
       "La pobreza y el sufrimiento no separan de Dios.",
@@ -46,7 +46,7 @@ const preguntas: Pregunta[] = [
       "Solo el corazón.",
       "Únicamente la mente."
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "El pecado afecta más que solo el espíritu.",
       "El cuerpo y la mente no son los únicos afectados.",
@@ -64,7 +64,7 @@ const preguntas: Pregunta[] = [
       "Porque no siguen todas las leyes del Antiguo Testamento.",
       "Porque no construyen templos en su honor."
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "No es por buscar la verdad y la justicia.",
       "No se trata de rituales religiosos.",
@@ -118,7 +118,7 @@ const preguntas: Pregunta[] = [
       "La total independencia de la fe.",
       "Un estado de perfección humana sin necesidad de Dios."
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "No es vivir bajo la ley mosaica.",
       "No es solo la voluntad humana.",
@@ -136,7 +136,7 @@ const preguntas: Pregunta[] = [
       "La renuncia a toda vida material.",
       "El conocimiento de tradiciones ancestrales."
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Las buenas obras no son suficientes.",
       "Los ritos religiosos no restauran por sí solos.",
@@ -154,7 +154,7 @@ const preguntas: Pregunta[] = [
       "Los reyes y gobernantes terrenales.",
       "Las naciones sin religión."
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
     explicaciones: [
       "¡Correcto! Efesios 6:12 habla de los ángeles caídos y Satanás.",
       "No son los profetas del Antiguo Testamento.",

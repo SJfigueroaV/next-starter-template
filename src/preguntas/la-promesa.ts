@@ -28,7 +28,7 @@ const preguntas: Pregunta[] = [
       "Que cada persona encontrará su propio camino a Dios",
       "Que la nacionalidad espiritual no es importante para la salvación"
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. No se refiere solo a la tierra física de Israel",
       "Falso. No es un lugar de bendición material",
@@ -82,7 +82,7 @@ const preguntas: Pregunta[] = [
       "Como la adopción de nuevas creencias religiosas",
       "Como un proceso exclusivo para ciertos escogidos"
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. No es una transformación externa basada en buenas acciones",
       "Falso. No es un cambio de mentalidad sin intervención divina",
@@ -100,7 +100,7 @@ const preguntas: Pregunta[] = [
       "Otorgando riquezas y prosperidad material",
       "Castigando a quienes no la obedecen"
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. No elimina los pecados de manera automática",
       "Falso. No cambia las circunstancias externas",
@@ -136,7 +136,7 @@ const preguntas: Pregunta[] = [
       "Porque requiere de rituales de purificación",
       "Porque su naturaleza nunca podrá cambiar"
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
     explicaciones: [
       "¡Correcto! Porque su voluntad está cautiva por la oscuridad",
       "Falso. No es por falta de conocimiento",
@@ -154,7 +154,7 @@ const preguntas: Pregunta[] = [
       "Tener un corazón bondadoso por naturaleza",
       "Realizar sacrificios personales"
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
     explicaciones: [
       "¡Exacto! Permanecer en Jesús es la garantía de dar fruto",
       "Falso. No es cumplir todas las normas religiosas",

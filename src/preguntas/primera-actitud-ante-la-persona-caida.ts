@@ -64,7 +64,7 @@ const preguntas: Pregunta[] = [
       "Dejar que otros se ocupen del problema.",
       "No darle importancia a la justicia en la vida cotidiana."
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
     explicaciones: [
       "¡Correcto! Dar un rodeo significa evitar comprometerse con la situación del otro.",
       "No implica buscar otra forma de ayudar.",

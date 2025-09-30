@@ -10,7 +10,7 @@ const preguntas: Pregunta[] = [
       "Mayor deseo de ayudar a los demás y crecimiento en la vida espiritual.",
       "Prosperidad económica, éxito laboral y relaciones sociales estables."
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
     explicaciones: [
       "¡Correcto! Estas son señales de alejamiento espiritual.",
       "No necesariamente, esto es un fruto de la vida espiritual, no de las tinieblas.",
@@ -55,7 +55,7 @@ const preguntas: Pregunta[] = [
       "Solo generan dudas innecesarias sobre la propia espiritualidad.",
       "Son fundamentales para identificar errores y reorientar el camino hacia Dios."
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "La fe no es solo tradición, la reflexión es clave.",
       "La autoevaluación ayuda a crecer espiritualmente, no solo genera dudas.",
@@ -85,7 +85,7 @@ const preguntas: Pregunta[] = [
       "Solo el espíritu importa, el cuerpo y el alma no afectan la relación con Dios.",
       "Porque el ser humano es un todo integral y necesita armonía en todas sus dimensiones."
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "La transformación debe ser integral, no parcial.",
       "El cuerpo y el alma también son importantes en la vida espiritual.",
@@ -100,7 +100,7 @@ const preguntas: Pregunta[] = [
       "Buscar solo el bienestar emocional sin comprometerse con la fe.",
       "Cambiar de religión o adoptar nuevas prácticas espirituales."
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
     explicaciones: [
       "¡Correcto! Eso es lo que enseña la Biblia.",
       "El bienestar emocional no es suficiente sin fe en Jesús.",

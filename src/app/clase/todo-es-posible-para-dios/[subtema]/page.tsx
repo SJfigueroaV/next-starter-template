@@ -70,7 +70,7 @@ export default function SubtemaPage() {
 
   // Efecto especial para marcar automáticamente el subtema "conclusion" como completado
   useEffect(() => {
-    const marcarConclusionComoCompletada = async () => {
+    const marcarComoCompletada = async () => {
       if (subtemaSlug === "conclusion" && subtema) {
         const user = (await supabase.auth.getUser()).data.user;
         if (user) {
@@ -105,7 +105,7 @@ export default function SubtemaPage() {
     };
 
     if (subtemaSlug === "conclusion" && subtema) {
-      marcarConclusionComoCompletada();
+      marcarComoCompletada();
     }
   }, [subtemaSlug, subtema]);
 

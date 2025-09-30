@@ -28,7 +28,7 @@ const preguntas: Pregunta[] = [
       "La práctica de buenas obras",
       "El conocimiento teológico profundo"
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. La asistencia a la iglesia es importante, pero no es el fundamento",
       "Falso. La lectura de la Biblia es valiosa, pero no es el fundamento",
@@ -64,7 +64,7 @@ const preguntas: Pregunta[] = [
       "Serán líderes en la iglesia",
       "Tendrán una vida sin problemas"
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. No se trata de riqueza material",
       "Falso. No se trata de éxito en proyectos",
@@ -136,7 +136,7 @@ const preguntas: Pregunta[] = [
       "Solo a la vida religiosa",
       "Solo a la vida moral"
     ],
-    respuestaCorrecta: 2,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. No se limita solo a la vida espiritual",
       "Falso. No se limita solo a la familia",
