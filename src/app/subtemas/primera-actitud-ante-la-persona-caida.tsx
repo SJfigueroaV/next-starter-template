@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function PrimeraActitudPersonaCaida() {
     return (
-        <article id="capitulo" className="block min-h-screen">
+        <article id="clase" className="block min-h-screen">
             <div className="min-h-screen max-w-4xl mx-auto px-4 py-8">
                 
                 {/* Título principal */}

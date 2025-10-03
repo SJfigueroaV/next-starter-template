@@ -2,7 +2,7 @@ import React from "react";
 
 export default function VerSolidaridad() {
   return (
-    <article id="ver-solidaridad" className="block min-h-screen">
+    <article id="clase" className="block min-h-screen">
       <div className="min-h-screen max-w-4xl mx-auto px-6 py-12">
         {/* Título principal */}
         <h1 className="text-4xl font-bold text-yellow-400 mb-8">

@@ -28,7 +28,7 @@ const preguntas: Pregunta[] = [
       "Que la solidaridad solo se encuentra dentro de los templos religiosos.",
       "Que la fe verdadera depende de la riqueza."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Dios no prefiere a los poderosos.",
       "No significa que solo los pobres sean solidarios.",
@@ -46,7 +46,7 @@ const preguntas: Pregunta[] = [
       "Porque a menudo esperan algo a cambio de sus acciones.",
       "Porque no creen en la importancia de la ayuda mutua."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 3,
     explicaciones: [
       "No es que no sepan cómo ayudar.",
       "La solidaridad no se limita a quienes sufren juntos.",
@@ -64,7 +64,7 @@ const preguntas: Pregunta[] = [
       "Dios solo interviene en los asuntos espirituales.",
       "Dios obliga a las personas a ser solidarias."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! Dios toca el corazón y mueve a la persona a ayudar.",
       "No se limita a los templos religiosos.",
@@ -82,7 +82,7 @@ const preguntas: Pregunta[] = [
       "Una sonrisa, el tiempo para escuchar y la amabilidad.",
       "La educación exclusiva para los pobres."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 3,
     explicaciones: [
       "No se trata solo de donar grandes riquezas.",
       "No menciona el poder político como ayuda.",

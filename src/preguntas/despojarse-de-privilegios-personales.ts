@@ -9,7 +9,7 @@ const preguntas: Pregunta[] = [
       "Ayudar a otros siempre que no implique un esfuerzo personal.",
       "Delegar la ayuda en instituciones y organizaciones."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! Despojarse de la cabalgadura implica renunciar a privilegios y comodidades para servir genuinamente.",
       "No basta con compartir lo que nos sobra; la solidaridad auténtica requiere incomodarse.",
@@ -57,7 +57,7 @@ const preguntas: Pregunta[] = [
       "Nuestras comodidades, privilegios y estatus social.",
       "Los bienes materiales que poseemos."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Los prejuicios pueden ser un obstáculo, pero la 'cabalgadura' se refiere a privilegios concretos.",
       "Las obligaciones sociales no representan la metáfora central del texto.",
@@ -73,7 +73,7 @@ const preguntas: Pregunta[] = [
       "Aportar desde el conocimiento y las capacidades personales.",
       "Poner el corazón en cada acto de ayuda."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! Delegar la ayuda y desentenderse del problema muestra falta de solidaridad auténtica.",
       "Comprometerse hasta el final refleja la práctica correcta de la solidaridad.",

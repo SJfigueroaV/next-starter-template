@@ -2,8 +2,8 @@ import React from "react";
 
 export default function ProcesoSolidaridadAproximarse() {
   return (
-    <article id="proceso-solidaridad" className="block min-h-screen">
-      <div className="min-h-screen max-w-4xl mx-auto px-6 py-10">
+    <article id="clase" className="block min-h-screen">
+      <div className="min-h-screen max-w-4xl mx-auto px-4 py-8">
         {/* Título principal */}
         <h1 className="text-4xl font-bold text-yellow-400 mb-8">
           Proceso de la solidaridad — 4.1.1 Aproximarse

@@ -2,10 +2,11 @@ import React from "react";
 
 export default function DespojarseDePrivilegios() {
   return (
-    <article className="p-6 space-y-8 bg-black/70 rounded-lg border border-white/10">
+    <article id="clase" className="block min-h-screen" >
+      <div className="min-h-screen max-w-4xl mx-auto px-4 py-8">
       {/* Título principal */}
-      <h1 className="text-4xl font-bold text-yellow-400 text-center mb-6">
-        DESPOJARSE DE PRIVILEGIOS PERSONALES
+      <h1 className="text-4xl font-bold text-yellow-400 mb-8">
+        Despojarse de privilegios personales
       </h1>
 
       {/* Sección de Objetivo */}
@@ -88,6 +89,7 @@ export default function DespojarseDePrivilegios() {
       <section className="p-6 rounded-lg bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold text-lg text-center">
         La auténtica solidaridad requiere despojarse de privilegios, comprometerse con los demás y dedicar tiempo y corazón hasta las últimas consecuencias.
       </section>
+      </div>
     </article>
   );
 }

@@ -9,7 +9,7 @@ const preguntas: Pregunta[] = [
       "Su tiempo, conocimiento y recursos económicos",
       "Nada, solo le dio unas palabras de aliento"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Incorrecto. Solo entregar tiempo no refleja la totalidad de su ayuda.",
       "Incorrecto. Solo entregar dinero no sería suficiente para la solidaridad demostrada.",
@@ -73,7 +73,7 @@ const preguntas: Pregunta[] = [
       "Que muchas personas terminan dando más de lo esperado cuando son conmovidas",
       "Que solo los más ricos pueden ser realmente solidarios"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Incorrecto. No siempre se requiere dinero; el compromiso personal es clave.",
       "Incorrecto. La solidaridad no obliga, sino que inspira.",

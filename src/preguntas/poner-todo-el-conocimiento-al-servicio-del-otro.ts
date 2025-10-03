@@ -73,7 +73,7 @@ const preguntas: Pregunta[] = [
       "La acción solidaria se lleva a cabo sin considerar el impacto emocional.",
       "La obligación es suficiente para demostrar solidaridad."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! La acción auténtica surge del compromiso genuino, el amor y la dignidad hacia el otro.",
       "Incorrecto, la motivación importa; solo cumplir no garantiza solidaridad.",

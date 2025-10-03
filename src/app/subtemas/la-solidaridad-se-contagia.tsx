@@ -2,9 +2,10 @@ import React from "react";
 
 export default function SolidaridadSeContagia() {
   return (
-    <article className="max-w-4xl mx-auto p-6 space-y-8">
+    <article id="clase" className="block min-h-screen">
+      <div className="min-h-screen max-w-4xl mx-auto px-4 py-8">
       {/* Título principal */}
-      <h1 className="text-4xl font-extrabold text-yellow-400 text-center">
+      <h1 className="text-4xl font-bold text-yellow-400 mb-8">
         La Solidaridad se Contagia
       </h1>
 
@@ -119,6 +120,7 @@ export default function SolidaridadSeContagia() {
           corazón abierto es el camino para construir un mundo más justo y humano.
         </p>
       </section>
+      </div>
     </article>
   );
 }

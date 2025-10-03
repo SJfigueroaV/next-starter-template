@@ -10,7 +10,7 @@ const preguntas: Pregunta[] = [
       "Poner el corazón y comprometerse con el otro.",
       "Dar limosna para aliviar la conciencia."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "No, la compasión no es solo lástima.",
       "Incorrecto, no es algo pasajero.",
@@ -26,7 +26,7 @@ const preguntas: Pregunta[] = [
       "No hay diferencia, toda compasión es válida.",
       "La compasión falsa se da solo en la religión, la auténtica en la política."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! La auténtica transforma vidas, la falsa solo aparenta.",
       "No, no se limita al dinero.",
@@ -58,7 +58,7 @@ const preguntas: Pregunta[] = [
       "Dando limosna cada vez que sea necesario.",
       "Esperando que otros se ocupen de los problemas sociales."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! La compasión se cultiva con servicio constante.",
       "No, sentir pena no transforma la realidad.",
@@ -74,7 +74,7 @@ const preguntas: Pregunta[] = [
       "Es la base del compromiso, la responsabilidad y el servicio.",
       "Solo tiene valor en las religiones, no en la vida social."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "No, no es pasajera, es transformadora.",
       "La compasión exige acción, no solo sentirse bien.",

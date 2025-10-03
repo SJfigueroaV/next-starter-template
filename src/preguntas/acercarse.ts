@@ -9,7 +9,7 @@ const preguntas: Pregunta[] = [
       "El espectador ayuda siempre, mientras que el solidario solo observa.",
       "El espectador se aleja inmediatamente después de ver la situación."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! El acercamiento solidario nace de la compasión y la decisión de actuar, mientras que el espectador solo observa por curiosidad.",
       "Incorrecto. Sí hay una diferencia: la intención y la acción distinguen al solidario del espectador.",
@@ -25,7 +25,7 @@ const preguntas: Pregunta[] = [
       "La libertad limita la decisión de ayudar porque implica esfuerzo.",
       "La solidaridad no tiene relación con la libertad, sino con la obligación social."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! La libertad es clave porque permite que la solidaridad sea una elección auténtica y responsable.",
       "Incorrecto. La solidaridad pierde su valor cuando se convierte en obligación y no en decisión libre.",
@@ -41,7 +41,7 @@ const preguntas: Pregunta[] = [
       "Porque la solidaridad solo es válida si es espontánea y sin planificación.",
       "Porque sentir compasión es un acto individual y no colectivo."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! La solidaridad requiere actuar; ver y sentir no son suficientes sin una decisión que se traduzca en ayuda.",
       "Incorrecto. Solo observar o sentir compasión no resuelve la necesidad del otro.",
@@ -57,7 +57,7 @@ const preguntas: Pregunta[] = [
       "Brindar ayuda de manera esporádica y sin compromiso.",
       "Sentir lástima por la persona necesitada sin actuar."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! El acercamiento dignificante busca servir al otro con autenticidad, sin esperar recompensas.",
       "Incorrecto. Esa actitud convierte la ayuda en interés personal, no en solidaridad genuina.",
@@ -73,7 +73,7 @@ const preguntas: Pregunta[] = [
       "Solo se realiza cuando no hay riesgo de perder algo propio.",
       "Se mide por la cantidad de reconocimiento que se recibe."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! La solidaridad auténtica nace de una decisión personal, libre y asumida con responsabilidad.",
       "Incorrecto. La presión social no garantiza un compromiso genuino con el otro.",

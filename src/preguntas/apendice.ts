@@ -9,7 +9,7 @@ const preguntas: Pregunta[] = [
       "Generando conciencia sobre el impacto del compartir y dando ejemplo con nuestras acciones.",
       "Depender únicamente de ayudas externas para cubrir necesidades."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Incorrecto. Guardar recursos solo para uno mismo no fomenta la solidaridad.",
       "Incorrecto. Esperar a que otros actúen no promueve la iniciativa solidaria.",
@@ -41,7 +41,7 @@ const preguntas: Pregunta[] = [
       "Porque la comodidad y la indiferencia nos llevan a evadir el compromiso.",
       "Todas las anteriores."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 3,
     explicaciones: [
       "Correcto parcialmente, pero hay otros factores que también influyen.",
       "Correcto parcialmente, pero hay otros factores que también influyen.",
@@ -57,7 +57,7 @@ const preguntas: Pregunta[] = [
       "Confiando en la generosidad y en que cuando todos aportan, se logra el bienestar común.",
       "Evitando compartir para no correr riesgos."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Incorrecto. Esperar a tener más retrasa la acción solidaria.",
       "Incorrecto. Actuar solo cuando es seguro limita la solidaridad.",
@@ -73,7 +73,7 @@ const preguntas: Pregunta[] = [
       "Creando lazos de confianza, cooperación y empatía entre los miembros de la comunidad.",
       "Haciendo que solo ciertas personas se beneficien mientras otras no participan."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Incorrecto. La solidaridad no debe generar dependencia, sino empoderar.",
       "Incorrecto. Cargar con toda la responsabilidad no fomenta la cooperación comunitaria.",

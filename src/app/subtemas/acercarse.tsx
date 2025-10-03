@@ -1,12 +1,12 @@
 export default function Acercarse() {
     return (
-      <article className="max-w-4xl mx-auto p-6 bg-black/60 rounded-lg border border-white/10 text-white space-y-10">
+      <article id="clase" className="block min-h-screen">
+        <div className="min-h-screen max-w-4xl mx-auto px-4 py-8">
         {/* Título principal */}
-        <header>
-          <h1 className="text-4xl font-extrabold text-center text-yellow-400 drop-shadow-lg">
+          <h1 className="text-4xl font-bold text-yellow-400 mb-8">
             Acercarse
           </h1>
-        </header>
+        
   
         {/* Objetivo */}
         <section className="p-6 rounded-lg border border-yellow-400/30 bg-yellow-400/10">
@@ -154,6 +154,7 @@ export default function Acercarse() {
             ser la chispa que encienda esperanza en otro.
           </p>
         </section>
+        </div>
       </article>
     );
   }

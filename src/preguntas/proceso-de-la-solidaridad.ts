@@ -10,7 +10,7 @@ const preguntas: Pregunta[] = [
       "Sentir lástima por su situación.",
       "Esperar a que la persona pida ayuda."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "No basta con dar dinero sin involucrarse.",
       "Acercarse físicamente no garantiza un encuentro auténtico.",
@@ -28,7 +28,7 @@ const preguntas: Pregunta[] = [
       "La obligación de seguir las normas de la sociedad.",
       "La falta de tiempo para involucrarse en la vida de otros."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! Los prejuicios religiosos, sociales y culturales dificultan acercarse al otro.",
       "La falta de dinero no es la barrera principal.",
@@ -46,7 +46,7 @@ const preguntas: Pregunta[] = [
       "Solo apoyando con donaciones sin contacto personal.",
       "Limitando la solidaridad a fechas especiales como Navidad."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! Reconocer que el sufrimiento es un lenguaje común ayuda a reducir la distancia.",
       "Evitar relación no reduce la distancia.",
@@ -64,7 +64,7 @@ const preguntas: Pregunta[] = [
       "Pensar en la recompensa que podríamos recibir después.",
       "Sentirnos moralmente superiores a los demás."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! Aproximarse como acto de desprendimiento significa dar sin esperar nada a cambio.",
       "No se trata de ayudar solo por conveniencia.",
@@ -82,7 +82,7 @@ const preguntas: Pregunta[] = [
       "Al asumir que cada quien debe resolver sus propios problemas.",
       "Al involucrarnos en la comunidad sin esperar reconocimiento."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! Ignorar el sufrimiento de quienes nos rodean es una forma de ceguera social.",
       "Sentir empatía no es ceguera.",

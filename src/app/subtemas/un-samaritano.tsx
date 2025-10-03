@@ -2,9 +2,10 @@ import React from "react";
 
 export default function Samaritano() {
   return (
-    <article className="max-w-4xl mx-auto p-8 bg-black/40 rounded-xl border border-white/10 text-white space-y-8">
+    <article id="clase" className="block min-h-screen">
+      <div className="min-h-screen max-w-4xl mx-auto px-4 py-8">
       {/* Título principal */}
-      <h1 className="text-4xl font-bold text-center text-yellow-400">
+      <h1 className="text-4xl font-bold text-yellow-400 mb-8">
         Un Samaritano
       </h1>
 
@@ -126,6 +127,7 @@ export default function Samaritano() {
           la vida de otro.
         </p>
       </section>
+      </div>
     </article>
   );
 }

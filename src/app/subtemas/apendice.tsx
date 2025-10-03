@@ -2,9 +2,10 @@ import React from "react";
 
 const ApendiceSolidaridad: React.FC = () => {
   return (
-    <article className="p-6 bg-gray-900 min-h-screen text-gray-200 space-y-8">
+    <article id="clase" className="block min-h-screen">
+      <div className="min-h-screen max-w-4xl mx-auto px-4 py-8">
       {/* Título principal */}
-      <h1 className="text-4xl font-bold text-white text-center">
+      <h1 className="text-4xl font-bold text-yellow-400 mb-8">
         Apéndice: La Solidaridad se Construye desde la Escasez
       </h1>
 
@@ -84,6 +85,7 @@ const ApendiceSolidaridad: React.FC = () => {
           <li>La comunidad que surge de la solidaridad: las doce canastas simbolizan la nueva comunidad solidaria.</li>
         </ul>
       </section>
+      </div>
     </article>
   );
 };

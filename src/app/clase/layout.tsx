@@ -319,7 +319,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
                 </>
               )}
             </span>
-            <nav className="flex flex-wrap w-full gap-6 pt-12">
+            <nav className="flex flex-col md:flex-row flex-wrap w-full gap-6 pt-12">
               {subtemaAnterior && (
                 <Link className="mr-auto group" href={`/clase/${temaSlug}/${subtemaAnterior.slug}`}>
                   <div className="mr-6">

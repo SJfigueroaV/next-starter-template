@@ -2,14 +2,14 @@ import type { Pregunta } from "@/app/ExamenInteractivo";
 
 const preguntas: Pregunta[] = [
   {
-    pregunta: "¿Qué significa realmente “ver” en el contexto de la solidaridad?",
+    pregunta: "¿Qué significa realmente "ver" en el contexto de la solidaridad?",
     opciones: [
       "Tomar conciencia de la situación del otro y actuar en consecuencia.",
       "Simplemente observar lo que ocurre sin involucrarse.",
       "Identificar problemas, pero dejar que otros los resuelvan.",
       "Percibir la necesidad, pero no cambiar nuestra rutina."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! Ver implica conciencia y acción solidaria.",
       "Observar sin involucrarse no es solidaridad.",
@@ -25,7 +25,7 @@ const preguntas: Pregunta[] = [
       "La falta de empatía y sensibilidad.",
       "Todas las anteriores."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 3,
     explicaciones: [
       "Es cierto, el egoísmo y la indiferencia ciegan el corazón.",
       "También la preocupación solo por uno mismo nos impide ver al otro.",
@@ -41,7 +41,7 @@ const preguntas: Pregunta[] = [
       "Nos hace ver que nuestra manera de pensar es la correcta.",
       "Nos aleja de la realidad para enfocarnos en nosotros mismos."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! La autoobservación ayuda a mejorar nuestra empatía.",
       "No se trata de criticar, sino de reflexionar sobre uno mismo.",
@@ -57,7 +57,7 @@ const preguntas: Pregunta[] = [
       "Porque solo los gobiernos pueden aplicar el asistencialismo.",
       "Porque la solidaridad no requiere acciones concretas."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! La solidaridad dignifica, el asistencialismo depende.",
       "No siempre son negativos, el problema es cuando generan dependencia.",
@@ -73,7 +73,7 @@ const preguntas: Pregunta[] = [
       "Promoviendo una cultura de empatía y compromiso con la justicia social.",
       "Todas las anteriores."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 3,
     explicaciones: [
       "Sí, las políticas públicas deben favorecer a los vulnerables.",
       "Sí, también es necesario que los programas sociales sean efectivos.",
