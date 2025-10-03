@@ -7,7 +7,7 @@ export default function ElCaminoDeLaSantificacionCompleta() {
                 
                 {/* Título principal */}
                 <h1 className="text-4xl font-bold text-yellow-400 mb-8">
-                    El camino de la santificación completa
+                    El camino de la santificación completa.
                 </h1>
 
                 {/* Objetivo */}
