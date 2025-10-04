@@ -84,3 +84,5 @@ const preguntas: Pregunta[] = [
 ];
 
 export default preguntas;
+
+
