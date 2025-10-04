@@ -25,6 +25,7 @@ export default function Samaritano() {
           “Pero un samaritano que iba de camino llegó junto a él”
         </blockquote>
       </section>
+      
 
       {/* Explicación */}
       <section className="space-y-4">
