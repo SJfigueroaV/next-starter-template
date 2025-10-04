@@ -2,7 +2,7 @@ import type { Pregunta } from "@/app/ExamenInteractivo";
 
 const preguntas: Pregunta[] = [
   {
-    pregunta: "¿Qué significa realmente "ver" en el contexto de la solidaridad?",
+    pregunta: "¿Qué significa realmente \"ver\" en el contexto de la solidaridad?",
     opciones: [
       "Tomar conciencia de la situación del otro y actuar en consecuencia.",
       "Simplemente observar lo que ocurre sin involucrarse.",
