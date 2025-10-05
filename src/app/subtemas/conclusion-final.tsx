@@ -64,7 +64,7 @@ const ReflexionSolidaridad: React.FC = () => {
       <section className="p-6 bg-gradient-to-r from-yellow-400 to-orange-500 border border-white/10 rounded-lg text-gray-900">
         <h2 className="text-2xl font-semibold mb-4">Conclusión Inspiradora</h2>
         <p>
-          Sea como el hombre samaritano: “ve y haz tú lo mismo” (Lucas 10:37). Practicar la solidaridad y la misericordia transforma vidas, siembra semillas de eternidad y genera abundancia de bendición. La decisión de actuar con amor y compromiso personal es el camino hacia la verdadera vida.
+          Sea como el hombre samaritano: "ve y haz tú lo mismo" (Lucas 10:37). Practicar la solidaridad y la misericordia transforma vidas, siembra semillas de eternidad y genera abundancia de bendición. La decisión de actuar con amor y compromiso personal es el camino hacia la verdadera vida.
         </p>
       </section>
 

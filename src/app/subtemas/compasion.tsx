@@ -22,7 +22,7 @@ export default function Compasion() {
       {/* Cuerpo principal */}
       <section className="space-y-6">
         <div className="bg-white/5 border border-white/10 rounded-lg p-4 italic text-yellow-300">
-          “Tuvo compasión…”
+          "Tuvo compasión..."
         </div>
 
         <p className="text-gray-200">
@@ -47,7 +47,7 @@ export default function Compasion() {
 
         <p className="text-gray-200">
           Compasión es tomar partido por el otro. No es un{" "}
-          <span className="italic text-yellow-300">“pobrecito”</span>, sino un
+          <span className="italic text-yellow-300">"pobrecito"</span>, sino un
           rechazo activo a la injusticia.
         </p>
 
@@ -58,7 +58,7 @@ export default function Compasion() {
         </p>
 
         <div className="bg-white/5 border border-white/10 rounded-lg p-4 italic text-yellow-300">
-          “Una vida sin pasión es un ensayo inútil.”
+          "Una vida sin pasión es un ensayo inútil."
         </div>
 
         <p className="text-gray-200">
@@ -81,7 +81,7 @@ export default function Compasion() {
         </p>
 
         <div className="bg-white/5 border border-white/10 rounded-lg p-4 italic text-yellow-300">
-          “La compasión al estilo de Jesús es compromiso radical.”
+          "La compasión al estilo de Jesús es compromiso radical."
         </div>
 
         <p className="text-gray-200">

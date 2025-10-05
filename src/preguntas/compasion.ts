@@ -38,7 +38,7 @@ const preguntas: Pregunta[] = [
     pregunta: "¿Por qué la compasión implica indignación?",
     opciones: [
       "Porque nos hace sentir mal al ver el sufrimiento ajeno.",
-      "Porque nos lleva a decir “¡basta!” ante la injusticia.",
+      "Porque nos lleva a decir \"¡basta!\" ante la injusticia.",
       "Porque genera odio contra los opresores.",
       "Porque nos obliga a actuar sin reflexionar."
     ],

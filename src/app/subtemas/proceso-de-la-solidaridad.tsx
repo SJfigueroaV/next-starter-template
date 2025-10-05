@@ -26,7 +26,7 @@ export default function ProcesoSolidaridadAproximarse() {
         <section className="mb-8">
           <div className="bg-black/20 p-4 rounded-lg border border-white/10">
             <p className="text-lg text-yellow-200 italic">
-              “Llegó junto a él…”
+              "Llegó junto a él..."
             </p>
           </div>
         </section>

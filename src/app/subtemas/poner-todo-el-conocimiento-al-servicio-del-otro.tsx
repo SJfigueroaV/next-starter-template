@@ -73,7 +73,7 @@ export default function ConocimientoServicio() {
             {/* Cita destacada */}
             <div className="bg-black/20 p-4 rounded-lg border border-white/10">
               <p className="text-lg text-yellow-200 italic">
-                "Vendó sus heridas, echando en ellas aceite y vino. Solidaridad es vendar heridas, evitar que el hombre se desangre."
+                &quot;Vendó sus heridas, echando en ellas aceite y vino. Solidaridad es vendar heridas, evitar que el hombre se desangre.&quot;
               </p>
             </div>
             <p className="text-lg text-gray-200 leading-relaxed">
@@ -81,7 +81,7 @@ export default function ConocimientoServicio() {
             </p>
             <div className="bg-black/20 p-4 rounded-lg border border-white/10">
               <p className="text-lg text-yellow-200 italic">
-                "El samaritano curó al hombre caído con aceite y vino, elementos que se usaban en su tiempo como antibióticos o antisépticos. Él puso todo su conocimiento al servicio del hombre caído."
+                &quot;El samaritano curó al hombre caído con aceite y vino, elementos que se usaban en su tiempo como antibióticos o antisépticos. Él puso todo su conocimiento al servicio del hombre caído.&quot;
               </p>
             </div>
             <p className="text-lg text-gray-200 leading-relaxed">
@@ -89,7 +89,7 @@ export default function ConocimientoServicio() {
             </p>
             <div className="bg-black/20 p-4 rounded-lg border border-white/10">
               <p className="text-lg text-yellow-200 italic">
-                "El que maneja el conocimiento tiene poder. Ese poder muchas veces es utilizado para subyugar y mantener en la ignorancia a grupos humanos desposeídos."
+                &quot;El que maneja el conocimiento tiene poder. Ese poder muchas veces es utilizado para subyugar y mantener en la ignorancia a grupos humanos desposeídos.&quot;
               </p>
             </div>
             <p className="text-lg text-gray-200 leading-relaxed">

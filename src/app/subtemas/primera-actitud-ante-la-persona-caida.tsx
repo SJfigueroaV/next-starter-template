@@ -79,7 +79,7 @@ export default function PrimeraActitudPersonaCaida() {
                             Estamos ante dos hechos importantes: el hombre caído, despojado, golpeado, medio muerto, 
                             y la actitud de los dos personajes representantes de la religión y la ley: la oficialidad. 
                             Se constata la vulnerabilidad que plantea la solidaridad, pero al mismo tiempo se observa 
-                            la actitud de “rodeo”, la no solidaridad que proviene de estructuras bien definidas.
+                            la actitud de "rodeo", la no solidaridad que proviene de estructuras bien definidas.
                         </p>
                     </div>
                 </section>

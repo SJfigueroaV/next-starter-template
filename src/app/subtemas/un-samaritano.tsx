@@ -22,7 +22,7 @@ export default function Samaritano() {
       {/* Cita principal */}
       <section>
         <blockquote className="p-4 bg-yellow-500/10 border border-yellow-500/30 italic text-yellow-300 rounded-lg">
-          “Pero un samaritano que iba de camino llegó junto a él”
+          "Pero un samaritano que iba de camino llegó junto a él"
         </blockquote>
       </section>
       
