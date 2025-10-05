@@ -10,7 +10,7 @@ const preguntas: Pregunta[] = [
       "Mayor deseo de ayudar a los demás y crecimiento en la vida espiritual.",
       "Prosperidad económica, éxito laboral y relaciones sociales estables."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Correcto! Estas son señales de alejamiento espiritual.",
       "No necesariamente, esto es un fruto de la vida espiritual, no de las tinieblas.",
@@ -25,7 +25,7 @@ const preguntas: Pregunta[] = [
       "Generando confusión, vacío interior y una sensación de falta de propósito.",
       "No tiene ningún efecto, ya que las creencias espirituales no influyen en la vida cotidiana."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "No es lo que enseña la Biblia sobre la separación de Dios.",
       "¡Correcto! La separación de Dios genera confusión y vacío.",
@@ -40,7 +40,7 @@ const preguntas: Pregunta[] = [
       "A través de la reflexión, el arrepentimiento y la búsqueda de Dios.",
       "Mediante la acumulación de bienes materiales y reconocimiento social."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Evitar cuestionar no lleva al despertar espiritual.",
       "¡Correcto! Reflexión, arrepentimiento y búsqueda de Dios son claves.",
@@ -55,7 +55,7 @@ const preguntas: Pregunta[] = [
       "Solo generan dudas innecesarias sobre la propia espiritualidad.",
       "Son fundamentales para identificar errores y reorientar el camino hacia Dios."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "La fe no es solo tradición, la reflexión es clave.",
       "La autoevaluación ayuda a crecer espiritualmente, no solo genera dudas.",

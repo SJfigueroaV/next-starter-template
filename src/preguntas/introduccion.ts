@@ -10,7 +10,7 @@ const preguntas: Pregunta[] = [
       "Los rituales religiosos y las buenas obras",
       "Los líderes espirituales con su guía"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Falso. La iglesia y sus enseñanzas son importantes, pero no tienen el poder de santificar completamente",
       "¡Exacto! Solo Dios tiene el poder de santificar completamente al ser humano",
@@ -28,7 +28,7 @@ const preguntas: Pregunta[] = [
       "Los hábitos y costumbres externas",
       "Solo el alma, pues el cuerpo es corruptible"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Falso. La transformación debe ser integral, no solo espiritual",
       "Falso. La transformación va más allá de mente y emociones",
@@ -46,7 +46,7 @@ const preguntas: Pregunta[] = [
       "Porque no existen métodos efectivos de cambio personal",
       "Porque la humanidad está destinada a permanecer en su condición actual"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 3,
     explicaciones: [
       "Falso. La santidad está disponible para todos los creyentes",
       "¡Exacto! La naturaleza humana caída necesita la intervención divina",
@@ -64,7 +64,7 @@ const preguntas: Pregunta[] = [
       "Practicar la meditación y el autocontrol",
       "Tener una mentalidad positiva y decretar lo que se desea"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 3,
     explicaciones: [
       "Falso. Las normas religiosas son importantes, pero no generan transformación",
       "Falso. Las obras de caridad son buenas, pero no son la fuente de transformación",

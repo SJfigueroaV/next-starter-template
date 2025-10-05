@@ -25,7 +25,7 @@ const preguntas: Pregunta[] = [
       "Recibir ayuda cuando se necesite",
       "Un sentimiento de satisfacción personal"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "Incorrecto. La solidaridad no busca reconocimiento humano.",
       "¡Correcto! Jesús enseña que la verdadera recompensa es la vida eterna.",

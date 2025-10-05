@@ -10,7 +10,7 @@ const preguntas: Pregunta[] = [
       "La creación de nuevas leyes humanas.",
       "La eliminación de la libre voluntad."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "No es el fin de la humanidad, sino una consecuencia espiritual.",
       "¡Correcto! La caída implica la pérdida de la naturaleza divina y la necesidad de restauración.",
@@ -28,7 +28,7 @@ const preguntas: Pregunta[] = [
       "La falta de sacrificios rituales.",
       "La imposición de reglas morales estrictas."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "El conocimiento religioso no es la causa principal.",
       "La pobreza y el sufrimiento no separan de Dios.",
@@ -46,7 +46,7 @@ const preguntas: Pregunta[] = [
       "Solo el corazón.",
       "Únicamente la mente."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "El pecado afecta más que solo el espíritu.",
       "El cuerpo y la mente no son los únicos afectados.",
@@ -64,7 +64,7 @@ const preguntas: Pregunta[] = [
       "Porque no siguen todas las leyes del Antiguo Testamento.",
       "Porque no construyen templos en su honor."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "No es por buscar la verdad y la justicia.",
       "No se trata de rituales religiosos.",
@@ -82,7 +82,7 @@ const preguntas: Pregunta[] = [
       "Un elemento secundario en la vida espiritual.",
       "Una parte irrelevante para el pecado."
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "El corazón tiene un papel espiritual importante.",
       "¡Correcto! El corazón es el centro de los pensamientos y la dirección del ser humano.",
