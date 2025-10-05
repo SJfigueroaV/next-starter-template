@@ -25,7 +25,7 @@ export default function VerSolidaridad() {
         <section className="mb-8">
           <div className="bg-black/20 p-4 rounded-lg border border-white/10">
             <p className="text-lg text-yellow-200 italic">
-              "Y al verle... Vio al hombre caído, despojado, medio muerto."
+              &quot;Y al verle... Vio al hombre caído, despojado, medio muerto.&quot;
             </p>
           </div>
         </section>

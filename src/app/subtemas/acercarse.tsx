@@ -24,9 +24,9 @@ export default function Acercarse() {
         <section className="space-y-6">
           {/* Cita inicial */}
           <blockquote className="italic text-yellow-300 bg-white/5 border border-yellow-400/20 p-4 rounded-lg">
-            "Acercándose... No es el acercase del simple espectador o curioso que al
+            &quot;Acercándose... No es el acercase del simple espectador o curioso que al
             caminar desprevenido se encuentra con un accidente de tránsito en la
-            esquina."
+            esquina.&quot;
           </blockquote>
   
           <p className="text-gray-200 leading-relaxed">
@@ -42,8 +42,8 @@ export default function Acercarse() {
           </p>
   
           <blockquote className="italic text-yellow-300 bg-white/5 border border-yellow-400/20 p-4 rounded-lg">
-            "Solidaridad es acercarse. Es decidir. Es cuestión de libertad. Es
-            cuestión de responsabilidad personal."
+            &quot;Solidaridad es acercarse. Es decidir. Es cuestión de libertad. Es
+            cuestión de responsabilidad personal.&quot;
           </blockquote>
         </section>
   

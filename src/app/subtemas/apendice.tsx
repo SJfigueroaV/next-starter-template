@@ -24,7 +24,7 @@ const ApendiceSolidaridad: React.FC = () => {
         </p>
 
         <div className="p-4 bg-yellow-900/30 border border-white/10 rounded-lg italic text-yellow-300">
-          "13Oyéndolo Jesús, se apartó de allí en una barca a un lugar desierto y apartado; y cuando la gente lo oyó, le siguió a pie desde las ciudades. 14Y saliendo Jesús, vio una gran multitud, y tuvo compasión de ellos, y sanó a los que de ellos estaban enfermos. 15Cuando anochecía, se acercaron a él sus discípulos, diciendo: El lugar es desierto, y la hora ya pasada; despide a la multitud, para que vayan por las aldeas y compren de comer. 16Jesús les dijo: No tienen necesidad de irse; dadles vosotros de comer. 17Y ellos dijeron: No tenemos aquí sino cinco panes y dos peces. 18El les dijo: Traédmelos acá. 19Entonces mandó a la gente recostarse sobre la hierba; y tomando los cinco panes y los dos peces, y levantando los ojos al cielo, bendijo, y partió y dio los panes a los discípulos, y los discípulos a la multitud. 20Y comieron todos, y se saciaron; y recogieron lo que sobró de los pedazos, doce cestas llenas. 21Y los que comieron fueron como cinco mil hombres, sin contar las mujeres y los niños." (Mateo 14:13-21)
+          &quot;13Oyéndolo Jesús, se apartó de allí en una barca a un lugar desierto y apartado; y cuando la gente lo oyó, le siguió a pie desde las ciudades. 14Y saliendo Jesús, vio una gran multitud, y tuvo compasión de ellos, y sanó a los que de ellos estaban enfermos. 15Cuando anochecía, se acercaron a él sus discípulos, diciendo: El lugar es desierto, y la hora ya pasada; despide a la multitud, para que vayan por las aldeas y compren de comer. 16Jesús les dijo: No tienen necesidad de irse; dadles vosotros de comer. 17Y ellos dijeron: No tenemos aquí sino cinco panes y dos peces. 18El les dijo: Traédmelos acá. 19Entonces mandó a la gente recostarse sobre la hierba; y tomando los cinco panes y los dos peces, y levantando los ojos al cielo, bendijo, y partió y dio los panes a los discípulos, y los discípulos a la multitud. 20Y comieron todos, y se saciaron; y recogieron lo que sobró de los pedazos, doce cestas llenas. 21Y los que comieron fueron como cinco mil hombres, sin contar las mujeres y los niños.&quot; (Mateo 14:13-21)
         </div>
 
         <p>
@@ -46,10 +46,10 @@ const ApendiceSolidaridad: React.FC = () => {
             <strong>Evadir el problema:</strong> los discípulos intentan lanzarlo a Jesús. Descargar la responsabilidad es cómodo, pero no solidario.
           </li>
           <li>
-            <strong>Respuesta de Jesús:</strong> "Dadles vosotros de comer". Cada necesidad es un reto para quienes la identifican; la solidaridad implica acción personal.
+            <strong>Respuesta de Jesús:</strong> &quot;Dadles vosotros de comer&quot;. Cada necesidad es un reto para quienes la identifican; la solidaridad implica acción personal.
           </li>
           <li>
-            <strong>Los cálculos como enemigo:</strong> "solo cinco panes y dos peces". La lógica humana limita, pero la solidaridad multiplica lo poco.
+            <strong>Los cálculos como enemigo:</strong> &quot;solo cinco panes y dos peces&quot;. La lógica humana limita, pero la solidaridad multiplica lo poco.
           </li>
           <li>
             <strong>Confianza y generosidad:</strong> un niño entrega su alimento. El gesto inspira a otros y demuestra que la solidaridad es contagiosa.
@@ -60,7 +60,7 @@ const ApendiceSolidaridad: React.FC = () => {
         </ul>
 
         <p>
-          La solidaridad rompe los esquemas de dependencia y pasividad. La pedagogía de Dios muestra que podemos actuar: "Hazlo tú mismo, yo estoy contigo".
+          La solidaridad rompe los esquemas de dependencia y pasividad. La pedagogía de Dios muestra que podemos actuar: &quot;Hazlo tú mismo, yo estoy contigo&quot;.
         </p>
       </section>
 

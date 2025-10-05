@@ -24,7 +24,7 @@ export default function SolidaridadSeContagia() {
         <p className="text-gray-200 leading-relaxed">
           Al día siguiente, sacando dos denarios se los dio al posadero y dijo:{" "}
           <span className="bg-yellow-400/10 border border-white/10 italic text-yellow-300 p-2 rounded-lg">
-            "Cuida de él, y si gastas algo más, te lo pagaré cuando vuelva"
+            &quot;Cuida de él, y si gastas algo más, te lo pagaré cuando vuelva&quot;
           </span>
         </p>
 
@@ -43,8 +43,8 @@ export default function SolidaridadSeContagia() {
 
         <p className="text-gray-200 leading-relaxed">
           Con su generosidad, el Samaritano involucra al posadero en la
-          solidaridad. La recomendación "si gastas algo más, te lo pagaré cuando
-          vuelva" impacta al posadero y lo mueve a la acción. La solidaridad se
+          solidaridad. La recomendación &quot;si gastas algo más, te lo pagaré cuando
+          vuelva&quot; impacta al posadero y lo mueve a la acción. La solidaridad se
           contagia: un acto sincero inspira a otros a actuar generosamente.
         </p>
 
