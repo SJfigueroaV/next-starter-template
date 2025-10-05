@@ -319,9 +319,9 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
                 </>
               )}
             </span>
-            <nav className="flex flex-col md:flex-row flex-wrap w-full gap-6 pt-12">
+            <nav className="flex flex-row flex-wrap items-center justify-between w-full gap-4 pt-12">
               {subtemaAnterior && (
-                <Link className="md:mr-auto self-start group" href={`/clase/${temaSlug}/${subtemaAnterior.slug}`}>
+                <Link className="group" href={`/clase/${temaSlug}/${subtemaAnterior.slug}`}>
                   <div className="mr-6">
                     <div className="text-xs tracking-widest uppercase text-medium">Anterior clase</div>
                     <div className="flex items-center -mr-5 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">
@@ -330,7 +330,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
               {subtemaSiguiente && (
                 estado === "completado" ? (
                   <MotionLink
-                    className="p-4 md:ml-auto self-end transition border rounded-lg border-white/20 hover:bg-black/80 group text-right"
+                    className="p-4 transition border rounded-lg border-white/20 hover:bg-black/80 group text-right"
                     href={`/clase/${temaSlug}/${subtemaSiguiente.slug}`}
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -342,7 +342,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
                     </div>
                   </MotionLink>
                 ) : (
-                  <div className="p-4 md:ml-auto self-end border rounded-lg border-white/20 bg-gray-800/60 opacity-60 cursor-not-allowed select-none" title="Debes completar este subtema para avanzar">
+                  <div className="p-4 border rounded-lg border-white/20 bg-gray-800/60 opacity-60 cursor-not-allowed select-none" title="Debes completar este subtema para avanzar">
                     <div className="text-right">
                       <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
                       <div className="flex items-center -mr-1 font-semibold gap-x-1 text-gray-400">

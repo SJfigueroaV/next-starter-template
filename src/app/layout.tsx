@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import logo from "./logo.svg";
 import Image from "next/image";
+import LogoConditional from "./LogoConditional";
 import Usuario from "./Usuario";
 import CerrarSesion from "./Cerrarsesion";
 import BottonPanel from "./BottonPanel";
@@ -34,12 +35,11 @@ export default function RootLayout({
           <aside className="col-span-1 p-8 md:sticky md:top-0 md:h-screen md:overflow-y-auto" >
 
             <div>
-              <a className="undefined rounded-md focus:outline-none transition hover:scale-110 inline-flex overflow-hidden" href="/">
-                <Image src={logo} alt="Logo" width={60} />
-
-
-              </a>
-
+              <LogoConditional>
+                <a className="undefined rounded-md focus:outline-none transition hover:scale-110 inline-flex overflow-hidden" href="/">
+                  <Image src={logo} alt="Logo" width={60} />
+                </a>
+              </LogoConditional>
             </div>
             <BottonPanel/>
             <nav className="flex-col hidden mt-12 gap-y-4 md:flex" >
