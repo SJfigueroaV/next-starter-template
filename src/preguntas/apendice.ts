@@ -43,9 +43,9 @@ const preguntas: Pregunta[] = [
     ],
     respuestaCorrecta: 3,
     explicaciones: [
-      "Correcto parcialmente, pero hay otros factores que también influyen.",
-      "Correcto parcialmente, pero hay otros factores que también influyen.",
-      "Correcto parcialmente, pero hay otros factores que también influyen.",
+      "Incorrecto. Pensar que otros tienen más recursos no justifica delegar nuestra responsabilidad.",
+      "Incorrecto. Sentir que no podemos no debe impedirnos actuar en lo que sí está a nuestro alcance.",
+      "Incorrecto. La comodidad y la indiferencia no son excusas válidas para evadir el compromiso.",
       "¡Correcto! Todos estos factores contribuyen a delegar responsabilidades en lugar de actuar."
     ]
   },

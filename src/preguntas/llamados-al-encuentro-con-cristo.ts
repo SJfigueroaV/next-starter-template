@@ -10,7 +10,7 @@ const preguntas: Pregunta[] = [
       "Mostrar la importancia de la asistencia a la iglesia",
       "Describir la vida de los apóstoles"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Falso. No se trata de historia de la iglesia primitiva",
       "¡Exacto! El objetivo es guiar en un proceso de transformación espiritual",
@@ -28,7 +28,7 @@ const preguntas: Pregunta[] = [
       "La práctica de buenas obras",
       "El conocimiento teológico profundo"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Falso. La asistencia a la iglesia es importante, pero no es el fundamento",
       "Falso. La lectura de la Biblia es valiosa, pero no es el fundamento",
@@ -46,7 +46,7 @@ const preguntas: Pregunta[] = [
       "Con oro y plata como rescate",
       "A través de obras de caridad"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 2,
     explicaciones: [
       "Falso. No fue mediante el cumplimiento de la ley",
       "¡Exacto! Fue rescatado con la sangre preciosa de Cristo",

@@ -25,7 +25,7 @@ const preguntas: Pregunta[] = [
       "Recibir ayuda cuando se necesite",
       "Un sentimiento de satisfacción personal"
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Incorrecto. La solidaridad no busca reconocimiento humano.",
       "¡Correcto! Jesús enseña que la verdadera recompensa es la vida eterna.",
@@ -41,7 +41,7 @@ const preguntas: Pregunta[] = [
       "Porque el posadero le debía un favor",
       "Para demostrar su generosidad a los demás"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "Incorrecto. No se trató de evadir responsabilidad.",
       "¡Correcto! Involucró al posadero para garantizar atención continua al hombre caído.",

@@ -10,7 +10,7 @@ const preguntas: Pregunta[] = [
       "Eliminar el pecado de la humanidad sin su participación",
       "Rescatar solo a algunos elegidos"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "Falso. No se trata de crear una nueva religión",
       "¡Exacto! Dios promete transformar al ser humano de la oscuridad a la luz y de la muerte a la vida",
@@ -118,7 +118,7 @@ const preguntas: Pregunta[] = [
       "Pierde su libre albedrío",
       "Se convierte en un ser divino"
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
     explicaciones: [
       "Falso. No se vuelve automáticamente perfecto",
       "¡Exacto! Comienza a andar en los estatutos de Dios",
@@ -154,7 +154,7 @@ const preguntas: Pregunta[] = [
       "Tener un corazón bondadoso por naturaleza",
       "Realizar sacrificios personales"
     ],
-    respuestaCorrecta: 1,
+    respuestaCorrecta: 0,
     explicaciones: [
       "¡Exacto! Permanecer en Jesús es la garantía de dar fruto",
       "Falso. No es cumplir todas las normas religiosas",
