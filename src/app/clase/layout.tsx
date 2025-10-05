@@ -285,7 +285,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
   return (
     <div>
       <audio ref={audioRef} src="/success.mp3" preload="auto" />
-      <h3 className="fixed gap-x-2 h-20 w-full flex justify-start items-center top-0 mb-24 -mt-2 text-sm font-bold tracking-wider uppercase text-transform text-white/7 bg-[#13111C] z-10 m-0 left-0 md:left-auto pl-4 md:-ml-4"><a className="text-yellow-300 transition hover:contrast-125 hover:scale-105" href="/"><svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 transition" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 8l-4 4l4 4"></path><path d="M16 12h-8"></path><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path></svg></a><span className="text-white">{temaGeneral || 'TEMA GENERAL'}</span>
+      <h3 className="fixed gap-x-2 h-20 w-full flex justify-start items-center top-0 mb-24 -mt-2 text-sm font-bold tracking-wider uppercase text-transform text-white/7 bg-[#13111C] z-10 m-0 left-0 md:left-auto pl-4 md:-ml-4"><a className="text-yellow-300 transition hover:contrast-125 hover:scale-105" href="/"><svg xmlns="http://www.w3.org/2000/svg" className="hidden md:block w-8 h-8 transition" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 8l-4 4l4 4"></path><path d="M16 12h-8"></path><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path></svg></a><span className="text-white">{temaGeneral || 'TEMA GENERAL'}</span>
       </h3>
       <AnimatePresence mode="wait">
         <motion.article
@@ -321,7 +321,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
             </span>
             <nav className="flex flex-col md:flex-row flex-wrap w-full gap-6 pt-12">
               {subtemaAnterior && (
-                <Link className="mr-auto group" href={`/clase/${temaSlug}/${subtemaAnterior.slug}`}>
+                <Link className="md:mr-auto self-start group" href={`/clase/${temaSlug}/${subtemaAnterior.slug}`}>
                   <div className="mr-6">
                     <div className="text-xs tracking-widest uppercase text-medium">Anterior clase</div>
                     <div className="flex items-center -mr-5 font-semibold transition group-hover:text-yellow-300 group-hover:underline gap-x-1">
@@ -330,7 +330,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
               {subtemaSiguiente && (
                 estado === "completado" ? (
                   <MotionLink
-                    className="p-4 ml-auto transition border rounded-lg border-white/20 hover:bg-black/80 group text-right"
+                    className="p-4 md:ml-auto self-end transition border rounded-lg border-white/20 hover:bg-black/80 group text-right"
                     href={`/clase/${temaSlug}/${subtemaSiguiente.slug}`}
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -342,7 +342,7 @@ export default function ClaseLayout({ children }: { children: React.ReactNode })
                     </div>
                   </MotionLink>
                 ) : (
-                  <div className="p-4 ml-auto border rounded-lg border-white/20 bg-gray-800/60 opacity-60 cursor-not-allowed select-none" title="Debes completar este subtema para avanzar">
+                  <div className="p-4 md:ml-auto self-end border rounded-lg border-white/20 bg-gray-800/60 opacity-60 cursor-not-allowed select-none" title="Debes completar este subtema para avanzar">
                     <div className="text-right">
                       <div className="text-xs tracking-widest uppercase text-medium">Siguiente clase</div>
                       <div className="flex items-center -mr-1 font-semibold gap-x-1 text-gray-400">
