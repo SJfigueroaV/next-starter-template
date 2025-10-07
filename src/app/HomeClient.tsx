@@ -168,6 +168,10 @@ export default function HomeClient({ temasGenerales }: any) {
                   priority
                 />
                 <div className="shimmer-effect"></div>
+                <svg className="glow-container">
+                  <rect pathLength="100" strokeLinecap="round" className="glow-blur"></rect>
+                  <rect pathLength="100" strokeLinecap="round" className="glow-line"></rect>
+                </svg>
               </div>
             ) : (
               <p>{tema.descripcion}</p>

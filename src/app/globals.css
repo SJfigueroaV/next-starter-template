@@ -58,11 +58,19 @@ body {
   font-size: 32px;
 }
 
-/* Minimalist Smooth Effect */
+/* Minimalist Smooth Effect with Glow */
 .card {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
+  --glow-line-color: #fff;
+  --glow-line-thickness: 2px;
+  --glow-line-length: 20px;
+  --glow-blur-color: #fff;
+  --glow-blur-size: 5px;
+  --glow-offset: 0px;
+  --animation-speed: 1200ms;
+  --container-offset: 100px;
 }
 
 .shimmer-effect {
@@ -85,6 +93,50 @@ body {
   transform: translateX(-100%);
 }
 
+.glow-container {
+  pointer-events: none;
+  position: absolute;
+  inset: calc(var(--container-offset) / -2);
+  width: calc(100% + var(--container-offset));
+  height: calc(100% + var(--container-offset));
+  opacity: 0;
+  z-index: 3;
+}
+
+.glow-blur,
+.glow-line {
+  width: calc(100% - var(--container-offset) + var(--glow-offset));
+  height: calc(100% - var(--container-offset) + var(--glow-offset));
+  x: calc((var(--container-offset) / 2) + calc(var(--glow-offset) / -2));
+  y: calc((var(--container-offset) / 2) + calc(var(--glow-offset) / -2));
+  fill: transparent;
+  stroke: black;
+  stroke-width: 5px;
+  stroke-dasharray: var(--glow-line-length) calc(50px - var(--glow-line-length));
+  rx: 10px;
+}
+
+.card:hover .glow-line,
+.card:hover .glow-blur {
+  stroke-dashoffset: -80px;
+  transition: stroke-dashoffset var(--animation-speed) ease-in;
+}
+
+.glow-line {
+  stroke: var(--glow-line-color);
+  stroke-width: var(--glow-line-thickness);
+}
+
+.glow-blur {
+  filter: blur(var(--glow-blur-size));
+  stroke: var(--glow-blur-color);
+  stroke-width: var(--glow-blur-size);
+}
+
+.card:hover .glow-container {
+  animation: glow-visibility ease-in-out var(--animation-speed);
+}
+
 @keyframes smooth-sweep {
   0% {
     transform: translateX(-100%);
@@ -99,5 +151,16 @@ body {
   100% {
     transform: translateX(100%);
     opacity: 0;
+  }
+}
+
+@keyframes glow-visibility {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  25%,
+  75% {
+    opacity: 1;
   }
 }
