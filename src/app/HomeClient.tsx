@@ -160,20 +160,18 @@ export default function HomeClient({ temasGenerales }: any) {
           <div className='w-full text-lg md:w-2/5 flex justify-center'>
             {tema.slug === 'todo-es-posible-para-dios' ? (
               <div className="card w-64 p-0" style={{ height: '359px' }}>
-                <div className="image-container">
-                  <Image
-                    src="/todo-es-posible-para-dios.jpg"
-                    alt="Todo es posible para Dios - Portada"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                  <div className="shimmer-effect"></div>
-                </div>
+                <Image
+                  src="/todo-es-posible-para-dios.jpg"
+                  alt="Todo es posible para Dios - Portada"
+                  fill
+                  className="object-cover rounded-lg"
+                  priority
+                />
+                <div className="shimmer-effect"></div>
               </div>
             ) : (
               <p>{tema.descripcion}</p>
-            )}RE
+            )}
           </div>
           <div>
             <ul className="mb-4 ml-4 list-disc md:ml-0">
