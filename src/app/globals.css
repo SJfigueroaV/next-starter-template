@@ -58,14 +58,11 @@ body {
   font-size: 32px;
 }
 
-/* Smooth Reflection Effect */
+/* Minimalist Smooth Effect */
 .card {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 
-    0 0 20px rgba(255, 255, 255, 0.1),
-    0 0 40px rgba(255, 255, 255, 0.05);
 }
 
 .shimmer-effect {
@@ -75,55 +72,32 @@ body {
   right: 0;
   bottom: 0;
   background: linear-gradient(
-    135deg,
+    90deg,
     transparent 0%,
-    transparent 30%,
-    rgba(255, 255, 255, 0.4) 45%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.4) 55%,
-    transparent 70%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 60%,
     transparent 100%
   );
   z-index: 2;
   pointer-events: none;
-  animation: reflection 3s ease-in-out infinite;
-  transform: translateX(-100%) translateY(-100%);
+  animation: smooth-sweep 4s ease-in-out infinite;
+  transform: translateX(-100%);
 }
 
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    135deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 60%,
-    transparent 100%
-  );
-  z-index: 1;
-  pointer-events: none;
-  animation: reflection 3s ease-in-out infinite 0.5s;
-  transform: translateX(-100%) translateY(-100%);
-}
-
-@keyframes reflection {
+@keyframes smooth-sweep {
   0% {
-    transform: translateX(-100%) translateY(-100%);
+    transform: translateX(-100%);
     opacity: 0;
   }
-  10% {
+  5% {
     opacity: 1;
   }
-  90% {
+  95% {
     opacity: 1;
   }
   100% {
-    transform: translateX(100%) translateY(100%);
+    transform: translateX(100%);
     opacity: 0;
   }
 }
