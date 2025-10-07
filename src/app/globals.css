@@ -58,37 +58,12 @@ body {
   font-size: 32px;
 }
 
-/* Smooth Flash Effect */
+/* Professional Light Bulb Effect */
 .card {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 
-    0 0 30px rgba(255, 255, 255, 0.15),
-    0 0 60px rgba(255, 255, 255, 0.08),
-    inset 0 0 30px rgba(255, 255, 255, 0.1);
-}
-
-.shimmer-effect {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    transparent 30%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.9) 55%,
-    rgba(255, 255, 255, 0.8) 60%,
-    transparent 70%,
-    transparent 100%
-  );
-  z-index: 2;
-  pointer-events: none;
-  animation: flash 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  transform: translateX(-100%);
+  transition: all 0.3s ease;
 }
 
 .card::before {
@@ -99,14 +74,17 @@ body {
   right: 0;
   bottom: 0;
   background: radial-gradient(
-    ellipse at center,
-    rgba(255, 255, 255, 0.2) 0%,
-    rgba(255, 255, 255, 0.1) 30%,
-    transparent 70%
+    circle at center,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.05) 60%,
+    transparent 80%
   );
   z-index: 1;
   pointer-events: none;
-  animation: breathe 4s ease-in-out infinite;
+  opacity: 0;
+  animation: light-bulb 4s ease-in-out infinite;
 }
 
 .card::after {
@@ -116,51 +94,49 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.1) 100%
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.3) 15%,
+    rgba(255, 255, 255, 0.1) 30%,
+    transparent 50%
   );
   z-index: 1;
   pointer-events: none;
-  animation: subtle-glow 6s ease-in-out infinite;
+  opacity: 0;
+  animation: light-bulb 4s ease-in-out infinite 0.1s;
 }
 
-@keyframes flash {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  20% {
-    transform: translateX(100%);
-    opacity: 1;
-  }
-  21%, 100% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
+.shimmer-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  animation: light-bulb 4s ease-in-out infinite 0.2s;
 }
 
-@keyframes breathe {
-  0%, 100% {
-    opacity: 0.3;
+@keyframes light-bulb {
+  0%, 20% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  25%, 35% {
+    opacity: 1;
     transform: scale(1);
   }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.02);
-  }
-}
-
-@keyframes subtle-glow {
-  0%, 100% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 0.3;
+  40%, 100% {
+    opacity: 0;
+    transform: scale(0.8);
   }
 }
