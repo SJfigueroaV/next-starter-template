@@ -63,10 +63,10 @@ body {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  --glow-line-color: #fff;
+  --glow-line-color: #20b2aa;
   --glow-line-thickness: 2px;
   --glow-line-length: 20px;
-  --glow-blur-color: #fff;
+  --glow-blur-color: #4b0082;
   --glow-blur-size: 5px;
   --glow-offset: 0px;
   --animation-speed: 1200ms;
@@ -79,20 +79,11 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: conic-gradient(from 90deg at 50% 125%, #20b2aa, #135da5, #0d0895, #4b0082, #4b0082, #0d0895, #135da5, #20b2aa);
-  mask: linear-gradient(
+  background: linear-gradient(
     90deg,
     transparent 0%,
     transparent 40%,
-    rgba(255, 255, 255, 0.8) 50%,
-    transparent 60%,
-    transparent 100%
-  );
-  -webkit-mask: linear-gradient(
-    90deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.2) 50%,
     transparent 60%,
     transparent 100%
   );
