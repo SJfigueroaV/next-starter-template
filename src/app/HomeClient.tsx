@@ -6,6 +6,7 @@ import GoogleSignInButton from "./GoogleSignInButton";
 import { User } from '@supabase/supabase-js';
 import { tema } from "./type";
 import Link from "next/link";
+import AnimatedBookCover from "./AnimatedBookCover";
 
 export default function HomeClient({ temasGenerales }: any) {
   const [user, setUser] = useState<User | null>(null);
@@ -134,9 +135,77 @@ export default function HomeClient({ temasGenerales }: any) {
                     </div>
                 )}
             </div>
-           
             
-            
+            {/* Sección Todo es posible para Dios */}
+            <div className="mt-16 mb-8">
+              <h2 className="text-3xl font-bold text-blue-400 mb-8">Todo es posible para Dios</h2>
+              <div className="flex flex-col lg:flex-row lg:items-start gap-8">
+                {/* Portada del libro con animación */}
+                <div className="flex justify-center lg:justify-start">
+                  <AnimatedBookCover />
+                </div>
+                
+                {/* Lista de capítulos */}
+                <div className="flex-1">
+                  <ul className="space-y-3">
+                    <li className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-white text-lg">Introducción</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-white text-lg">Buscando en la oscuridad</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-white text-lg">El hombre caído alejado de Dios</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-white text-lg">La promesa</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-white text-lg">Llamados al encuentro con Cristo</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-white text-lg">Edificados para ser morada de Dios en el espíritu</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-white text-lg">Guiados por el Espíritu de Dios</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-white text-lg">El camino de la santificación completa</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-white text-lg">Conclusión</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
             
         </div>
         {!user && (
