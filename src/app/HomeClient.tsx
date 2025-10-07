@@ -158,15 +158,20 @@ export default function HomeClient({ temasGenerales }: any) {
       {tema.subtemas && tema.subtemas.length > 0 ? (
         <div className='flex flex-col gap-8 md:flex-row md:gap-16'>
           <div className='w-full text-lg md:w-2/5 flex justify-center'>
-            <div className="card w-64 p-0" style={{ height: '359px' }}>
-              <Image
-                src="/PORTADA TODO ES POSIBLE PARA DIOS PRUEBA.jpg"
-                alt="Todo es posible para Dios - Portada"
-                fill
-                className="object-cover rounded-lg"
-                priority
-              />
-            </div>
+            {tema.slug === 'todo-es-posible-para-dios' ? (
+              <div className="card w-64 p-0" style={{ height: '359px' }}>
+                <Image
+                  src="/todo-es-posible-para-dios.jpg"
+                  alt="Todo es posible para Dios - Portada"
+                  fill
+                  className="object-cover rounded-lg"
+                  priority
+                />
+                <div className="shimmer-effect"></div>
+              </div>
+            ) : (
+              <p>{tema.descripcion}</p>
+            )}
           </div>
           <div>
             <ul className="mb-4 ml-4 list-disc md:ml-0">

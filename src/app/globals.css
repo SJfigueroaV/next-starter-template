@@ -68,10 +68,10 @@ body {
 .card {
   position: relative;
   border-radius: 10px;
+  overflow: hidden;
 }
 
-.card::after, 
-.card::before {
+.card::after {
   content: '';
   position: absolute;
   height: 100%;
@@ -87,8 +87,49 @@ body {
 }
 
 .card::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -2;
+  padding: 3px;
+  border-radius: 10px;
+  animation: 3s spin linear infinite;
   filter: blur(1.5rem);
   opacity: 0.5;
+}
+
+.card .shimmer-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.2) 25%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    rgba(255, 255, 255, 0.2) 75%, 
+    rgba(255, 255, 255, 0.1) 100%);
+  z-index: 2;
+  pointer-events: none;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 @keyframes spin {
