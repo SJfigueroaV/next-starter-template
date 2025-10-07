@@ -7,7 +7,6 @@ import { User } from '@supabase/supabase-js';
 import { tema } from "./type";
 import Link from "next/link";
 import Image from "next/image";
-import "@/styles/animated-border.css";
 
 export default function HomeClient({ temasGenerales }: any) {
   const [user, setUser] = useState<User | null>(null);
