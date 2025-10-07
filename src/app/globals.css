@@ -58,12 +58,14 @@ body {
   font-size: 32px;
 }
 
-/* Professional Light Bulb Effect */
+/* Realistic Dynamic Light Effect */
 .card {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  box-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.1),
+    0 0 40px rgba(255, 255, 255, 0.05);
 }
 
 .card::before {
@@ -74,17 +76,15 @@ body {
   right: 0;
   bottom: 0;
   background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0.2) 20%,
+    ellipse at center,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.3) 20%,
     rgba(255, 255, 255, 0.1) 40%,
-    rgba(255, 255, 255, 0.05) 60%,
-    transparent 80%
+    transparent 70%
   );
   z-index: 1;
   pointer-events: none;
-  opacity: 0;
-  animation: light-bulb 4s ease-in-out infinite;
+  animation: flicker 2.5s ease-in-out infinite;
 }
 
 .card::after {
@@ -96,15 +96,14 @@ body {
   bottom: 0;
   background: radial-gradient(
     circle at center,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.3) 15%,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 15%,
     rgba(255, 255, 255, 0.1) 30%,
     transparent 50%
   );
   z-index: 1;
   pointer-events: none;
-  opacity: 0;
-  animation: light-bulb 4s ease-in-out infinite 0.1s;
+  animation: flicker 2.5s ease-in-out infinite 0.3s;
 }
 
 .shimmer-effect {
@@ -115,28 +114,51 @@ body {
   bottom: 0;
   background: radial-gradient(
     circle at center,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0.4) 25%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 70%
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.6) 10%,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 40%
   );
   z-index: 2;
   pointer-events: none;
-  opacity: 0;
-  animation: light-bulb 4s ease-in-out infinite 0.2s;
+  animation: flicker 2.5s ease-in-out infinite 0.6s;
 }
 
-@keyframes light-bulb {
-  0%, 20% {
-    opacity: 0;
-    transform: scale(0.8);
+@keyframes flicker {
+  0%, 15% {
+    opacity: 0.1;
+    transform: scale(0.95);
   }
-  25%, 35% {
+  16%, 18% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+  19%, 21% {
+    opacity: 0.3;
+    transform: scale(0.98);
+  }
+  22%, 24% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  25%, 27% {
+    opacity: 0.6;
+    transform: scale(0.99);
+  }
+  28%, 30% {
+    opacity: 0.9;
+    transform: scale(1.01);
+  }
+  31%, 35% {
     opacity: 1;
     transform: scale(1);
   }
-  40%, 100% {
-    opacity: 0;
-    transform: scale(0.8);
+  36%, 38% {
+    opacity: 0.4;
+    transform: scale(0.97);
+  }
+  39%, 100% {
+    opacity: 0.1;
+    transform: scale(0.95);
   }
 }
