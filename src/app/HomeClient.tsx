@@ -159,7 +159,7 @@ export default function HomeClient({ temasGenerales }: any) {
       {tema.subtemas && tema.subtemas.length > 0 ? (
         <div className='flex flex-col gap-8 md:flex-row md:gap-16'>
           <div className='w-full text-lg md:w-2/5'>
-            <div className="card w-48 h-64 p-0">
+            <div className="card w-48 p-0" style={{ height: '269px' }}>
               <Image
                 src="/PORTADA TODO ES POSIBLE PARA DIOS PRUEBA.jpg"
                 alt="Todo es posible para Dios - Portada"
