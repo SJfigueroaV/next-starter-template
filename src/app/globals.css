@@ -63,11 +63,11 @@ body {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  --glow-line-color: #20b2aa;
+  --glow-line-color: #ffffff;
   --glow-line-thickness: 2px;
   --glow-line-length: 20px;
-  --glow-blur-color: #4b0082;
-  --glow-blur-size: 5px;
+  --glow-blur-color: #ffffff;
+  --glow-blur-size: 8px;
   --glow-offset: 0px;
   --animation-speed: 1200ms;
   --container-offset: 100px;
@@ -125,10 +125,11 @@ body {
 .glow-line {
   stroke: var(--glow-line-color);
   stroke-width: var(--glow-line-thickness);
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 4px rgba(0, 0, 0, 0.6));
 }
 
 .glow-blur {
-  filter: blur(var(--glow-blur-size));
+  filter: blur(var(--glow-blur-size)) drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
   stroke: var(--glow-blur-color);
   stroke-width: var(--glow-blur-size);
 }
