@@ -85,6 +85,10 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
           // Deshabilitar algunas funciones para mayor seguridad
           disableAutoFetch: true,
           disableStream: true,
+          // Mejorar calidad de renderizado
+          verbosity: 0, // 0 = errores, 1 = warnings, 5 = infos
+          cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/cmaps/',
+          cMapPacked: true,
         });
         
         const pdf = await loadingTask.promise;
@@ -108,13 +112,28 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
 
       try {
         const page = await pdfDoc.getPage(pageNumber);
+        
+        // Obtener devicePixelRatio para pantallas de alta densidad (mejor calidad)
+        const devicePixelRatio = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
+        
+        // Crear viewport con el scale original
         const viewport = page.getViewport({ scale });
 
         const canvas = canvasRef.current;
-        const context = canvas.getContext("2d");
+        const context = canvas.getContext("2d", {
+          alpha: false, // Mejora el rendimiento
+        });
         
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
+        // Ajustar tamaño del canvas multiplicando por devicePixelRatio para mejor calidad
+        canvas.height = Math.floor(viewport.height * devicePixelRatio);
+        canvas.width = Math.floor(viewport.width * devicePixelRatio);
+        
+        // Establecer el tamaño CSS del canvas (tamaño visual)
+        canvas.style.height = `${viewport.height}px`;
+        canvas.style.width = `${viewport.width}px`;
+        
+        // Escalar el contexto para que coincida con el devicePixelRatio
+        context.scale(devicePixelRatio, devicePixelRatio);
 
         const renderContext = {
           canvasContext: context,
@@ -342,13 +361,13 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
           </div>
         ) : (
           <div 
-            className="bg-white rounded-lg shadow-2xl p-2 sm:p-4 md:p-6 w-full max-w-2xl"
+            className="bg-white rounded-lg shadow-2xl p-2 sm:p-4 md:p-6 w-full max-w-4xl"
             onContextMenu={handleContextMenu}
             onDragStart={handleDragStart}
           >
             <canvas
               ref={canvasRef}
-              className="shadow-lg w-full h-auto mx-auto block"
+              className="shadow-lg mx-auto block"
               style={{
                 maxWidth: "100%",
                 height: "auto",
