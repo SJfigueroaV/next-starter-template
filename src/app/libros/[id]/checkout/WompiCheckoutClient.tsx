@@ -36,7 +36,7 @@ export default function WompiCheckoutClient({ libro, user }: WompiCheckoutClient
         }),
       });
 
-      const data = await response.json();
+      const data = await response.json() as { checkoutUrl?: string; error?: string };
 
       if (!response.ok) {
         throw new Error(data.error || "Error al crear la transacción");
