@@ -29,7 +29,7 @@ export default function CallbackClient({ libroId, userId, transactionId, status,
         setTimeout(async () => {
           try {
             const response = await fetch(`/api/wompi/verify-transaction?libroId=${libroId}&userId=${userId}`);
-            const data = await response.json();
+            const data = await response.json() as { completado?: boolean; mensaje?: string; error?: string };
             if (data.completado) {
               setPagoExitoso(true);
               setTimeout(() => {
@@ -67,7 +67,7 @@ export default function CallbackClient({ libroId, userId, transactionId, status,
               }),
             });
 
-            const verifyData = await verifyResponse.json();
+            const verifyData = await verifyResponse.json() as { success?: boolean; error?: string; message?: string };
 
             if (verifyData.success) {
               console.log('✅ Pago verificado y registrado manualmente');
@@ -94,7 +94,7 @@ export default function CallbackClient({ libroId, userId, transactionId, status,
         
         const verificar = async (): Promise<boolean> => {
           const response = await fetch(`/api/wompi/verify-transaction?transactionId=${transactionId}&libroId=${libroId}&userId=${userId}`);
-          const data = await response.json();
+          const data = await response.json() as { completado?: boolean; mensaje?: string; error?: string };
           
           if (data.completado) {
             return true;
