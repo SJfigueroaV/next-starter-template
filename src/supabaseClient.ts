@@ -353,12 +353,14 @@ export const supabase = createBrowserClient(
           
           // Logging reducido para evitar spam en la consola
           // Solo loguear la primera vez que se establece cada cookie
-          if ((name.includes('auth-token') || name.includes('supabase')) && !window.__cookieLogged?.[name]) {
-            if (!window.__cookieLogged) {
-              window.__cookieLogged = {};
+          if ((name.includes('auth-token') || name.includes('supabase'))) {
+            if (!(window as any).__cookieLogged) {
+              (window as any).__cookieLogged = {};
             }
-            window.__cookieLogged[name] = true;
-            console.log('🍪 [createBrowserClient] Cookie establecida:', name, 'path:', path, 'SameSite:', sameSite);
+            if (!(window as any).__cookieLogged[name]) {
+              (window as any).__cookieLogged[name] = true;
+              console.log('🍪 [createBrowserClient] Cookie establecida:', name, 'path:', path, 'SameSite:', sameSite);
+            }
           }
         });
       },
