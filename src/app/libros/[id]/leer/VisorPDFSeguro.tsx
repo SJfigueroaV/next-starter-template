@@ -22,6 +22,14 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [pdfDoc, setPdfDoc] = useState<any>(null);
   const pdfjsLibRef = useRef<any>(null);
+  const [showZoomMenu, setShowZoomMenu] = useState(false);
+
+  // Ajustar scale inicial para móvil
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      setScale(1.0);
+    }
+  }, []);
 
   useEffect(() => {
     const loadPDF = async () => {
@@ -133,7 +141,11 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
   };
 
   const resetZoom = () => {
-    setScale(1.5);
+    const defaultScale = typeof window !== 'undefined' && window.innerWidth < 768 ? 1.0 : 1.5;
+    setScale(defaultScale);
+    if (showZoomMenu) {
+      setShowZoomMenu(false);
+    }
   };
 
   // Prevenir clic derecho y descarga
@@ -145,93 +157,163 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
     e.preventDefault();
   };
 
+  // Cerrar menú de zoom al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (showZoomMenu && !target.closest('.zoom-menu-container')) {
+        setShowZoomMenu(false);
+      }
+    };
+
+    if (showZoomMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, [showZoomMenu]);
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Barra de navegación superior */}
-      <div className="sticky top-0 z-50 bg-gray-800 border-b border-gray-700 px-4 py-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link
-              href={`/libros/${libro.id}`}
-              className="text-blue-400 hover:text-blue-300 flex items-center gap-2"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Volver
-            </Link>
-            <h1 className="text-lg font-semibold truncate max-w-md">{libro.titulo}</h1>
-          </div>
-
-          {/* Controles de navegación */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <button
-                onClick={goToPrevPage}
-                disabled={pageNumber <= 1}
-                className="p-2 bg-gray-700 hover:bg-gray-600 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Página anterior"
+      <div className="sticky top-0 z-50 bg-gray-800 border-b border-gray-700 px-2 sm:px-4 py-2 sm:py-3">
+        <div className="max-w-7xl mx-auto">
+          {/* Primera fila: Título y botón volver (móvil) o todo junto (desktop) */}
+          <div className="flex items-center justify-between mb-2 md:mb-0">
+            <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
+              <Link
+                href={`/libros/${libro.id}`}
+                className="text-blue-400 hover:text-blue-300 flex items-center gap-1 sm:gap-2 flex-shrink-0"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
-              </button>
-              <span className="text-sm px-3">
-                {pageNumber} / {numPages || "..."}
-              </span>
-              <button
-                onClick={goToNextPage}
-                disabled={pageNumber >= (numPages || 1)}
-                className="p-2 bg-gray-700 hover:bg-gray-600 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Página siguiente"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
+                <span className="hidden sm:inline">Volver</span>
+              </Link>
+              <h1 className="text-sm sm:text-lg font-semibold truncate max-w-xs sm:max-w-md">{libro.titulo}</h1>
             </div>
 
-            {/* Controles de zoom */}
-            <div className="flex items-center gap-2 border-l border-gray-700 pl-4">
+            {/* Controles de zoom en móvil (menú desplegable) */}
+            <div className="md:hidden relative zoom-menu-container">
               <button
-                onClick={zoomOut}
+                onClick={() => setShowZoomMenu(!showZoomMenu)}
                 className="p-2 bg-gray-700 hover:bg-gray-600 rounded"
-                title="Alejar"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
-                </svg>
-              </button>
-              <span className="text-sm px-2 min-w-[60px] text-center">{Math.round(scale * 100)}%</span>
-              <button
-                onClick={zoomIn}
-                className="p-2 bg-gray-700 hover:bg-gray-600 rounded"
-                title="Acercar"
+                title="Controles de zoom"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
                 </svg>
               </button>
-              <button
-                onClick={resetZoom}
-                className="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm"
-                title="Restablecer zoom"
-              >
-                Reset
-              </button>
+              {showZoomMenu && (
+                <div className="absolute right-0 top-full mt-2 bg-gray-700 rounded-lg shadow-lg p-2 min-w-[180px] z-50 zoom-menu-container">
+                  <div className="flex items-center justify-between mb-2">
+                    <button
+                      onClick={zoomOut}
+                      className="p-2 bg-gray-600 hover:bg-gray-500 rounded"
+                      title="Alejar"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
+                      </svg>
+                    </button>
+                    <span className="text-xs px-2 min-w-[50px] text-center">{Math.round(scale * 100)}%</span>
+                    <button
+                      onClick={zoomIn}
+                      className="p-2 bg-gray-600 hover:bg-gray-500 rounded"
+                      title="Acercar"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                      </svg>
+                    </button>
+                  </div>
+                  <button
+                    onClick={() => {
+                      resetZoom();
+                      setShowZoomMenu(false);
+                    }}
+                    className="w-full px-3 py-1.5 bg-gray-600 hover:bg-gray-500 rounded text-xs"
+                    title="Restablecer zoom"
+                  >
+                    Reset
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Segunda fila: Controles de navegación y zoom (solo desktop) */}
+          <div className="hidden md:flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={goToPrevPage}
+                  disabled={pageNumber <= 1}
+                  className="p-2 bg-gray-700 hover:bg-gray-600 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                  title="Página anterior"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <span className="text-sm px-3">
+                  {pageNumber} / {numPages || "..."}
+                </span>
+                <button
+                  onClick={goToNextPage}
+                  disabled={pageNumber >= (numPages || 1)}
+                  className="p-2 bg-gray-700 hover:bg-gray-600 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                  title="Página siguiente"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Controles de zoom */}
+              <div className="flex items-center gap-2 border-l border-gray-700 pl-4">
+                <button
+                  onClick={zoomOut}
+                  className="p-2 bg-gray-700 hover:bg-gray-600 rounded"
+                  title="Alejar"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
+                  </svg>
+                </button>
+                <span className="text-sm px-2 min-w-[60px] text-center">{Math.round(scale * 100)}%</span>
+                <button
+                  onClick={zoomIn}
+                  className="p-2 bg-gray-700 hover:bg-gray-600 rounded"
+                  title="Acercar"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={resetZoom}
+                  className="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm"
+                  title="Restablecer zoom"
+                >
+                  Reset
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Contenedor del PDF */}
-      <div className="flex justify-center p-4 overflow-auto">
+      <div className="flex justify-center p-2 sm:p-4 overflow-auto pb-20 md:pb-4">
         {error ? (
-          <div className="text-center py-12">
-            <p className="text-red-400 mb-4">{error}</p>
+          <div className="text-center py-12 px-4">
+            <p className="text-red-400 mb-4 text-sm sm:text-base">{error}</p>
             <Link
               href={`/libros/${libro.id}`}
-              className="text-blue-400 hover:text-blue-300 underline"
+              className="text-blue-400 hover:text-blue-300 underline text-sm sm:text-base"
             >
               Volver al detalle del libro
             </Link>
@@ -240,18 +322,18 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
           <div className="flex items-center justify-center w-full h-96">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-              <p className="text-gray-600">Cargando PDF...</p>
+              <p className="text-gray-400 text-sm sm:text-base">Cargando PDF...</p>
             </div>
           </div>
         ) : (
           <div 
-            className="bg-white rounded-lg shadow-2xl p-4"
+            className="bg-white rounded-lg shadow-2xl p-2 sm:p-4 w-full max-w-full"
             onContextMenu={handleContextMenu}
             onDragStart={handleDragStart}
           >
             <canvas
               ref={canvasRef}
-              className="shadow-lg"
+              className="shadow-lg w-full h-auto"
               style={{
                 maxWidth: "100%",
                 height: "auto",
@@ -266,24 +348,26 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
       </div>
 
       {/* Barra de navegación inferior (móvil) */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 p-4">
-        <div className="flex items-center justify-between">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 p-3 z-40">
+        <div className="flex items-center justify-between max-w-md mx-auto">
           <button
             onClick={goToPrevPage}
             disabled={pageNumber <= 1}
-            className="p-2 bg-gray-700 hover:bg-gray-600 rounded disabled:opacity-50"
+            className="p-2.5 bg-gray-700 hover:bg-gray-600 rounded disabled:opacity-50 disabled:cursor-not-allowed active:bg-gray-500"
+            title="Página anterior"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <span className="text-sm">
+          <span className="text-sm font-medium px-4">
             {pageNumber} / {numPages || "..."}
           </span>
           <button
             onClick={goToNextPage}
             disabled={pageNumber >= (numPages || 1)}
-            className="p-2 bg-gray-700 hover:bg-gray-600 rounded disabled:opacity-50"
+            className="p-2.5 bg-gray-700 hover:bg-gray-600 rounded disabled:opacity-50 disabled:cursor-not-allowed active:bg-gray-500"
+            title="Página siguiente"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
