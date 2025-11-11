@@ -126,7 +126,7 @@ export default async function LeerLibroPage({
     }
     // Para otros errores, también redirigir por seguridad
     console.error('Error al verificar compra:', compraError);
-    console.error('Usuario:', user.id, 'Libro ID:', libroId);
+    console.error('Usuario:', user?.id || 'no autenticado', 'Libro ID:', libroId);
     redirect(`/libros/${params.id}`);
   }
 
