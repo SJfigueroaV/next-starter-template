@@ -51,12 +51,14 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
               if (error.code === 'PGRST116') {
                 // No rows returned - es normal si no ha comprado
                 setEstaComprado(false);
-              } else if (error.status === 406 || error.message?.includes('406')) {
-                // Error 406 - establecer explícitamente como no comprado
-                // Esto evita que el libro se muestre como comprado cuando hay un error RLS
-                console.warn('⚠️ Error 406 al verificar compra (estableciendo como no comprado):', error.message);
-                setEstaComprado(false);
               } else {
+                const errorMessage = error.message || '';
+                if (errorMessage.includes('406') || (error as any).status === 406) {
+                  // Error 406 - establecer explícitamente como no comprado
+                  // Esto evita que el libro se muestre como comprado cuando hay un error RLS
+                  console.warn('⚠️ Error 406 al verificar compra (estableciendo como no comprado):', errorMessage);
+                  setEstaComprado(false);
+                } else {
                 console.error('Error al verificar compra:', error);
                 // En caso de otros errores, establecer como no comprado por seguridad
                 setEstaComprado(false);
@@ -95,11 +97,13 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
             if (error.code === 'PGRST116') {
               // No rows returned - es normal si no ha comprado
               setEstaComprado(false);
-            } else if (error.status === 406 || error.message?.includes('406')) {
-              // Error 406 - establecer explícitamente como no comprado
-              console.warn('⚠️ Error 406 al verificar compra (estableciendo como no comprado):', error.message);
-              setEstaComprado(false);
             } else {
+              const errorMessage = error.message || '';
+              if (errorMessage.includes('406') || (error as any).status === 406) {
+                // Error 406 - establecer explícitamente como no comprado
+                console.warn('⚠️ Error 406 al verificar compra (estableciendo como no comprado):', errorMessage);
+                setEstaComprado(false);
+              } else {
               console.error('Error al verificar compra:', error);
               // En caso de otros errores, establecer como no comprado por seguridad
               setEstaComprado(false);

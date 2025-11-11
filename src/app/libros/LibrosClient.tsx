@@ -155,8 +155,9 @@ export default function LibrosClient({ libros, categorias, error, initialUser = 
         
         if (error) {
           // Ignorar errores 406 (Not Acceptable) - pueden ser temporales
-          if (error.status === 406 || error.message?.includes('406')) {
-            console.warn('⚠️ Error 406 al obtener libros comprados (ignorado):', error.message);
+          const errorMessage = error.message || '';
+          if (errorMessage.includes('406') || (error as any).status === 406) {
+            console.warn('⚠️ Error 406 al obtener libros comprados (ignorado):', errorMessage);
             return;
           }
           console.error('Error al obtener libros comprados:', error);
