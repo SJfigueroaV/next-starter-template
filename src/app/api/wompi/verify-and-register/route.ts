@@ -14,7 +14,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const { reference, libroId, userId } = await request.json();
+    const body = await request.json() as { reference: string; libroId: number | string; userId: string };
+    const { reference, libroId, userId } = body;
 
     if (!reference || !libroId || !userId) {
       return NextResponse.json(
