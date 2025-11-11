@@ -342,7 +342,7 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
           </div>
         ) : (
           <div 
-            className="bg-white rounded-lg shadow-2xl p-2 sm:p-4 md:p-6 w-full max-w-3xl"
+            className="bg-white rounded-lg shadow-2xl p-2 sm:p-4 md:p-6 w-full max-w-2xl"
             onContextMenu={handleContextMenu}
             onDragStart={handleDragStart}
           >
