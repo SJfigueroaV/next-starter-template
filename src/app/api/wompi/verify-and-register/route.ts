@@ -104,11 +104,12 @@ export async function POST(request: Request) {
 
     // Verificar si ya está registrada
     const supabaseService = createServiceRoleClient();
+    const libroIdNum = typeof libroId === 'string' ? parseInt(libroId, 10) : libroId;
     const { data: compraExistente } = await supabaseService
       .from('compras_libros')
       .select('id')
       .eq('user_id', userId)
-      .eq('libro_id', parseInt(libroId))
+      .eq('libro_id', libroIdNum)
       .eq('estado_pago', 'completado')
       .single();
 
@@ -133,7 +134,7 @@ export async function POST(request: Request) {
       .from('compras_libros')
       .upsert({
         user_id: userId,
-        libro_id: parseInt(libroId),
+        libro_id: libroIdNum,
         estado_pago: 'completado',
         monto_pagado: amount,
         metodo_pago: paymentMethod.toLowerCase(),
