@@ -343,7 +343,7 @@ export const supabase = createBrowserClient(
           // Establecer SameSite y Secure
           const sameSite = options?.sameSite || 'Lax';
           cookieString += `; SameSite=${sameSite}`;
-          if (sameSite === 'None' || window.location.protocol === 'https:') {
+          if (sameSite === 'None' || sameSite === 'none' || window.location.protocol === 'https:') {
             cookieString += '; Secure';
           }
           
