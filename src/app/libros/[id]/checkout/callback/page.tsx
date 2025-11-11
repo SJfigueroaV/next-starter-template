@@ -37,7 +37,7 @@ export default async function CallbackPage({
   // Si no hay sesión, intentar getUser() como fallback
   if (!user) {
     const { data: { user: userData } } = await supabase.auth.getUser();
-    user = userData;
+    user = userData ?? undefined;
   }
 
   // Si aún no hay usuario, pero tenemos userId en la URL, podemos continuar
