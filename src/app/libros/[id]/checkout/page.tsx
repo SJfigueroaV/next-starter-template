@@ -4,10 +4,8 @@ import WompiCheckoutClient from "./WompiCheckoutClient";
 
 export default async function CheckoutPage({
   params,
-  searchParams,
 }: {
   params: { id: string };
-  searchParams: { payment_intent?: string };
 }) {
   const supabase = await createClient();
   

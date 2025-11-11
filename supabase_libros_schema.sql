@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS compras_libros (
   fecha_compra TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   estado_pago VARCHAR(50) DEFAULT 'pendiente', -- 'pendiente', 'completado', 'cancelado', 'reembolsado'
   monto_pagado DECIMAL(10, 2) NOT NULL,
-  metodo_pago VARCHAR(50), -- 'stripe', 'paypal', etc.
+  metodo_pago VARCHAR(50), -- 'wompi', 'nequi', 'pse', 'card', etc.
   transaccion_id VARCHAR(255), -- ID de la transacción del proveedor de pago
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),

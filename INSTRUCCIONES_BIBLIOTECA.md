@@ -89,54 +89,19 @@ USING (bucket_id = 'libros' AND (storage.foldername(name))[1] = 'portadas');
 **Opción C: URLs externas**
 - Si los archivos están en otro servidor, usa esas URLs directamente
 
-### 4. Integrar sistema de pago (Pendiente)
+### 4. Integrar sistema de pago ✅
 
-Actualmente, el botón de compra crea una compra directa sin procesamiento de pago real. Para producción, necesitas integrar:
+El sistema de pago con **Wompi** ya está implementado y funcionando. Para configurarlo:
 
-**Opción A: Stripe (Recomendado)**
-1. Crea una cuenta en [Stripe](https://stripe.com)
-2. Instala el paquete: `npm install @stripe/stripe-js`
-3. Crea una API route en Next.js para manejar el checkout
-4. Configura webhooks para actualizar el estado de pago
-5. Actualiza el componente de detalle del libro para usar Stripe
+1. Crea una cuenta en [Wompi](https://wompi.co)
+2. Obtén tus claves de API (Public Key y Private Key)
+3. Configura el webhook en el Dashboard de Wompi
+4. Agrega las variables de entorno necesarias
 
-**Ejemplo básico de integración con Stripe:**
-```typescript
-// app/api/checkout/route.ts
-import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
-export async function POST(request: Request) {
-  const { libroId, precio } = await request.json();
-  
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: [{
-      price_data: {
-        currency: 'usd',
-        product_data: {
-          name: 'Libro',
-        },
-        unit_amount: Math.round(precio * 100),
-      },
-      quantity: 1,
-    }],
-    mode: 'payment',
-    success_url: `${process.env.NEXT_PUBLIC_URL}/libros/${libroId}?success=true`,
-    cancel_url: `${process.env.NEXT_PUBLIC_URL}/libros/${libroId}`,
-  });
-
-  return NextResponse.json({ sessionId: session.id });
-}
-```
-
-**Opción B: PayPal**
-- Similar a Stripe pero con PayPal SDK
-
-**Opción C: Otro proveedor**
-- Adapta el código según el proveedor que elijas
+Para más detalles, consulta:
+- `CONFIGURACION_WOMPI.md` - Configuración completa de Wompi
+- `CONFIGURAR_WEBHOOK_WOMPI_PRODUCCION.md` - Configuración del webhook
+- `VARIABLES_ENTORNO_WOMPI.md` - Variables de entorno necesarias
 
 ### 5. Crear páginas adicionales (Opcional)
 
@@ -192,7 +157,7 @@ Si quieres agregar más funcionalidad:
 
 - [Documentación de Supabase](https://supabase.com/docs)
 - [Documentación de Next.js](https://nextjs.org/docs)
-- [Stripe Checkout](https://stripe.com/docs/payments/checkout)
+- [Documentación de Wompi](https://docs.wompi.co)
 - [PDF.js para visor avanzado](https://mozilla.github.io/pdf.js/)
 - [Supabase Storage](https://supabase.com/docs/guides/storage)
 
