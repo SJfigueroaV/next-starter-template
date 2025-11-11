@@ -8,7 +8,14 @@ export default async function CallbackPage({
   searchParams,
 }: {
   params: { id: string };
-  searchParams: { id?: string; status?: string };
+  searchParams: { 
+    id?: string; 
+    status?: string; 
+    transaction_id?: string;
+    user_id?: string;
+    libro_id?: string;
+    reference?: string;
+  };
 }) {
   const supabase = await createClient();
   
