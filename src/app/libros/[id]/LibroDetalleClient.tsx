@@ -39,14 +39,16 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
       setUser(initialUser);
       // Verificar compra con el usuario inicial
       if (initialUser) {
-        supabase
-          .from("compras_libros")
-          .select("id")
-          .eq("user_id", initialUser.id)
-          .eq("libro_id", libro.id)
-          .eq("estado_pago", "completado")
-          .single()
-          .then(({ data, error }) => {
+        (async () => {
+          try {
+            const { data, error } = await supabase
+              .from("compras_libros")
+              .select("id")
+              .eq("user_id", initialUser.id)
+              .eq("libro_id", libro.id)
+              .eq("estado_pago", "completado")
+              .single();
+            
             if (error) {
               if (error.code === 'PGRST116') {
                 // No rows returned - es normal si no ha comprado
@@ -68,12 +70,12 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
               // Solo establecer como comprado si hay datos explícitos
               setEstaComprado(!!data);
             }
-          })
-          .catch((error) => {
+          } catch (error) {
             // En caso de error inesperado, establecer como no comprado por seguridad
             console.warn('⚠️ Error al verificar compra (estableciendo como no comprado):', error);
             setEstaComprado(false);
-          });
+          }
+        })();
       }
       return; // No hacer más llamadas si ya tenemos el usuario
     }
