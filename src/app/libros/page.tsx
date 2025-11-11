@@ -35,7 +35,7 @@ export default async function LibrosPage() {
 
   // Obtener categorías únicas
   const categorias = libros
-    ? [...new Set(libros.map((libro: any) => libro.categoria).filter(Boolean))]
+    ? Array.from(new Set(libros.map((libro: any) => libro.categoria).filter(Boolean)))
     : [];
 
   return (
