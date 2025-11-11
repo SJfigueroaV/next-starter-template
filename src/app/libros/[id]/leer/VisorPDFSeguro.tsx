@@ -16,7 +16,7 @@ type VisorPDFSeguroProps = {
 export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [scale, setScale] = useState(1.5);
+  const [scale, setScale] = useState(1.0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -24,10 +24,16 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
   const pdfjsLibRef = useRef<any>(null);
   const [showZoomMenu, setShowZoomMenu] = useState(false);
 
-  // Ajustar scale inicial para móvil
+  // Ajustar scale inicial según el tamaño de pantalla
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      setScale(1.0);
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 768) {
+        setScale(0.9); // Móvil: un poco más pequeño
+      } else if (window.innerWidth < 1024) {
+        setScale(1.0); // Tablet: tamaño estándar
+      } else {
+        setScale(1.0); // Desktop: tamaño estándar legible
+      }
     }
   }, []);
 
@@ -141,7 +147,16 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
   };
 
   const resetZoom = () => {
-    const defaultScale = typeof window !== 'undefined' && window.innerWidth < 768 ? 1.0 : 1.5;
+    let defaultScale = 1.0;
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 768) {
+        defaultScale = 0.9; // Móvil
+      } else if (window.innerWidth < 1024) {
+        defaultScale = 1.0; // Tablet
+      } else {
+        defaultScale = 1.0; // Desktop
+      }
+    }
     setScale(defaultScale);
     if (showZoomMenu) {
       setShowZoomMenu(false);
@@ -307,7 +322,7 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
       </div>
 
       {/* Contenedor del PDF */}
-      <div className="flex justify-center p-2 sm:p-4 overflow-auto pb-20 md:pb-4">
+      <div className="flex justify-center p-2 sm:p-4 md:p-6 overflow-auto pb-20 md:pb-4">
         {error ? (
           <div className="text-center py-12 px-4">
             <p className="text-red-400 mb-4 text-sm sm:text-base">{error}</p>
@@ -327,13 +342,13 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
           </div>
         ) : (
           <div 
-            className="bg-white rounded-lg shadow-2xl p-2 sm:p-4 w-full max-w-full"
+            className="bg-white rounded-lg shadow-2xl p-2 sm:p-4 md:p-6 w-full max-w-5xl"
             onContextMenu={handleContextMenu}
             onDragStart={handleDragStart}
           >
             <canvas
               ref={canvasRef}
-              className="shadow-lg w-full h-auto"
+              className="shadow-lg w-full h-auto mx-auto block"
               style={{
                 maxWidth: "100%",
                 height: "auto",
