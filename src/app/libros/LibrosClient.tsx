@@ -345,7 +345,21 @@ export default function LibrosClient({ libros, categorias, error, initialUser = 
                     </h3>
                     <p className="text-xs text-gray-400 mb-2">{libro.autor}</p>
                     {!estaComprado && (
-                      <p className="text-sm font-bold text-yellow-400">${libro.precio.toFixed(2)}</p>
+                      <p 
+                        className="text-sm font-bold text-yellow-400 px-3 py-1.5 rounded inline-block"
+                        style={{
+                          backgroundColor: '#0a1929',
+                          color: '#facc15',
+                          fontFamily: 'sans-serif',
+                          textShadow: `
+                            -0.5px -0.5px 0 #ef4444,
+                            0.5px 0.5px 0 #22c55e,
+                            0 0 2px rgba(250, 204, 21, 0.8)
+                          `
+                        }}
+                      >
+                        ${libro.precio.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} COP
+                      </p>
                     )}
                   </div>
                 </Link>
