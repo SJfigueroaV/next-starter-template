@@ -114,7 +114,8 @@ export default async function LeerLibroPage({
   // Manejar errores específicos
   if (compraError) {
     // Si es un error 406 (RLS), tratarlo como "no comprado" y redirigir
-    if (compraError.status === 406 || compraError.message?.includes('406')) {
+    const errorMessage = compraError.message || '';
+    if (errorMessage.includes('406') || (compraError as any).status === 406) {
       console.warn('⚠️ Error 406 al verificar compra (problema RLS) - redirigiendo a detalle');
       redirect(`/libros/${params.id}`);
     }
