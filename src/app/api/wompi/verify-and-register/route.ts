@@ -66,7 +66,10 @@ export async function POST(request: Request) {
       },
     });
 
-    const wompiData = await wompiResponse.json();
+    const wompiData = await wompiResponse.json() as { 
+      data?: any[] | any; 
+      error?: { message?: string };
+    };
 
     if (!wompiResponse.ok) {
       console.error('❌ Error al buscar transacción en Wompi:', wompiData);
@@ -77,7 +80,7 @@ export async function POST(request: Request) {
     }
 
     // Wompi puede devolver un array o un objeto
-    const transactions = Array.isArray(wompiData.data) ? wompiData.data : [wompiData.data];
+    const transactions = Array.isArray(wompiData.data) ? wompiData.data : (wompiData.data ? [wompiData.data] : []);
     const transaction = transactions.find((t: any) => t.reference === reference) || transactions[0];
 
     if (!transaction) {
