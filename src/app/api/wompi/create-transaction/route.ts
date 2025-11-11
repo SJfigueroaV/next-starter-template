@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     // Usar getSession() en lugar de getUser() para evitar refresh automático del token
     const supabase = await createClient();
     const { data: { session } } = await supabase.auth.getSession();
-    let user = session?.user;
+    let user = session?.user ?? undefined;
 
     if (!user || user.id !== userId) {
       // Si no hay sesión, intentar getUser() como fallback
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
             { status: 401 }
           );
         }
-        user = userData;
+        user = userData ?? undefined;
       }
       
       if (!user || user.id !== userId) {
