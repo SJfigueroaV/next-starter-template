@@ -59,9 +59,10 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
                   console.warn('⚠️ Error 406 al verificar compra (estableciendo como no comprado):', errorMessage);
                   setEstaComprado(false);
                 } else {
-                console.error('Error al verificar compra:', error);
-                // En caso de otros errores, establecer como no comprado por seguridad
-                setEstaComprado(false);
+                  console.error('Error al verificar compra:', error);
+                  // En caso de otros errores, establecer como no comprado por seguridad
+                  setEstaComprado(false);
+                }
               }
             } else {
               // Solo establecer como comprado si hay datos explícitos
@@ -104,9 +105,10 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
                 console.warn('⚠️ Error 406 al verificar compra (estableciendo como no comprado):', errorMessage);
                 setEstaComprado(false);
               } else {
-              console.error('Error al verificar compra:', error);
-              // En caso de otros errores, establecer como no comprado por seguridad
-              setEstaComprado(false);
+                console.error('Error al verificar compra:', error);
+                // En caso de otros errores, establecer como no comprado por seguridad
+                setEstaComprado(false);
+              }
             }
           } else {
             // Solo establecer como comprado si hay datos explícitos
