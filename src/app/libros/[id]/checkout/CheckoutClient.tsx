@@ -108,29 +108,14 @@ export default function CheckoutClient({ libro, user }: CheckoutClientProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Verificar que Stripe esté configurado
-  if (!stripePublishableKey) {
-    return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-center max-w-md p-6">
-          <div className="bg-red-500/10 border border-red-500 rounded-lg p-6">
-            <h2 className="text-xl font-bold text-red-400 mb-4">Error de configuración</h2>
-            <p className="text-gray-300 mb-4">
-              La clave pública de Stripe no está configurada. Por favor, agrega <code className="bg-gray-800 px-2 py-1 rounded">NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY</code> a tu archivo <code className="bg-gray-800 px-2 py-1 rounded">.env.local</code>
-            </p>
-            <Link
-              href={`/libros/${libro.id}`}
-              className="inline-block mt-4 text-blue-400 hover:text-blue-300 underline"
-            >
-              Volver al detalle del libro
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+  // Los hooks deben llamarse siempre en el mismo orden, antes de cualquier return condicional
   useEffect(() => {
+    // Si Stripe no está configurado, no intentar crear el payment intent
+    if (!stripePublishableKey) {
+      setError("Stripe no está configurado");
+      setLoading(false);
+      return;
+    }
     const createPaymentIntent = async () => {
       try {
         setLoading(true);
@@ -167,6 +152,28 @@ export default function CheckoutClient({ libro, user }: CheckoutClientProps) {
 
     createPaymentIntent();
   }, [libro.id, user.id]);
+
+  // Verificar que Stripe esté configurado (después de los hooks)
+  if (!stripePublishableKey) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-center max-w-md p-6">
+          <div className="bg-red-500/10 border border-red-500 rounded-lg p-6">
+            <h2 className="text-xl font-bold text-red-400 mb-4">Error de configuración</h2>
+            <p className="text-gray-300 mb-4">
+              La clave pública de Stripe no está configurada. Por favor, agrega <code className="bg-gray-800 px-2 py-1 rounded">NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY</code> a tu archivo <code className="bg-gray-800 px-2 py-1 rounded">.env.local</code>
+            </p>
+            <Link
+              href={`/libros/${libro.id}`}
+              className="inline-block mt-4 text-blue-400 hover:text-blue-300 underline"
+            >
+              Volver al detalle del libro
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (loading && !error) {
     return (
