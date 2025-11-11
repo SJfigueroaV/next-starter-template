@@ -1,5 +1,6 @@
 import { supabase } from "@/supabaseClient";
 import HomeClient from "./HomeClient"; // crea este archivo abajo
+import { Suspense } from "react";
 
 export default async function Home() {
   const { data: temasGenerales } = await supabase
@@ -13,8 +14,8 @@ export default async function Home() {
   }));
 
   return (
-    <main>
+    <Suspense fallback={<div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">Cargando...</div>}>
       <HomeClient temasGenerales={temasConSubtemasOrdenados} />
-    </main>
+    </Suspense>
   );
 }

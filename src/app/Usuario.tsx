@@ -14,7 +14,6 @@ export default function UserProfile() {
 
     const avatar = user.user_metadata?.avatar_url;
     const name = user.user_metadata?.full_name || user.email;
-    console.log("Avatar URL:", avatar);
 
     return (
 
