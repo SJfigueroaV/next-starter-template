@@ -126,6 +126,11 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
           willReadFrequently: false,
         });
         
+        if (!context) {
+          console.error("No se pudo obtener el contexto del canvas");
+          return;
+        }
+        
         // Ajustar tamaño del canvas multiplicando por devicePixelRatio para mejor calidad
         const outputScale = devicePixelRatio;
         canvas.height = Math.floor(viewport.height * outputScale);
