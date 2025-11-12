@@ -32,7 +32,7 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
       } else if (window.innerWidth < 1024) {
         setScale(1.1); // Tablet: un poco más grande para mejor legibilidad
       } else {
-        setScale(1.2); // Desktop: tamaño óptimo para mejor visualización
+        setScale(1.45); // Desktop: 145% como predeterminado
       }
     }
   }, []);
@@ -193,7 +193,7 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
       } else if (window.innerWidth < 1024) {
         defaultScale = 1.1; // Tablet
       } else {
-        defaultScale = 1.2; // Desktop
+        defaultScale = 1.45; // Desktop: 145% como predeterminado
       }
     }
     setScale(defaultScale);
