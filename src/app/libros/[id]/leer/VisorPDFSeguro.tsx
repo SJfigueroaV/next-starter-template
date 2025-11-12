@@ -28,7 +28,7 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (window.innerWidth < 768) {
-        setScale(0.9); // Móvil: un poco más pequeño
+        setScale(1.2); // Móvil: 120% para mejor legibilidad
       } else if (window.innerWidth < 1024) {
         setScale(1.1); // Tablet: un poco más grande para mejor legibilidad
       } else {
@@ -189,7 +189,7 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
     let defaultScale = 1.0;
     if (typeof window !== 'undefined') {
       if (window.innerWidth < 768) {
-        defaultScale = 0.9; // Móvil
+        defaultScale = 1.2; // Móvil: 120% para mejor legibilidad
       } else if (window.innerWidth < 1024) {
         defaultScale = 1.1; // Tablet
       } else {
