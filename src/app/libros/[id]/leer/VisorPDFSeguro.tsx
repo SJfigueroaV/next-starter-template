@@ -381,19 +381,26 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
           </div>
         ) : (
           <div 
-            className="bg-white shadow-2xl w-full"
+            className="bg-white shadow-2xl"
             style={{
               maxWidth: '900px',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+              margin: '0',
+              padding: '0',
+              lineHeight: '0',
             }}
             onContextMenu={handleContextMenu}
             onDragStart={handleDragStart}
           >
             <canvas
               ref={canvasRef}
-              className="w-full h-auto block"
+              className="block"
               style={{
                 display: 'block',
+                width: '100%',
+                height: 'auto',
+                margin: '0',
+                padding: '0',
                 userSelect: "none",
                 WebkitUserSelect: "none",
                 MozUserSelect: "none",
