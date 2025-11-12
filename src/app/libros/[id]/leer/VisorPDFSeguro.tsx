@@ -30,9 +30,9 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
       if (window.innerWidth < 768) {
         setScale(0.9); // Móvil: un poco más pequeño
       } else if (window.innerWidth < 1024) {
-        setScale(1.0); // Tablet: tamaño estándar
+        setScale(1.1); // Tablet: un poco más grande para mejor legibilidad
       } else {
-        setScale(1.0); // Desktop: tamaño estándar legible
+        setScale(1.2); // Desktop: tamaño óptimo para mejor visualización
       }
     }
   }, []);
@@ -114,33 +114,48 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
         const page = await pdfDoc.getPage(pageNumber);
         
         // Obtener devicePixelRatio para pantallas de alta densidad (mejor calidad)
-        const devicePixelRatio = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
+        const devicePixelRatio = typeof window !== 'undefined' ? Math.min(window.devicePixelRatio || 1, 2) : 1;
         
         // Crear viewport con el scale original
         const viewport = page.getViewport({ scale });
 
         const canvas = canvasRef.current;
         const context = canvas.getContext("2d", {
-          alpha: false, // Mejora el rendimiento
+          alpha: false,
+          desynchronized: false,
+          willReadFrequently: false,
         });
         
         // Ajustar tamaño del canvas multiplicando por devicePixelRatio para mejor calidad
-        canvas.height = Math.floor(viewport.height * devicePixelRatio);
-        canvas.width = Math.floor(viewport.width * devicePixelRatio);
+        const outputScale = devicePixelRatio;
+        canvas.height = Math.floor(viewport.height * outputScale);
+        canvas.width = Math.floor(viewport.width * outputScale);
         
         // Establecer el tamaño CSS del canvas (tamaño visual)
         canvas.style.height = `${viewport.height}px`;
         canvas.style.width = `${viewport.width}px`;
         
-        // Escalar el contexto para que coincida con el devicePixelRatio
-        context.scale(devicePixelRatio, devicePixelRatio);
+        // Limpiar el canvas antes de renderizar
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Configurar el contexto para mejor calidad de renderizado
+        context.save();
+        context.scale(outputScale, outputScale);
+        
+        // Configurar calidad de renderizado
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = 'high';
 
         const renderContext = {
           canvasContext: context,
           viewport: viewport,
+          // Mejorar calidad de renderizado
+          enableWebGL: false,
+          renderInteractiveForms: false,
         };
 
         await page.render(renderContext).promise;
+        context.restore();
       } catch (err) {
         console.error("Error al renderizar la página:", err);
       }
@@ -171,9 +186,9 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
       if (window.innerWidth < 768) {
         defaultScale = 0.9; // Móvil
       } else if (window.innerWidth < 1024) {
-        defaultScale = 1.0; // Tablet
+        defaultScale = 1.1; // Tablet
       } else {
-        defaultScale = 1.0; // Desktop
+        defaultScale = 1.2; // Desktop
       }
     }
     setScale(defaultScale);
@@ -341,7 +356,7 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
       </div>
 
       {/* Contenedor del PDF */}
-      <div className="flex justify-center p-2 sm:p-4 md:p-6 overflow-auto pb-20 md:pb-4">
+      <div className="flex justify-center items-start p-2 sm:p-4 md:p-8 overflow-auto pb-20 md:pb-4 min-h-[calc(100vh-120px)] bg-gray-900">
         {error ? (
           <div className="text-center py-12 px-4">
             <p className="text-red-400 mb-4 text-sm sm:text-base">{error}</p>
@@ -361,20 +376,24 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
           </div>
         ) : (
           <div 
-            className="bg-white rounded-lg shadow-2xl p-2 sm:p-4 md:p-6 w-full max-w-4xl"
+            className="bg-white shadow-2xl w-full"
+            style={{
+              maxWidth: '900px',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+            }}
             onContextMenu={handleContextMenu}
             onDragStart={handleDragStart}
           >
             <canvas
               ref={canvasRef}
-              className="shadow-lg mx-auto block"
+              className="w-full h-auto block"
               style={{
-                maxWidth: "100%",
-                height: "auto",
+                display: 'block',
                 userSelect: "none",
                 WebkitUserSelect: "none",
                 MozUserSelect: "none",
                 msUserSelect: "none",
+                imageRendering: 'auto',
               }}
             />
           </div>
