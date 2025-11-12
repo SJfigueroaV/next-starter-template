@@ -275,7 +275,16 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
             ) : (
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-3xl font-bold text-yellow-400">${libro.precio.toFixed(2)}</span>
+                  <span 
+                    className="text-3xl font-bold px-3 py-1.5 rounded inline-block"
+                    style={{
+                      backgroundColor: '#0a1929',
+                      color: '#facc15',
+                      fontFamily: 'sans-serif'
+                    }}
+                  >
+                    ${libro.precio.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} COP
+                  </span>
                 </div>
                 {user ? (
                   <button
