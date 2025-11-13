@@ -201,6 +201,40 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
       return;
     }
 
+    // Si el precio es 0, procesar compra gratuita automáticamente
+    if (libro.precio === 0 || libro.precio === null || libro.precio === undefined) {
+      setCargando(true);
+      try {
+        const response = await fetch('/api/libros/comprar-gratis', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ libroId: libro.id }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          console.error('Error al obtener libro gratuito:', data.error);
+          alert(data.error || 'Error al obtener el libro. Por favor, intenta de nuevo.');
+          setCargando(false);
+          return;
+        }
+
+        // Actualizar el estado para reflejar que el libro está comprado
+        setEstaComprado(true);
+        
+        // Redirigir a la página de lectura
+        router.push(`/libros/${libro.id}/leer`);
+      } catch (error) {
+        console.error('Error al procesar compra gratuita:', error);
+        alert('Error al obtener el libro. Por favor, intenta de nuevo.');
+        setCargando(false);
+      }
+      return;
+    }
+
     // Solo redirigir a checkout si el usuario hace clic explícitamente
     // Esta función solo se llama desde el onClick del botón
     router.push(`/libros/${libro.id}/checkout`);
@@ -281,16 +315,27 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
             ) : (
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <span 
-                    className="text-3xl font-bold px-3 py-1.5 rounded inline-block"
-                    style={{
-                      backgroundColor: '#0a1929',
-                      color: '#facc15',
-                      fontFamily: 'sans-serif'
-                    }}
-                  >
-                    ${libro.precio.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} COP
-                  </span>
+                  {(libro.precio === 0 || libro.precio === null || libro.precio === undefined) ? (
+                    <span 
+                      className="text-3xl font-bold px-3 py-1.5 rounded inline-block bg-green-600 text-white"
+                      style={{
+                        fontFamily: 'sans-serif'
+                      }}
+                    >
+                      Gratis
+                    </span>
+                  ) : (
+                    <span 
+                      className="text-3xl font-bold px-3 py-1.5 rounded inline-block"
+                      style={{
+                        backgroundColor: '#0a1929',
+                        color: '#facc15',
+                        fontFamily: 'sans-serif'
+                      }}
+                    >
+                      ${libro.precio.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} COP
+                    </span>
+                  )}
                 </div>
                 {!libro.archivo_pdf_url ? (
                   <div className="space-y-3">
@@ -312,7 +357,7 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
                     disabled={cargando || estaComprado}
                     className="w-full px-6 py-3 bg-yellow-500 text-black rounded-lg font-semibold hover:bg-yellow-600 transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed"
                   >
-                    {cargando ? "Procesando..." : "Comprar ahora"}
+                    {cargando ? "Procesando..." : (libro.precio === 0 || libro.precio === null || libro.precio === undefined) ? "Obtener gratis" : "Comprar ahora"}
                   </button>
                 ) : (
                   <div className="space-y-3">

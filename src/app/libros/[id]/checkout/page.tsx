@@ -55,6 +55,12 @@ export default async function CheckoutPage({
     redirect(`/libros/${params.id}`);
   }
 
+  // Si el precio es 0, redirigir de vuelta a la página del libro
+  // Los libros gratuitos se procesan automáticamente desde la página de detalle
+  if (libro.precio === 0 || libro.precio === null || libro.precio === undefined) {
+    redirect(`/libros/${params.id}`);
+  }
+
   return <WompiCheckoutClient libro={libro} user={user} />;
 }
 

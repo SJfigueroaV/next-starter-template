@@ -85,6 +85,15 @@ export async function POST(request: Request) {
       );
     }
 
+    // Si el precio es 0, no permitir crear transacción
+    // Los libros gratuitos se procesan automáticamente desde la página de detalle
+    if (libro.precio === 0 || libro.precio === null || libro.precio === undefined) {
+      return NextResponse.json(
+        { error: 'Este libro es gratuito y debe obtenerse desde la página del libro' },
+        { status: 400 }
+      );
+    }
+
     // Verificar si el usuario ya compró el libro
     const { data: compraExistente } = await supabase
       .from('compras_libros')

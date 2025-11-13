@@ -354,18 +354,38 @@ export default function LibrosClient({ libros, categorias, error, initialUser = 
                       <>
                         {!libro.archivo_pdf_url ? (
                           <div className="space-y-1">
-                            <p 
-                              className="text-sm font-bold px-3 py-1.5 rounded inline-block opacity-50"
-                              style={{
-                                backgroundColor: '#0a1929',
-                                color: '#facc15',
-                                fontFamily: 'sans-serif'
-                              }}
-                            >
-                              ${libro.precio.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} COP
-                            </p>
+                            {(libro.precio === 0 || libro.precio === null || libro.precio === undefined) ? (
+                              <p 
+                                className="text-sm font-bold px-3 py-1.5 rounded inline-block bg-green-600 text-white opacity-50"
+                                style={{
+                                  fontFamily: 'sans-serif'
+                                }}
+                              >
+                                Gratis
+                              </p>
+                            ) : (
+                              <p 
+                                className="text-sm font-bold px-3 py-1.5 rounded inline-block opacity-50"
+                                style={{
+                                  backgroundColor: '#0a1929',
+                                  color: '#facc15',
+                                  fontFamily: 'sans-serif'
+                                }}
+                              >
+                                ${libro.precio.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} COP
+                              </p>
+                            )}
                             <p className="text-xs text-amber-400">PDF no disponible aún</p>
                           </div>
+                        ) : (libro.precio === 0 || libro.precio === null || libro.precio === undefined) ? (
+                          <p 
+                            className="text-sm font-bold px-3 py-1.5 rounded inline-block bg-green-600 text-white"
+                            style={{
+                              fontFamily: 'sans-serif'
+                            }}
+                          >
+                            Gratis
+                          </p>
                         ) : (
                           <p 
                             className="text-sm font-bold px-3 py-1.5 rounded inline-block"
