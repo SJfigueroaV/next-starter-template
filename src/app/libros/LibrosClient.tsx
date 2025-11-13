@@ -15,6 +15,7 @@ type Libro = {
   portada_url?: string;
   categoria?: string;
   fecha_publicacion?: string;
+  archivo_pdf_url?: string;
 };
 
 type LibrosClientProps = {
@@ -338,6 +339,11 @@ export default function LibrosClient({ libros, categorias, error, initialUser = 
                         Comprado
                       </div>
                     )}
+                    {!libro.archivo_pdf_url && !estaComprado && (
+                      <div className="absolute top-2 left-2 bg-amber-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                        Próximamente
+                      </div>
+                    )}
                   </div>
                   <div className="p-3">
                     <h3 className="font-semibold text-sm mb-1 line-clamp-2 group-hover:text-blue-400 transition-colors">
@@ -345,16 +351,34 @@ export default function LibrosClient({ libros, categorias, error, initialUser = 
                     </h3>
                     <p className="text-xs text-gray-400 mb-2">{libro.autor}</p>
                     {!estaComprado && (
-                      <p 
-                        className="text-sm font-bold px-3 py-1.5 rounded inline-block"
-                        style={{
-                          backgroundColor: '#0a1929',
-                          color: '#facc15',
-                          fontFamily: 'sans-serif'
-                        }}
-                      >
-                        ${libro.precio.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} COP
-                      </p>
+                      <>
+                        {!libro.archivo_pdf_url ? (
+                          <div className="space-y-1">
+                            <p 
+                              className="text-sm font-bold px-3 py-1.5 rounded inline-block opacity-50"
+                              style={{
+                                backgroundColor: '#0a1929',
+                                color: '#facc15',
+                                fontFamily: 'sans-serif'
+                              }}
+                            >
+                              ${libro.precio.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} COP
+                            </p>
+                            <p className="text-xs text-amber-400">PDF no disponible aún</p>
+                          </div>
+                        ) : (
+                          <p 
+                            className="text-sm font-bold px-3 py-1.5 rounded inline-block"
+                            style={{
+                              backgroundColor: '#0a1929',
+                              color: '#facc15',
+                              fontFamily: 'sans-serif'
+                            }}
+                          >
+                            ${libro.precio.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} COP
+                          </p>
+                        )}
+                      </>
                     )}
                   </div>
                 </Link>

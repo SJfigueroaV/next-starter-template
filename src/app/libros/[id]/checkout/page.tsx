@@ -49,6 +49,12 @@ export default async function CheckoutPage({
     redirect(`/libros/${params.id}/leer`);
   }
 
+  // Verificar que el libro tenga PDF disponible antes de permitir la compra
+  if (!libro.archivo_pdf_url) {
+    // Redirigir de vuelta a la página del libro si no tiene PDF
+    redirect(`/libros/${params.id}`);
+  }
+
   return <WompiCheckoutClient libro={libro} user={user} />;
 }
 

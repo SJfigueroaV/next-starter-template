@@ -182,6 +182,12 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
   }, [libro.id]);
 
   const handleComprar = async () => {
+    // Protección: no permitir comprar si no hay PDF disponible
+    if (!libro.archivo_pdf_url) {
+      console.warn('⚠️ Intento de comprar un libro sin PDF disponible');
+      return;
+    }
+
     // Protección adicional: verificar que el usuario está autenticado y el libro no está comprado
     if (!user) {
       // Si no está autenticado, redirigir al inicio para que inicie sesión
@@ -286,7 +292,21 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
                     ${libro.precio.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} COP
                   </span>
                 </div>
-                {user ? (
+                {!libro.archivo_pdf_url ? (
+                  <div className="space-y-3">
+                    <div className="w-full px-6 py-3 bg-gray-600 text-white rounded-lg font-semibold text-center cursor-not-allowed opacity-75">
+                      No disponible aún
+                    </div>
+                    <div className="flex items-center gap-2 text-amber-400 bg-amber-400/10 px-4 py-3 rounded-lg">
+                      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                      <p className="text-sm">
+                        El PDF de este libro aún no está disponible. Estará disponible próximamente.
+                      </p>
+                    </div>
+                  </div>
+                ) : user ? (
                   <button
                     onClick={handleComprar}
                     disabled={cargando || estaComprado}

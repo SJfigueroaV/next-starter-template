@@ -66,7 +66,7 @@ export async function POST(request: Request) {
     // Obtener información del libro
     const { data: libro, error: libroError } = await supabase
       .from('libros')
-      .select('id, titulo, precio')
+      .select('id, titulo, precio, archivo_pdf_url')
       .eq('id', libroId)
       .single();
 
@@ -74,6 +74,14 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: 'Libro no encontrado' },
         { status: 404 }
+      );
+    }
+
+    // Verificar que el libro tenga PDF disponible antes de permitir la compra
+    if (!libro.archivo_pdf_url) {
+      return NextResponse.json(
+        { error: 'Este libro aún no tiene PDF disponible. Estará disponible próximamente.' },
+        { status: 400 }
       );
     }
 
