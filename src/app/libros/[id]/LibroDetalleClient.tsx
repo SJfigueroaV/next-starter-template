@@ -213,7 +213,7 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
           body: JSON.stringify({ libroId: libro.id }),
         });
 
-        const data = await response.json();
+        const data = await response.json() as { error?: string; success?: boolean; message?: string };
 
         if (!response.ok) {
           console.error('Error al obtener libro gratuito:', data.error);
