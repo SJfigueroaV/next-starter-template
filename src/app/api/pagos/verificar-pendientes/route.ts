@@ -116,9 +116,20 @@ export async function POST(request: Request) {
               error?: { message?: string };
             };
             
-            const transactions = Array.isArray(wompiData.data) 
-              ? wompiData.data 
-              : (wompiData.data ? [wompiData.data] : []);
+            console.log(`📦 Respuesta de Wompi (búsqueda por referencia):`, JSON.stringify(wompiData, null, 2));
+            
+            // Wompi puede devolver la transacción directamente o dentro de un array
+            let transactions: any[] = [];
+            if (Array.isArray(wompiData.data)) {
+              transactions = wompiData.data;
+            } else if (wompiData.data) {
+              transactions = [wompiData.data];
+            } else if (wompiData && !wompiData.data && !wompiData.error) {
+              // A veces Wompi devuelve la transacción directamente sin el wrapper 'data'
+              transactions = [wompiData];
+            }
+            
+            console.log(`📋 Transacciones encontradas: ${transactions.length}`);
             
             const transaction = transactions.find(
               (t: any) => t.reference === transPendiente.reference
@@ -126,13 +137,15 @@ export async function POST(request: Request) {
 
             if (transaction) {
               transactionId = transaction.id;
-              console.log(`✅ Transacción encontrada en Wompi, ID: ${transactionId}`);
+              console.log(`✅ Transacción encontrada en Wompi, ID: ${transactionId}, Estado: ${transaction.status}`);
+              console.log(`📝 Datos completos de la transacción:`, JSON.stringify(transaction, null, 2));
             } else {
               console.warn(`⚠️ No se encontró transacción con referencia ${transPendiente.reference} en Wompi`);
+              console.warn(`📋 Referencias encontradas:`, transactions.map(t => t.reference));
             }
           } else {
             const errorData = await wompiResponse.json().catch(() => ({}));
-            console.warn(`⚠️ Error al buscar transacción por referencia:`, errorData);
+            console.warn(`⚠️ Error al buscar transacción por referencia (${wompiResponse.status}):`, errorData);
           }
         }
 
@@ -181,23 +194,49 @@ export async function POST(request: Request) {
               error?: { message?: string };
             };
             
-            const transactions = Array.isArray(wompiData.data) 
-              ? wompiData.data 
-              : (wompiData.data ? [wompiData.data] : []);
+            console.log(`📦 Respuesta de Wompi (segunda búsqueda por referencia):`, JSON.stringify(wompiData, null, 2));
+            
+            // Wompi puede devolver la transacción directamente o dentro de un array
+            let transactions: any[] = [];
+            if (Array.isArray(wompiData.data)) {
+              transactions = wompiData.data;
+            } else if (wompiData.data) {
+              transactions = [wompiData.data];
+            } else if (wompiData && !wompiData.data && !wompiData.error) {
+              // A veces Wompi devuelve la transacción directamente sin el wrapper 'data'
+              transactions = [wompiData];
+            }
+            
+            console.log(`📋 Transacciones encontradas (segunda búsqueda): ${transactions.length}`);
             
             transaction = transactions.find(
               (t: any) => t.reference === transPendiente.reference
             ) || transactions[0];
             
-            if (transaction && !transactionId) {
-              transactionId = transaction.id;
-              console.log(`✅ Transacción encontrada por referencia, ID: ${transactionId}`);
+            if (transaction) {
+              if (!transactionId) {
+                transactionId = transaction.id;
+              }
+              console.log(`✅ Transacción encontrada por referencia, ID: ${transactionId}, Estado: ${transaction.status}`);
+              console.log(`📝 Datos completos:`, JSON.stringify(transaction, null, 2));
+            } else {
+              console.warn(`⚠️ No se encontró transacción con referencia ${transPendiente.reference}`);
+              console.warn(`📋 Referencias encontradas:`, transactions.map(t => t.reference));
             }
+          } else {
+            const errorData = await wompiResponse.json().catch(() => ({}));
+            console.warn(`⚠️ Error en segunda búsqueda por referencia (${wompiResponse.status}):`, errorData);
           }
         }
 
         if (transaction) {
-          const status = transaction.status?.toUpperCase();
+          // El estado puede estar en diferentes lugares según el formato de respuesta
+          const status = transaction.status?.toUpperCase() || 
+                        transaction.data?.status?.toUpperCase() ||
+                        (transaction.status ? String(transaction.status).toUpperCase() : null);
+          
+          console.log(`📊 Estado de la transacción: ${status || 'undefined'}`);
+          console.log(`📝 Estructura completa de la transacción:`, JSON.stringify(transaction, null, 2));
 
           if (status === 'APPROVED' || status === 'APPROVED_PARTIAL') {
             console.log(`✅ Transacción aprobada: ${transactionId || transaction.id}, estado: ${status}`);
