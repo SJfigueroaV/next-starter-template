@@ -78,10 +78,12 @@ export async function POST(request: Request) {
       let libro_id = metadata.libro_id;
       let user_id = metadata.user_id;
       
+      // Obtener la referencia de la transacción
+      const reference = transaction.reference || event.reference || '';
+      
       // Si no hay metadatos, intentar extraer de la referencia
       // La referencia tiene formato: LIBRO_{libroId}_USER_{userId}_{timestamp}
       if (!libro_id || !user_id) {
-        const reference = transaction.reference || event.reference || '';
         console.log('📝 Intentando extraer metadatos de la referencia:', reference);
         
         const referenceMatch = reference.match(/LIBRO_(\d+)_USER_([^_]+)_/);
@@ -92,20 +94,41 @@ export async function POST(request: Request) {
         }
       }
       
+      // Si aún no tenemos metadatos, buscar en transacciones pendientes por referencia
+      // Usar service role client para poder leer transacciones pendientes
+      const supabase = createServiceRoleClient();
+      
+      if ((!libro_id || !user_id) && reference) {
+        console.log('🔍 Buscando transacción pendiente por referencia:', reference);
+        const { data: transPendiente } = await supabase
+          .from('transacciones_pendientes')
+          .select('user_id, user_email, libro_id')
+          .eq('reference', reference)
+          .in('estado', ['pendiente', 'procesando'])
+          .single();
+        
+        if (transPendiente) {
+          libro_id = transPendiente.libro_id.toString();
+          user_id = transPendiente.user_id || undefined;
+          console.log('✅ Transacción pendiente encontrada:', { 
+            libro_id, 
+            user_id, 
+            user_email: transPendiente.user_email 
+          });
+        }
+      }
+      
       console.log('📝 Metadatos encontrados:', { libro_id, user_id });
       console.log('📝 Metadatos completos:', metadata);
-      console.log('📝 Referencia de la transacción:', transaction.reference || event.reference);
+      console.log('📝 Referencia de la transacción:', reference);
       
-      if (!libro_id || !user_id) {
-        console.error('❌ Faltan metadatos en la transacción');
-        console.error('Metadatos disponibles:', metadata);
-        console.error('Referencia:', transaction.reference || event.reference);
+      if (!libro_id) {
+        console.error('❌ No se pudo determinar libro_id de la transacción');
+        console.error('Referencia:', reference);
         console.error('Datos completos de la transacción:', JSON.stringify(transaction, null, 2));
-        // No retornar error 400, solo loguear - el webhook puede llegar antes de que tengamos los metadatos
-        console.warn('⚠️ Continuando sin metadatos - puede que necesitemos verificar manualmente');
         return NextResponse.json({ 
           received: true, 
-          warning: 'Metadatos faltantes - transacción recibida pero no procesada' 
+          warning: 'No se pudo determinar libro_id - transacción recibida pero no procesada' 
         });
       }
 
@@ -125,7 +148,7 @@ export async function POST(request: Request) {
           console.log('✅ Pago aprobado, registrando compra...');
           
           // Usar service role client para poder insertar compras sin restricciones RLS
-          const supabase = createServiceRoleClient();
+          // (ya está definido arriba)
           
           // Obtener el monto pagado (Wompi usa amount_in_cents)
           const amountInCents = transaction.amount_in_cents || 
@@ -147,6 +170,42 @@ export async function POST(request: Request) {
           console.log('💳 Método de pago:', paymentMethod);
           console.log('🆔 ID de transacción:', transactionId);
 
+          // Si no tenemos user_id pero tenemos referencia, buscar en transacciones pendientes
+          if (!user_id && reference) {
+            const { data: transPendiente } = await supabase
+              .from('transacciones_pendientes')
+              .select('user_id, user_email')
+              .eq('reference', reference)
+              .single();
+            
+            if (transPendiente) {
+              user_id = transPendiente.user_id || undefined;
+              console.log('✅ user_id encontrado desde transacción pendiente:', user_id);
+            }
+          }
+
+          // Si aún no tenemos user_id, no podemos registrar la compra
+          if (!user_id) {
+            console.error('❌ No se pudo determinar user_id de la transacción');
+            console.error('⚠️ Guardando transacción pendiente para procesamiento posterior');
+            
+            // Actualizar la transacción pendiente con el estado y el ID de Wompi
+            if (reference) {
+              await supabase
+                .from('transacciones_pendientes')
+                .update({
+                  estado: 'procesando',
+                  transaccion_wompi_id: transactionId,
+                })
+                .eq('reference', reference);
+            }
+            
+            return NextResponse.json({ 
+              received: true, 
+              warning: 'user_id no disponible - transacción guardada para procesamiento posterior' 
+            });
+          }
+
           // Crear o actualizar el registro de compra
           const { error: compraError } = await supabase
             .from('compras_libros')
@@ -167,6 +226,19 @@ export async function POST(request: Request) {
               { error: 'Error al registrar la compra' },
               { status: 500 }
             );
+          }
+
+          // Actualizar la transacción pendiente como completada
+          if (reference) {
+            await supabase
+              .from('transacciones_pendientes')
+              .update({
+                estado: 'completado',
+                transaccion_wompi_id: transactionId,
+                procesado_at: new Date().toISOString(),
+              })
+              .eq('reference', reference);
+            console.log('✅ Transacción pendiente marcada como completada');
           }
 
           console.log(`✅ Compra registrada exitosamente: Usuario ${user_id}, Libro ${libro_id}, Transacción ${transactionId}`);

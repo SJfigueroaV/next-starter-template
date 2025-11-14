@@ -94,6 +94,29 @@ export default function AuthCallback() {
               if (finalCheck) {
                 console.log('✅ Sesión verificada y persistida correctamente');
                 console.log('✅ Usuario final:', finalCheck.user.email);
+                
+                // Verificar y procesar pagos pendientes vinculados al email
+                try {
+                  console.log('🔍 Verificando pagos pendientes...');
+                  const response = await fetch('/api/pagos/verificar-pendientes', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                  });
+                  
+                  if (response.ok) {
+                    const data = await response.json() as { procesadas?: number; total?: number };
+                    if (data.procesadas && data.procesadas > 0) {
+                      console.log(`✅ ${data.procesadas} pago(s) pendiente(s) procesado(s)`);
+                    }
+                  } else {
+                    console.warn('⚠️ Error al verificar pagos pendientes (no crítico)');
+                  }
+                } catch (error) {
+                  console.warn('⚠️ Error al verificar pagos pendientes (no crítico):', error);
+                }
+                
                 console.log('🔄 Redirigiendo a:', redirectTo);
                 window.location.href = redirectTo;
                 return;
@@ -183,6 +206,28 @@ export default function AuthCallback() {
             } else {
               console.log('✅ Sesión verificada y persistida correctamente');
               console.log('✅ Usuario final:', finalCheck.user.email);
+              
+              // Verificar y procesar pagos pendientes vinculados al email
+              try {
+                console.log('🔍 Verificando pagos pendientes...');
+                const response = await fetch('/api/pagos/verificar-pendientes', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                });
+                
+                if (response.ok) {
+                  const data = await response.json() as { procesadas?: number; total?: number };
+                  if (data.procesadas && data.procesadas > 0) {
+                    console.log(`✅ ${data.procesadas} pago(s) pendiente(s) procesado(s)`);
+                  }
+                } else {
+                  console.warn('⚠️ Error al verificar pagos pendientes (no crítico)');
+                }
+              } catch (error) {
+                console.warn('⚠️ Error al verificar pagos pendientes (no crítico):', error);
+              }
             }
             
             // Redirigir - usar href para asegurar que las cookies se envíen
@@ -199,6 +244,27 @@ export default function AuthCallback() {
           if (session) {
             console.log('✅ Sesión encontrada en verificación manual');
             console.log('✅ Usuario:', session.user.email);
+            
+            // Verificar y procesar pagos pendientes
+            try {
+              console.log('🔍 Verificando pagos pendientes...');
+              const response = await fetch('/api/pagos/verificar-pendientes', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+              
+              if (response.ok) {
+                const data = await response.json() as { procesadas?: number; total?: number };
+                if (data.procesadas && data.procesadas > 0) {
+                  console.log(`✅ ${data.procesadas} pago(s) pendiente(s) procesado(s)`);
+                }
+              }
+            } catch (error) {
+              console.warn('⚠️ Error al verificar pagos pendientes (no crítico):', error);
+            }
+            
             // Verificar que persiste antes de redirigir
             await new Promise(resolve => setTimeout(resolve, 500));
             const { data: { session: finalCheck } } = await supabase.auth.getSession();
@@ -356,6 +422,27 @@ export default function AuthCallback() {
           if (data.session) {
             console.log('✅ Sesión establecida manualmente');
             console.log('✅ Usuario:', data.session.user.email);
+            
+            // Verificar y procesar pagos pendientes
+            try {
+              console.log('🔍 Verificando pagos pendientes...');
+              const response = await fetch('/api/pagos/verificar-pendientes', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+              
+              if (response.ok) {
+                const data = await response.json() as { procesadas?: number; total?: number };
+                if (data.procesadas && data.procesadas > 0) {
+                  console.log(`✅ ${data.procesadas} pago(s) pendiente(s) procesado(s)`);
+                }
+              }
+            } catch (error) {
+              console.warn('⚠️ Error al verificar pagos pendientes (no crítico):', error);
+            }
+            
             // Verificar que la sesión esté persistida antes de redirigir
             console.log('⏳ Verificando que la sesión esté persistida...');
             await waitForSession();
@@ -380,6 +467,27 @@ export default function AuthCallback() {
         if (session) {
           console.log('✅ Sesión encontrada (PKCE flow automático)');
           console.log('✅ Usuario:', session.user.email);
+          
+          // Verificar y procesar pagos pendientes
+          try {
+            console.log('🔍 Verificando pagos pendientes...');
+            const response = await fetch('/api/pagos/verificar-pendientes', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+            
+            if (response.ok) {
+              const data = await response.json() as { procesadas?: number; total?: number };
+              if (data.procesadas && data.procesadas > 0) {
+                console.log(`✅ ${data.procesadas} pago(s) pendiente(s) procesado(s)`);
+              }
+            }
+          } catch (error) {
+            console.warn('⚠️ Error al verificar pagos pendientes (no crítico):', error);
+          }
+          
           // Verificar que la sesión esté persistida antes de redirigir
           console.log('⏳ Verificando que la sesión esté persistida...');
           await waitForSession();
@@ -395,6 +503,27 @@ export default function AuthCallback() {
           if (retrySession) {
             console.log('✅ Sesión encontrada después de esperar');
             console.log('✅ Usuario:', retrySession.user.email);
+            
+            // Verificar y procesar pagos pendientes
+            try {
+              console.log('🔍 Verificando pagos pendientes...');
+              const response = await fetch('/api/pagos/verificar-pendientes', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+              
+              if (response.ok) {
+                const data = await response.json() as { procesadas?: number; total?: number };
+                if (data.procesadas && data.procesadas > 0) {
+                  console.log(`✅ ${data.procesadas} pago(s) pendiente(s) procesado(s)`);
+                }
+              }
+            } catch (error) {
+              console.warn('⚠️ Error al verificar pagos pendientes (no crítico):', error);
+            }
+            
             // Verificar que la sesión esté persistida
             await waitForSession();
             await new Promise(resolve => setTimeout(resolve, 1000));

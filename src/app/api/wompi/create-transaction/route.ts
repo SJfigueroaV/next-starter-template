@@ -115,6 +115,36 @@ export async function POST(request: Request) {
     const amountInCents = Math.round(libro.precio * 100); // Wompi usa centavos
     const reference = `LIBRO_${libroId}_USER_${userId}_${Date.now()}`;
     
+    // IMPORTANTE: Guardar la transacción pendiente en la base de datos
+    // Esto permite vincular el pago con el email del usuario incluso si se pierden las cookies
+    const userEmail = user.email;
+    if (!userEmail) {
+      return NextResponse.json(
+        { error: 'No se pudo obtener el email del usuario' },
+        { status: 400 }
+      );
+    }
+
+    // Guardar transacción pendiente vinculada al email
+    const { error: transPendienteError } = await supabase
+      .from('transacciones_pendientes')
+      .insert({
+        user_id: userId,
+        user_email: userEmail,
+        libro_id: libroId,
+        reference: reference,
+        monto: libro.precio,
+        estado: 'pendiente',
+      });
+
+    if (transPendienteError) {
+      console.error('❌ Error al guardar transacción pendiente:', transPendienteError);
+      // No fallar completamente, pero loguear el error
+      console.warn('⚠️ Continuando sin guardar transacción pendiente');
+    } else {
+      console.log('✅ Transacción pendiente guardada:', { reference, userEmail, libroId });
+    }
+    
     // URL de retorno después del pago
     const requestUrl = new URL(request.url);
     let returnUrl = `${requestUrl.origin}/libros/${libroId}/checkout/callback`;
