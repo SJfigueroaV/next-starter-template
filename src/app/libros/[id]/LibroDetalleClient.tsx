@@ -274,7 +274,7 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
         <div className="space-y-4">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">{libro.titulo}</h1>
-            <p className="text-xl text-gray-300 mb-4">por {libro.autor}</p>
+            <p className="text-xl text-gray-300 mb-4">{libro.autor}</p>
             {libro.categoria && (
               <span className="inline-block px-3 py-1 bg-blue-600 text-white rounded-full text-sm">
                 {libro.categoria}
