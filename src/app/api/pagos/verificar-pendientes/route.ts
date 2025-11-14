@@ -35,6 +35,21 @@ export async function POST(request: Request) {
     // Usar service role para poder leer todas las transacciones pendientes
     const supabaseService = createServiceRoleClient();
 
+    // Limpiar transacciones pendientes expiradas automáticamente
+    // Esto se ejecuta cada vez que se verifica, así no necesitamos un cron job
+    try {
+      const { data: limpiezaResult, error: limpiezaError } = await supabaseService
+        .rpc('limpiar_transacciones_pendientes_expiradas');
+      
+      if (limpiezaError) {
+        console.warn('⚠️ Error al limpiar transacciones expiradas (no crítico):', limpiezaError);
+      } else if (limpiezaResult && limpiezaResult.length > 0 && limpiezaResult[0].deleted_count > 0) {
+        console.log(`🧹 Transacciones expiradas eliminadas: ${limpiezaResult[0].deleted_count}`);
+      }
+    } catch (error) {
+      console.warn('⚠️ Error al ejecutar limpieza de transacciones expiradas (no crítico):', error);
+    }
+
     // Buscar transacciones pendientes vinculadas al email del usuario
     // Incluir también las que están en estado 'procesando' porque pueden no haberse completado
     const { data: transaccionesPendientes, error: errorBuscar } = await supabaseService

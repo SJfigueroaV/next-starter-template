@@ -60,11 +60,18 @@ CREATE TRIGGER update_trans_pendientes_updated_at
   EXECUTE FUNCTION update_updated_at_column();
 
 -- Función para limpiar transacciones pendientes expiradas (ejecutar periódicamente)
+-- Devuelve el número de transacciones eliminadas
 CREATE OR REPLACE FUNCTION limpiar_transacciones_pendientes_expiradas()
-RETURNS void AS $$
+RETURNS TABLE(deleted_count BIGINT) AS $$
+DECLARE
+  deleted_rows BIGINT;
 BEGIN
   DELETE FROM transacciones_pendientes
   WHERE expires_at < NOW() AND estado != 'completado';
+  
+  GET DIAGNOSTICS deleted_rows = ROW_COUNT;
+  
+  RETURN QUERY SELECT deleted_rows;
 END;
 $$ LANGUAGE plpgsql;
 
