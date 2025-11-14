@@ -5,6 +5,8 @@ import { createServiceRoleClient } from '@/lib/supabaseServiceRole';
 /**
  * Endpoint para verificar y procesar pagos pendientes cuando el usuario inicia sesión
  * Busca transacciones pendientes vinculadas al email del usuario y las procesa
+ * 
+ * También puede ser llamado manualmente para procesar transacciones pendientes existentes
  */
 export async function POST(request: Request) {
   try {
@@ -37,7 +39,7 @@ export async function POST(request: Request) {
     // Incluir también las que están en estado 'procesando' porque pueden no haberse completado
     const { data: transaccionesPendientes, error: errorBuscar } = await supabaseService
       .from('transacciones_pendientes')
-      .select('id, libro_id, reference, monto, estado, transaccion_wompi_id')
+      .select('id, libro_id, reference, monto, estado, transaccion_wompi_id, created_at')
       .eq('user_email', userEmail)
       .in('estado', ['pendiente', 'procesando'])
       .order('created_at', { ascending: false });
@@ -57,6 +59,7 @@ export async function POST(request: Request) {
       return NextResponse.json({
         procesadas: 0,
         mensaje: 'No hay pagos pendientes',
+        transacciones: [],
       });
     }
 
@@ -78,17 +81,24 @@ export async function POST(request: Request) {
       : 'https://production.wompi.co/v1';
 
     let procesadas = 0;
-    const resultados: Array<{ reference: string; estado: string; mensaje: string }> = [];
+    const resultados: Array<{ 
+      reference: string; 
+      estado: string; 
+      mensaje: string;
+      libro_id?: number;
+      transaccion_wompi_id?: string;
+    }> = [];
 
     for (const transPendiente of transaccionesPendientes) {
       try {
-        console.log(`🔍 Verificando transacción: ${transPendiente.reference}`);
+        console.log(`🔍 Verificando transacción: ${transPendiente.reference} (Estado: ${transPendiente.estado})`);
 
         // Si ya tenemos el ID de Wompi, verificar directamente
         let transactionId = transPendiente.transaccion_wompi_id;
         
         // Si no tenemos el ID, buscar por referencia
         if (!transactionId) {
+          console.log(`🔍 Buscando transacción por referencia: ${transPendiente.reference}`);
           const wompiResponse = await fetch(
             `${wompiBaseUrl}/transactions?reference=${encodeURIComponent(transPendiente.reference)}`,
             {
@@ -116,7 +126,13 @@ export async function POST(request: Request) {
 
             if (transaction) {
               transactionId = transaction.id;
+              console.log(`✅ Transacción encontrada en Wompi, ID: ${transactionId}`);
+            } else {
+              console.warn(`⚠️ No se encontró transacción con referencia ${transPendiente.reference} en Wompi`);
             }
+          } else {
+            const errorData = await wompiResponse.json().catch(() => ({}));
+            console.warn(`⚠️ Error al buscar transacción por referencia:`, errorData);
           }
         }
 
@@ -139,6 +155,7 @@ export async function POST(request: Request) {
 
           if (wompiResponse.ok) {
             transaction = await wompiResponse.json() as any;
+            console.log(`✅ Transacción obtenida, estado: ${transaction.status}`);
           } else {
             console.warn(`⚠️ No se pudo obtener transacción por ID ${transactionId}, intentando por referencia`);
           }
@@ -223,6 +240,7 @@ export async function POST(request: Request) {
                   reference: transPendiente.reference,
                   estado: 'error',
                   mensaje: `Error al registrar la compra: ${compraError.message}`,
+                  libro_id: transPendiente.libro_id,
                 });
                 continue;
               }
@@ -257,6 +275,8 @@ export async function POST(request: Request) {
               reference: transPendiente.reference,
               estado: compraExistente ? 'ya_registrado' : 'completado',
               mensaje: compraExistente ? 'La compra ya estaba registrada' : 'Pago procesado exitosamente',
+              libro_id: transPendiente.libro_id,
+              transaccion_wompi_id: transactionId || transaction.id,
             });
 
             console.log(`✅ Procesamiento completado: Libro ${transPendiente.libro_id}, Transacción ${transactionId || transaction.id}`);
@@ -266,6 +286,7 @@ export async function POST(request: Request) {
               reference: transPendiente.reference,
               estado: 'pendiente',
               mensaje: `Transacción con estado: ${status}`,
+              libro_id: transPendiente.libro_id,
             });
           }
         } else {
@@ -274,7 +295,8 @@ export async function POST(request: Request) {
           resultados.push({
             reference: transPendiente.reference,
             estado: 'no_encontrada',
-            mensaje: 'Transacción no encontrada en Wompi (puede que aún no se haya creado)',
+            mensaje: 'Transacción no encontrada en Wompi (puede que aún no se haya creado o el pago no se completó)',
+            libro_id: transPendiente.libro_id,
           });
         }
       } catch (error: any) {
@@ -283,6 +305,7 @@ export async function POST(request: Request) {
           reference: transPendiente.reference,
           estado: 'error',
           mensaje: error.message || 'Error al procesar',
+          libro_id: transPendiente.libro_id,
         });
       }
     }
@@ -293,6 +316,12 @@ export async function POST(request: Request) {
       procesadas,
       total: transaccionesPendientes.length,
       resultados,
+      transacciones: transaccionesPendientes.map(t => ({
+        reference: t.reference,
+        libro_id: t.libro_id,
+        estado: t.estado,
+        created_at: t.created_at,
+      })),
     });
   } catch (error: any) {
     console.error('❌ Error al verificar pagos pendientes:', error);
@@ -302,4 +331,3 @@ export async function POST(request: Request) {
     );
   }
 }
-
