@@ -94,27 +94,41 @@ export async function POST(request: Request) {
         }
       }
       
-      // Si aún no tenemos metadatos, buscar en transacciones pendientes por referencia
+      // SIEMPRE buscar en transacciones pendientes por referencia
+      // Esto es crítico porque el webhook puede llegar antes de que tengamos los metadatos
       // Usar service role client para poder leer transacciones pendientes
       const supabase = createServiceRoleClient();
       
-      if ((!libro_id || !user_id) && reference) {
+      let transPendiente: any = null;
+      if (reference) {
         console.log('🔍 Buscando transacción pendiente por referencia:', reference);
-        const { data: transPendiente } = await supabase
+        const { data: transPendienteData, error: errorBuscar } = await supabase
           .from('transacciones_pendientes')
-          .select('user_id, user_email, libro_id')
+          .select('id, user_id, user_email, libro_id, estado')
           .eq('reference', reference)
-          .in('estado', ['pendiente', 'procesando'])
-          .single();
+          .in('estado', ['pendiente', 'procesando', 'completado'])
+          .maybeSingle();
         
-        if (transPendiente) {
-          libro_id = transPendiente.libro_id.toString();
-          user_id = transPendiente.user_id || undefined;
+        if (errorBuscar) {
+          console.error('❌ Error al buscar transacción pendiente:', errorBuscar);
+        } else if (transPendienteData) {
+          transPendiente = transPendienteData;
+          // Usar los datos de la transacción pendiente si no tenemos metadatos
+          if (!libro_id) {
+            libro_id = transPendiente.libro_id.toString();
+          }
+          if (!user_id) {
+            user_id = transPendiente.user_id || undefined;
+          }
           console.log('✅ Transacción pendiente encontrada:', { 
+            id: transPendiente.id,
             libro_id, 
             user_id, 
-            user_email: transPendiente.user_email 
+            user_email: transPendiente.user_email,
+            estado: transPendiente.estado
           });
+        } else {
+          console.warn('⚠️ No se encontró transacción pendiente con referencia:', reference);
         }
       }
       
@@ -170,39 +184,41 @@ export async function POST(request: Request) {
           console.log('💳 Método de pago:', paymentMethod);
           console.log('🆔 ID de transacción:', transactionId);
 
-          // Si no tenemos user_id pero tenemos referencia, buscar en transacciones pendientes
-          if (!user_id && reference) {
-            const { data: transPendiente } = await supabase
-              .from('transacciones_pendientes')
-              .select('user_id, user_email')
-              .eq('reference', reference)
-              .single();
-            
-            if (transPendiente) {
-              user_id = transPendiente.user_id || undefined;
-              console.log('✅ user_id encontrado desde transacción pendiente:', user_id);
-            }
+          // Si no tenemos user_id pero tenemos transacción pendiente, usarla
+          if (!user_id && transPendiente) {
+            user_id = transPendiente.user_id || undefined;
+            console.log('✅ user_id encontrado desde transacción pendiente:', user_id);
           }
 
-          // Si aún no tenemos user_id, no podemos registrar la compra
-          if (!user_id) {
-            console.error('❌ No se pudo determinar user_id de la transacción');
-            console.error('⚠️ Guardando transacción pendiente para procesamiento posterior');
+          // Si aún no tenemos user_id pero tenemos email de la transacción pendiente,
+          // actualizar la transacción pendiente para que se procese después
+          if (!user_id && transPendiente?.user_email) {
+            console.warn('⚠️ No se pudo determinar user_id, pero tenemos email:', transPendiente.user_email);
+            console.warn('⚠️ Actualizando transacción pendiente para procesamiento posterior');
             
             // Actualizar la transacción pendiente con el estado y el ID de Wompi
-            if (reference) {
-              await supabase
-                .from('transacciones_pendientes')
-                .update({
-                  estado: 'procesando',
-                  transaccion_wompi_id: transactionId,
-                })
-                .eq('reference', reference);
-            }
+            await supabase
+              .from('transacciones_pendientes')
+              .update({
+                estado: 'procesando',
+                transaccion_wompi_id: transactionId,
+              })
+              .eq('reference', reference);
             
+            console.log('✅ Transacción pendiente actualizada, se procesará cuando el usuario inicie sesión');
             return NextResponse.json({ 
               received: true, 
-              warning: 'user_id no disponible - transacción guardada para procesamiento posterior' 
+              warning: 'user_id no disponible - transacción guardada para procesamiento posterior',
+              user_email: transPendiente.user_email
+            });
+          }
+
+          // Si aún no tenemos user_id y no hay transacción pendiente, no podemos procesar
+          if (!user_id) {
+            console.error('❌ No se pudo determinar user_id y no hay transacción pendiente');
+            return NextResponse.json({ 
+              received: true, 
+              warning: 'No se pudo procesar - falta user_id y transacción pendiente' 
             });
           }
 
@@ -230,15 +246,21 @@ export async function POST(request: Request) {
 
           // Actualizar la transacción pendiente como completada
           if (reference) {
-            await supabase
+            const { error: updateError } = await supabase
               .from('transacciones_pendientes')
               .update({
                 estado: 'completado',
                 transaccion_wompi_id: transactionId,
                 procesado_at: new Date().toISOString(),
+                user_id: user_id, // Actualizar user_id si no estaba
               })
               .eq('reference', reference);
-            console.log('✅ Transacción pendiente marcada como completada');
+            
+            if (updateError) {
+              console.error('❌ Error al actualizar transacción pendiente:', updateError);
+            } else {
+              console.log('✅ Transacción pendiente marcada como completada');
+            }
           }
 
           console.log(`✅ Compra registrada exitosamente: Usuario ${user_id}, Libro ${libro_id}, Transacción ${transactionId}`);
