@@ -31,6 +31,7 @@ export default function LibrosClient({ libros, categorias, error, initialUser = 
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<string>("Todos los títulos");
   const [busqueda, setBusqueda] = useState<string>("");
   const [orden, setOrden] = useState<string>("Reciente");
+  const [librosHorizontales, setLibrosHorizontales] = useState<{ [key: number]: boolean }>({});
 
   // Logging para debugging
   useEffect(() => {
@@ -327,14 +328,50 @@ export default function LibrosClient({ libros, categorias, error, initialUser = 
                   href={`/libros/${libro.id}`}
                   className="group relative bg-gray-800 rounded-lg overflow-hidden hover:scale-105 transition-transform duration-200"
                 >
-                  <div className="aspect-[2/3] relative bg-gray-700 overflow-hidden w-full" style={{ minHeight: '200px' }}>
+                  <div 
+                    className={`aspect-[2/3] relative overflow-hidden w-full ${librosHorizontales[libro.id] ? 'bg-gray-100' : ''}`} 
+                    style={{ minHeight: '200px' }}
+                  >
                     {libro.portada_url ? (
                       <>
                         <img
                           src={libro.portada_url}
                           alt={libro.titulo}
-                          className="absolute inset-0 w-full h-full object-cover"
+                          className="absolute inset-0 w-full h-full object-contain"
                           loading="lazy"
+                          onLoad={(e) => {
+                            const img = e.currentTarget;
+                            const width = img.naturalWidth;
+                            const height = img.naturalHeight;
+                            if (width > 0 && height > 0) {
+                              // Si el ancho es mayor que el alto, es horizontal
+                              const esHorizontal = width > height;
+                              setLibrosHorizontales(prev => ({
+                                ...prev,
+                                [libro.id]: esHorizontal
+                              }));
+                            }
+                          }}
+                          ref={(img) => {
+                            // Verificar si la imagen ya está cargada cuando se monta el componente
+                            if (img && img.complete && img.naturalWidth > 0) {
+                              const width = img.naturalWidth;
+                              const height = img.naturalHeight;
+                              if (width > 0 && height > 0) {
+                                const esHorizontal = width > height;
+                                setLibrosHorizontales(prev => {
+                                  // Solo actualizar si no está ya en el estado
+                                  if (prev[libro.id] !== esHorizontal) {
+                                    return {
+                                      ...prev,
+                                      [libro.id]: esHorizontal
+                                    };
+                                  }
+                                  return prev;
+                                });
+                              }
+                            }
+                          }}
                           onError={(e) => {
                             e.currentTarget.style.display = 'none';
                           }}

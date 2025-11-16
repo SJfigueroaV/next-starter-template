@@ -30,7 +30,15 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
   const [cargando, setCargando] = useState(false);
   const [user, setUser] = useState<User | null>(initialUser);
   const [estaComprado, setEstaComprado] = useState(initialEstaComprado);
+  const [aspectRatio, setAspectRatio] = useState<string | null>(null);
+  const [esHorizontal, setEsHorizontal] = useState<boolean>(false);
   const router = useRouter();
+
+  // Resetear aspect ratio cuando cambia el libro
+  useEffect(() => {
+    setAspectRatio(null);
+    setEsHorizontal(false);
+  }, [libro.id]);
 
   // Verificar el usuario en el cliente para asegurar que tenemos la sesión actualizada
   useEffect(() => {
@@ -254,12 +262,39 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
 
       <div className="grid md:grid-cols-2 gap-8 bg-gray-800/50 rounded-lg p-6">
         {/* Portada */}
-        <div className="aspect-[2/3] relative bg-gray-700 rounded-lg overflow-hidden">
+        <div 
+          className={`relative rounded-lg overflow-hidden ${esHorizontal ? 'bg-gray-100' : 'bg-transparent'}`}
+          style={aspectRatio ? { aspectRatio } : { aspectRatio: '2/3' }}
+        >
           {libro.portada_url ? (
             <img
               src={libro.portada_url}
               alt={libro.titulo}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
+              onLoad={(e) => {
+                const img = e.currentTarget;
+                const width = img.naturalWidth;
+                const height = img.naturalHeight;
+                if (width > 0 && height > 0) {
+                  // Calcular el aspect ratio real de la imagen
+                  const ratio = width / height;
+                  setAspectRatio(`${ratio}`);
+                  // Si el ancho es mayor que el alto, es horizontal
+                  setEsHorizontal(width > height);
+                }
+              }}
+              ref={(img) => {
+                // Verificar si la imagen ya está cargada cuando se monta el componente
+                if (img && img.complete && img.naturalWidth > 0) {
+                  const width = img.naturalWidth;
+                  const height = img.naturalHeight;
+                  if (width > 0 && height > 0) {
+                    const ratio = width / height;
+                    setAspectRatio(`${ratio}`);
+                    setEsHorizontal(width > height);
+                  }
+                }
+              }}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
