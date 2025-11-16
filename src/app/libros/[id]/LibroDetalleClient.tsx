@@ -340,7 +340,7 @@ export default function LibroDetalleClient({ libro, estaComprado: initialEstaCom
                 {!libro.archivo_pdf_url ? (
                   <div className="space-y-3">
                     <div className="w-full px-6 py-3 bg-gray-600 text-white rounded-lg font-semibold text-center cursor-not-allowed opacity-75">
-                      No disponible aún
+                      No disponible
                     </div>
                     <div className="flex items-center gap-2 text-amber-400 bg-amber-400/10 px-4 py-3 rounded-lg">
                       <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

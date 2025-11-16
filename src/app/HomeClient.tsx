@@ -168,7 +168,7 @@ export default function HomeClient({ temasGenerales }: any) {
               </svg>
               
               {/* Texto del botón */}
-              <span className="relative z-10">Explorar Biblioteca</span>
+              <span className="relative z-10">Libros disponibles</span>
               
               {/* Flecha animada */}
               <svg 
@@ -239,6 +239,22 @@ export default function HomeClient({ temasGenerales }: any) {
                 <Image
                   src="/todo-es-posible-para-dios.jpg"
                   alt="Todo es posible para Dios - Portada"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 256px"
+                  className="object-cover rounded-lg"
+                  priority
+                />
+                <div className="shimmer-effect"></div>
+                <svg className="glow-container">
+                  <rect pathLength="100" strokeLinecap="round" className="glow-blur"></rect>
+                  <rect pathLength="100" strokeLinecap="round" className="glow-line"></rect>
+                </svg>
+              </div>
+            ) : tema.slug === 'pequeno-manual-de-la-solidaridad' ? (
+              <div className="card w-64 p-0" style={{ height: '359px' }}>
+                <Image
+                  src="/pequeño-manual-de-la-solidaridad.png"
+                  alt="Pequeño Manual de la Solidaridad - Portada"
                   fill
                   sizes="(max-width: 768px) 100vw, 256px"
                   className="object-cover rounded-lg"
