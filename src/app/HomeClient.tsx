@@ -137,11 +137,12 @@ export default function HomeClient({ temasGenerales }: any) {
             </div>
           )}
           
-          <h1 className="max-w-2xl mt-0 mb-4 text-5xl font-extrabold text-white md:mt-24 md:text-6xl lg:text-6xl">
-                Siembra la Palabra de Dios en toda gente, pueblo y nación
+          <h1 className="max-w-2xl mt-0 mb-6 text-5xl font-extrabold text-white md:mt-24 md:text-6xl lg:text-7xl xl:text-8xl leading-tight tracking-tight drop-shadow-lg">
+          Sembramos <br />
+          <span className="text-yellow-400">Editores</span>
             </h1>
-            <p className="mb-6 font-semibold text-blue-500 text-md lg:text-3xl">
-                Personas transformadas viviendo <br /> el evangelio de Jesús. <br /> Transformando el mundo.
+            <p className="mb-8 font-semibold text-blue-400 text-lg md:text-xl lg:text-2xl xl:text-3xl tracking-wide">
+                Jesús Arturo Figueroa Quiroga
             </p>
             
             {/* Botón llamativo para la biblioteca */}
@@ -216,19 +217,19 @@ export default function HomeClient({ temasGenerales }: any) {
                 
         </div>
         {!user && (
-                    <small className="block max-w-lg p-4 mb-8 text-sm font-bold border rounded-sm border-sky-400 bg-sky-950/80">Para desbloquear el contenido, debes iniciar sesión antes.</small>
+                    <small className="block max-w-lg p-4 mb-8 text-sm font-semibold border rounded-lg border-sky-400/50 bg-sky-950/60 backdrop-blur-sm">Para desbloquear el contenido, debes iniciar sesión antes.</small>
                 )}
         
       {/* Render de los temas */}
-      <ul className='grid gap-16 text-white'>
+      <ul className='grid gap-20 md:gap-24 text-white'>
         {temasGenerales && temasGenerales.length > 0 ? (
   temasGenerales.map((tema: tema, temaIndex: number) => (
     <li
       key={tema.id}
       className={`${!user ? "opacity-60 pointer-events-none" : ""}`}
     >
-      <header className="flex flex-col items-start mb-4 md:items-center md:flex-row">
-        <h2 className='text-3xl font-bold text-blue-500'>{tema.nombre}</h2>
+      <header className="flex flex-col items-start mb-6 md:items-center md:flex-row">
+        <h2 className='text-3xl md:text-4xl font-bold text-blue-400 tracking-tight'>{tema.nombre}</h2>
       </header>
 
       {tema.subtemas && tema.subtemas.length > 0 ? (
@@ -300,17 +301,17 @@ export default function HomeClient({ temasGenerales }: any) {
                   desbloqueado = progreso[anterior.id] === "completado";
                 }
                 return (
-                  <li key={subtema.id} className={`flex items-center mb-2 list-none ${!desbloqueado ? "opacity-50 cursor-not-allowed" : ""}`}>
-                    {icon}
+                  <li key={subtema.id} className={`flex items-center mb-3 list-none ${!desbloqueado ? "opacity-50 cursor-not-allowed" : ""}`}>
+                    <span className="flex-shrink-0">{icon}</span>
                     {desbloqueado ? (
                       <Link
-                        className='inline-flex items-center px-2 py-1 text-xl font-semibold rounded-lg hover:pointer hover:text-blue-500 gap-x-2'
+                        className='inline-flex items-center px-3 py-1.5 text-xl font-semibold rounded-lg hover:text-blue-400 hover:bg-white/5 transition-all duration-200 gap-x-2 group/link'
                         href={`/clase/${tema.slug}/${subtema.slug}`}
                       >
-                        {subtema.nombre}
+                        <span className="group-hover/link:translate-x-1 transition-transform duration-200">{subtema.nombre}</span>
                       </Link>
                     ) : (
-                      <span className="flex flex-col items-start px-2 py-1 text-xl font-semibold rounded-lg gap-y-1 select-none">
+                      <span className="flex flex-col items-start px-3 py-1.5 text-xl font-semibold rounded-lg gap-y-1 select-none">
                         <span className="ml-1 text-xs text-gray-400 whitespace-nowrap mb-1">(Bloqueado)</span>
                         <span className="break-words">{subtema.nombre}</span>
                       </span>
