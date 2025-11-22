@@ -56,6 +56,9 @@ export default function ConditionalLayout({ children }: { children: ReactNode })
 
       <div className="flex flex-col justify-between md:flex-row">
         <main className="w-full max-w-3xl min-w-0 min-h-screen px-6 pt-6 m-auto mb-24 antialiased text-white md:px-3 lg:px-6">
+          <div className="block md:hidden mb-6">
+            <Usuario />
+          </div>
           {children}
         </main>
       </div>
