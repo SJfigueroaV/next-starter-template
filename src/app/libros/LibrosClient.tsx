@@ -32,6 +32,7 @@ export default function LibrosClient({ libros, categorias, error, initialUser = 
   const [busqueda, setBusqueda] = useState<string>("");
   const [orden, setOrden] = useState<string>("Reciente");
   const [librosHorizontales, setLibrosHorizontales] = useState<{ [key: number]: boolean }>({});
+  const [verificandoPagos, setVerificandoPagos] = useState(false);
 
   // Logging para debugging
   useEffect(() => {
@@ -148,6 +149,48 @@ export default function LibrosClient({ libros, categorias, error, initialUser = 
         return;
       }
       
+      try {
+        console.log('🔍 Verificando pagos pendientes automáticamente...');
+        setVerificandoPagos(true);
+        
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 segundos timeout
+        
+        const response = await fetch('/api/pagos/verificar-pendientes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          signal: controller.signal,
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (response.ok) {
+          const data = await response.json() as { procesadas?: number; total?: number; error?: string };
+          if (data && typeof data === 'object' && 'procesadas' in data && data.procesadas && data.procesadas > 0) {
+            console.log(`✅ ${data.procesadas} pago(s) pendiente(s) procesado(s) automáticamente`);
+            
+            // Mostrar notificación sutil al usuario
+            if (typeof window !== 'undefined') {
+              // Podrías agregar un toast aquí si tienes una librería de notificaciones
+              console.log('🎉 ¡Pagos pendientes procesados exitosamente!');
+            }
+          }
+        } else {
+          console.warn('⚠️ Error al verificar pagos pendientes automáticamente (continuando...):', response.status);
+        }
+      } catch (error: any) {
+        if (error.name === 'AbortError') {
+          console.warn('⚠️ Verificación automática cancelada por timeout');
+        } else {
+          console.warn('⚠️ Error al verificar pagos pendientes automáticamente (continuando...):', error);
+        }
+      } finally {
+        setVerificandoPagos(false);
+      }
+      
+      // CONTINUAR CON LA LÓGICA ORIGINAL DE OBTENER LIBROS COMPRADOS
       try {
         const { data, error } = await supabase
           .from("compras_libros")
@@ -286,6 +329,12 @@ export default function LibrosClient({ libros, categorias, error, initialUser = 
               </svg>
             </div>
             <div className="flex gap-4 items-center">
+              {verificandoPagos && (
+                <div className="flex items-center gap-2 text-sm text-blue-400">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
+                  Verificando pagos...
+                </div>
+              )}
               <select
                 value={orden}
                 onChange={(e) => setOrden(e.target.value)}
