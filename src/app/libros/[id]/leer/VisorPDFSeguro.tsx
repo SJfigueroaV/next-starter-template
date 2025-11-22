@@ -106,7 +106,8 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
         const page = await pdfDoc.getPage(pageNumber);
 
         // Obtener devicePixelRatio para pantallas de alta densidad (mejor calidad)
-        const devicePixelRatio = typeof window !== 'undefined' ? Math.min(window.devicePixelRatio || 1, 2) : 1;
+        // Eliminamos el límite de 2 para permitir máxima resolución en pantallas retina/4k
+        const devicePixelRatio = typeof window !== 'undefined' ? (window.devicePixelRatio || 1) : 1;
 
         // Si es la primera carga (scale es 1.0 por defecto), calcular scale óptimo
         // Solo hacerlo una vez al inicio o cuando cambia el libro
@@ -123,9 +124,8 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
           // Restamos 120px para header y márgenes
           const fitHeightScale = (windowHeight - 100) / viewportOriginal.height;
 
-          // Usar el menor de los dos para asegurar que todo sea visible
-          // Pero priorizar un poco el ancho si es muy pequeño
-          let optimalScale = Math.min(fitWidthScale, fitHeightScale);
+          // Usar fitWidthScale como preferido para mayor resolución (aunque requiera scroll vertical)
+          let optimalScale = fitWidthScale;
 
           // Si el scale calculado es muy pequeño (ej. móvil), asegurar un mínimo legible
           // Pero respetando los bordes
@@ -211,12 +211,11 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
             const page = await pdfDoc.getPage(pageNumber);
             const viewportOriginal = page.getViewport({ scale: 1.0 });
             const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
 
+            // Solo calculamos fitWidthScale para mantener la consistencia
             const fitWidthScale = (windowWidth - 40) / viewportOriginal.width;
-            const fitHeightScale = (windowHeight - 140) / viewportOriginal.height;
 
-            let optimalScale = Math.min(fitWidthScale, fitHeightScale);
+            let optimalScale = fitWidthScale;
             if (optimalScale < 0.5) optimalScale = 0.5;
 
             // Solo actualizar si la diferencia es significativa para evitar loops
@@ -262,12 +261,11 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
       const page = await pdfDoc.getPage(pageNumber);
       const viewportOriginal = page.getViewport({ scale: 1.0 });
       const windowWidth = window.innerWidth;
-      const windowHeight = window.innerHeight;
 
+      // Usar fitWidthScale
       const fitWidthScale = (windowWidth - 20) / viewportOriginal.width;
-      const fitHeightScale = (windowHeight - 100) / viewportOriginal.height;
 
-      let optimalScale = Math.min(fitWidthScale, fitHeightScale);
+      let optimalScale = fitWidthScale;
       if (optimalScale < 0.5) optimalScale = 0.5;
 
       setScale(optimalScale);
