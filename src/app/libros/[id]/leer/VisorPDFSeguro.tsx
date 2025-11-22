@@ -106,32 +106,51 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
         const page = await pdfDoc.getPage(pageNumber);
 
         // Obtener devicePixelRatio para pantallas de alta densidad (mejor calidad)
-        const devicePixelRatio = typeof window !== 'undefined' ? Math.min(window.devicePixelRatio || 1, 2) : 1;
+        // Eliminamos el límite de 2 para permitir máxima resolución en pantallas retina/4k
+        const devicePixelRatio = typeof window !== 'undefined' ? (window.devicePixelRatio || 1) : 1;
 
         // Si es la primera carga (scale es 1.0 por defecto), calcular scale óptimo
+        // Solo hacerlo una vez al inicio o cuando cambia el libro
         if (scale === 1.0 && pageNumber === 1) {
           const viewportOriginal = page.getViewport({ scale: 1.0 });
           const windowWidth = window.innerWidth;
           const windowHeight = window.innerHeight;
 
+          // Calcular scale para ajustar al ancho (con margen)
+          // Restamos 40px para márgenes laterales
           const fitWidthScale = (windowWidth - 20) / viewportOriginal.width;
+
+          // Calcular scale para ajustar al alto (con margen)
+          // Restamos 120px para header y márgenes
           const fitHeightScale = (windowHeight - 100) / viewportOriginal.height;
 
-          let optimalScale = Math.min(fitWidthScale, fitHeightScale);
+          // Usar fitWidthScale como preferido para mayor resolución (aunque requiera scroll vertical)
+          let optimalScale = fitWidthScale;
+
+          // Si el scale calculado es muy pequeño (ej. móvil), asegurar un mínimo legible
+          // Pero respetando los bordes
           if (optimalScale < 0.5) optimalScale = 0.5;
 
           setScale(optimalScale);
 
+          // Intentar rotar si es necesario (solo en dispositivos móviles/tablets que soporten la API)
           if (viewportOriginal.width > viewportOriginal.height) {
+            // Es horizontal
             try {
               if (screen.orientation && (screen.orientation as any).lock) {
-                (screen.orientation as any).lock('landscape').catch(() => { });
+                (screen.orientation as any).lock('landscape').catch(() => {
+                  // Ignorar error si no se puede bloquear (ej. desktop)
+                });
               }
-            } catch (e) { }
+            } catch (e) {
+              // Ignorar errores de API no soportada
+            }
           }
         }
 
+        // Crear viewport con el scale actual
         const viewport = page.getViewport({ scale });
+
         const canvas = canvasRef.current;
         const context = canvas.getContext("2d", {
           alpha: false,
@@ -139,23 +158,35 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
           willReadFrequently: false,
         });
 
-        if (!context) return;
+        if (!context) {
+          console.error("No se pudo obtener el contexto del canvas");
+          return;
+        }
 
+        // Ajustar tamaño del canvas multiplicando por devicePixelRatio para mejor calidad
         const outputScale = devicePixelRatio;
         canvas.height = Math.floor(viewport.height * outputScale);
         canvas.width = Math.floor(viewport.width * outputScale);
+
+        // Establecer el tamaño CSS del canvas (tamaño visual)
         canvas.style.height = `${viewport.height}px`;
         canvas.style.width = `${viewport.width}px`;
 
+        // Limpiar el canvas antes de renderizar
         context.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Configurar el contexto para mejor calidad de renderizado
         context.save();
         context.scale(outputScale, outputScale);
+
+        // Configurar calidad de renderizado
         context.imageSmoothingEnabled = true;
         context.imageSmoothingQuality = 'high';
 
         const renderContext = {
           canvasContext: context,
           viewport: viewport,
+          // Mejorar calidad de renderizado
           enableWebGL: false,
           renderInteractiveForms: false,
         };
@@ -174,19 +205,20 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
   useEffect(() => {
     const handleResize = () => {
       if (pdfDoc && pageNumber > 0) {
+        // Debounce simple
         const timeoutId = setTimeout(async () => {
           try {
             const page = await pdfDoc.getPage(pageNumber);
             const viewportOriginal = page.getViewport({ scale: 1.0 });
             const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
 
+            // Solo calculamos fitWidthScale
             const fitWidthScale = (windowWidth - 40) / viewportOriginal.width;
-            const fitHeightScale = (windowHeight - 140) / viewportOriginal.height;
 
-            let optimalScale = Math.min(fitWidthScale, fitHeightScale);
+            let optimalScale = fitWidthScale;
             if (optimalScale < 0.5) optimalScale = 0.5;
 
+            // Solo actualizar si la diferencia es significativa para evitar loops
             if (Math.abs(scale - optimalScale) > 0.1) {
               setScale(optimalScale);
             }
