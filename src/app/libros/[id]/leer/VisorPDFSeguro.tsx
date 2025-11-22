@@ -452,7 +452,7 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
               onClick={goToPrevPage}
               disabled={pageNumber <= 1}
               className={`fixed left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 p-3 md:p-4 rounded-full transition-all duration-200
-                ${pageNumber <= 1 ? 'opacity-0 pointer-events-none' : 'bg-gray-800/30 hover:bg-gray-800/70 text-white/70 hover:text-white backdrop-blur-sm shadow-lg active:scale-95'}
+                ${pageNumber <= 1 ? 'opacity-0 pointer-events-none' : 'bg-black/5 hover:bg-black/20 text-white/50 hover:text-white border border-white/10 shadow-sm active:scale-95'}
               `}
               aria-label="Página anterior"
             >
@@ -466,7 +466,7 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
               onClick={goToNextPage}
               disabled={pageNumber >= (numPages || 1)}
               className={`fixed right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 p-3 md:p-4 rounded-full transition-all duration-200
-                ${pageNumber >= (numPages || 1) ? 'opacity-0 pointer-events-none' : 'bg-gray-800/30 hover:bg-gray-800/70 text-white/70 hover:text-white backdrop-blur-sm shadow-lg active:scale-95'}
+                ${pageNumber >= (numPages || 1) ? 'opacity-0 pointer-events-none' : 'bg-black/5 hover:bg-black/20 text-white/50 hover:text-white border border-white/10 shadow-sm active:scale-95'}
               `}
               aria-label="Página siguiente"
             >
