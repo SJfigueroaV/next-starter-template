@@ -229,11 +229,15 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
       const page = await pdfDoc.getPage(pageNumber);
       const viewportOriginal = page.getViewport({ scale: 1.0 });
       const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
 
-      // Usar fitWidthScale
+      // Calcular escalas para ajustar
       const fitWidthScale = (windowWidth - 20) / viewportOriginal.width;
+      const fitHeightScale = (windowHeight - 100) / viewportOriginal.height;
 
-      let optimalScale = fitWidthScale;
+      // Usar el menor de los dos para asegurar que quepa todo en pantalla
+      let optimalScale = Math.min(fitWidthScale, fitHeightScale);
+
       if (optimalScale < 0.5) optimalScale = 0.5;
 
       setScale(optimalScale);
@@ -440,6 +444,38 @@ export default function VisorPDFSeguro({ libro }: VisorPDFSeguroProps) {
 
       {/* Contenedor del PDF */}
       <div className="flex-1 flex justify-center items-start overflow-auto bg-gray-950 relative">
+        {/* Flechas de Navegación Lateral (Fixed) */}
+        {!loading && !error && (
+          <>
+            {/* Anterior */}
+            <button
+              onClick={goToPrevPage}
+              disabled={pageNumber <= 1}
+              className={`fixed left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 p-3 md:p-4 rounded-full transition-all duration-200
+                ${pageNumber <= 1 ? 'opacity-0 pointer-events-none' : 'bg-gray-800/30 hover:bg-gray-800/70 text-white/70 hover:text-white backdrop-blur-sm shadow-lg active:scale-95'}
+              `}
+              aria-label="Página anterior"
+            >
+              <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Siguiente */}
+            <button
+              onClick={goToNextPage}
+              disabled={pageNumber >= (numPages || 1)}
+              className={`fixed right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 p-3 md:p-4 rounded-full transition-all duration-200
+                ${pageNumber >= (numPages || 1) ? 'opacity-0 pointer-events-none' : 'bg-gray-800/30 hover:bg-gray-800/70 text-white/70 hover:text-white backdrop-blur-sm shadow-lg active:scale-95'}
+              `}
+              aria-label="Página siguiente"
+            >
+              <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </>
+        )}
         {error ? (
           <div className="flex flex-col items-center justify-center h-full p-8 text-center">
             <div className="bg-red-500/10 p-4 rounded-full mb-4">
